@@ -2,9 +2,9 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 
-public class WOActivities extends DriverFactory {
+public class Activities extends DriverFactory {
 
-    public WOActivities(WebDriver driver) {
+    public Activities(WebDriver driver) {
         this.driver = driver;
     }
 

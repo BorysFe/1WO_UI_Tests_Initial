@@ -2,6 +2,8 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
@@ -18,9 +20,12 @@ public class DriverFactory {
         System.setProperty("webdriver.chrome.driver", "D://chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
-
     }
 
+    @AfterMethod
+    public void closeDriver() {
+        driver.quit();
+    }
 //    public WebDriver getDriver() {
 
 //    public static WebDriver getDriver(String name) {

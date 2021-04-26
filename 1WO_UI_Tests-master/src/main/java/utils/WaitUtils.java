@@ -1,9 +1,6 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.conditions.WOExpectedConditions;
@@ -11,9 +8,6 @@ import utils.conditions.WOExpectedConditions;
 import java.util.List;
 
 public class WaitUtils extends DriverFactory {
-
-    private final int shortTimeout = 5;
-    private final int longTimeout = 15;
 
     public static final int SHORT_TIMEOUT = 5;
     private WebDriverWait shortWait;
@@ -24,11 +18,59 @@ public class WaitUtils extends DriverFactory {
     public static final int LONG_TIMEOUT = 15;
     private WebDriverWait longWait;
 
-    public static final int EMAIL_ENGAGEMENT_TIMEOUT = 500;
-    private WebDriverWait engagementTimeout;
-
     public WaitUtils(WebDriver driver) {
         this.driver = driver;
+//        jsUtility = new JSUtility(driver);
+
+        shortWait = new WebDriverWait(driver, SHORT_TIMEOUT);
+        shortWait.ignoring(StaleElementReferenceException.class);
+
+        midWait = new WebDriverWait(driver, MIDDLE_TIMEOUT);
+        midWait.ignoring(StaleElementReferenceException.class);
+
+        longWait = new WebDriverWait(driver, LONG_TIMEOUT);
+        longWait.ignoring(StaleElementReferenceException.class);
+    }
+
+    private By spinnerSelector = By.xpath(".//div[@id='loaderDiv']");
+
+    public void waitForLoading() {
+        waitMilliseconds(500, "Wait for loading spinner to be displayed");
+        boolean isSpinnerVisible;
+        isSpinnerVisible = isElementVisibleNow(spinnerSelector);
+        if (isSpinnerVisible) {
+            longWait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerSelector));
+        }
+    }
+
+    public static void waitForNSeconds(int n, String reason) {
+        waitMilliseconds(n * 1000, reason);
+    }
+
+    public static void waitForNSeconds(int n) {
+        waitForNSeconds(n, "wait");
+    }
+
+    public static void waitMilliseconds(int milliseconds, String reason) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new Error("got interrupted:" + e.getMessage(), e);
+        }
+    }
+
+    public void waitUntilJavascriptIsTrue(String js) {
+        midWait.until(WOExpectedConditions.isJavascriptTrue(js));
+    }
+
+
+    public void waitMilliseconds(int milliseconds) {
+        waitMilliseconds(milliseconds, "wait");
+    }
+
+
+    public void waitForAlertToShowUp() {
+        midWait.until(ExpectedConditions.alertIsPresent());
     }
 
     //    public void waitVisibilityOfElement(WebElement element, int timeOut) {
@@ -224,12 +266,12 @@ public class WaitUtils extends DriverFactory {
     }
 
     public WebElement waitVisibilityOfElementShort(WebElement element) {
-        waitVisibilityOfElement(element, shortTimeout);
+        waitVisibilityOfElement(element, SHORT_TIMEOUT);
         return element;
     }
 
     public void waitVisibilityOfElementLong(WebElement element) {
-        waitVisibilityOfElement(element, longTimeout);
+        waitVisibilityOfElement(element, LONG_TIMEOUT);
     }
 
     public void waitVisibilityOfListElements(List<WebElement> elements, int timeOut) {
@@ -238,11 +280,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitVisibilityOfElementsShort(List<WebElement> elements) {
-        waitVisibilityOfListElements(elements, shortTimeout);
+        waitVisibilityOfListElements(elements, SHORT_TIMEOUT);
     }
 
     public void waitVisibilityOfElementsLong(List<WebElement> elements) {
-        waitVisibilityOfListElements(elements, longTimeout);
+        waitVisibilityOfListElements(elements, LONG_TIMEOUT);
     }
 
     public void waitVisibilityOfElementBy(By element, int timeOut) {
@@ -251,11 +293,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitVisibilityOfElementByShort(By element) {
-        waitVisibilityOfElementBy(element, shortTimeout);
+        waitVisibilityOfElementBy(element, SHORT_TIMEOUT);
     }
 
     public void waitVisibilityOfElementByLong(By element) {
-        waitVisibilityOfElementBy(element, longTimeout);
+        waitVisibilityOfElementBy(element, LONG_TIMEOUT);
     }
 
     public void waitInvisibilityOfElementBy(By element, int timeOut) {
@@ -264,11 +306,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitInvisibilityOfElementByShort(By element) {
-        waitInvisibilityOfElementBy(element, shortTimeout);
+        waitInvisibilityOfElementBy(element, SHORT_TIMEOUT);
     }
 
     public void waitInvisibilityOfElementByLong(By element) {
-        waitInvisibilityOfElementBy(element, longTimeout);
+        waitInvisibilityOfElementBy(element, LONG_TIMEOUT);
     }
 
     public void waitInvisibilityOfElement(WebElement element, int timeOut) {
@@ -277,11 +319,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitInvisibilityOfElementShort(WebElement element) {
-        waitInvisibilityOfElement(element, shortTimeout);
+        waitInvisibilityOfElement(element, SHORT_TIMEOUT);
     }
 
     public void waitInvisibilityOfElementLong(WebElement element) {
-        waitInvisibilityOfElement(element, longTimeout);
+        waitInvisibilityOfElement(element, LONG_TIMEOUT);
     }
 
     public void waitInvisibilityOfListElements(List<WebElement> elements, int timeOut) {
@@ -290,11 +332,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitInvisibilityOfElementsShort(List<WebElement> elements) {
-        waitInvisibilityOfListElements(elements, shortTimeout);
+        waitInvisibilityOfListElements(elements, SHORT_TIMEOUT);
     }
 
     public void waitInvisibilityOfElementsLong(List<WebElement> elements) {
-        waitInvisibilityOfListElements(elements, longTimeout);
+        waitInvisibilityOfListElements(elements, LONG_TIMEOUT);
     }
 
     public void waitPresenceOfElementByLocated(By element, int timeOut) {
@@ -303,11 +345,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitPresenceOfElementByShort(By element) {
-        waitPresenceOfElementByLocated(element, shortTimeout);
+        waitPresenceOfElementByLocated(element, SHORT_TIMEOUT);
     }
 
     public void waitPresenceOfElementByLong(By element) {
-        waitPresenceOfElementByLocated(element, longTimeout);
+        waitPresenceOfElementByLocated(element, LONG_TIMEOUT);
     }
 
     public void waitElementToBeClickable(WebElement element, int timeOut) {
@@ -316,11 +358,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitElementToBeClickableShort(WebElement element) {
-        waitElementToBeClickable(element, shortTimeout);
+        waitElementToBeClickable(element, SHORT_TIMEOUT);
     }
 
     public void waitElementToBeClickableLong(WebElement element) {
-        waitElementToBeClickable(element, longTimeout);
+        waitElementToBeClickable(element, LONG_TIMEOUT);
     }
 
     public void waitElementToBeClickable(By element, int timeOut) {
@@ -329,11 +371,11 @@ public class WaitUtils extends DriverFactory {
     }
 
     public void waitElementToBeClickableShort(By element) {
-        waitElementToBeClickable(element, shortTimeout);
+        waitElementToBeClickable(element, SHORT_TIMEOUT);
     }
 
     public void waitElementToBeClickableLong(By element) {
-        waitElementToBeClickable(element, longTimeout);
+        waitElementToBeClickable(element, LONG_TIMEOUT);
     }
 
     public boolean isElementVisibleShortTimeout(WebElement element) {
