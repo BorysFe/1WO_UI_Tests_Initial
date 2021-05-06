@@ -1,13 +1,15 @@
 package portalPages.enums;
 
 public enum SignInUpLinks {
+    SIGN_IN_SIGN_UP_BUTTON("login"),
     SIGN_IN_LOGIN_FIELD("signin-email"),
-    SIGN_IN_PASSWORD_FIELD("signin_pswd"),
+    SIGN_IN_PASSWORD_FIELD("signin-pswd"),
     SIGN_IN_SIGN_IN_BUTTON("sign-in-btn"),
     SIGN_IN_RESTORE_PASSWORD_BUTTON("restore-pass-btn"),
     SIGN_IN_CREATE_ACCOUNT_BUTTON("create-account"),
     SIGN_IN_FORGOT_PASSWORD_FIELD("fp-email"),
     SIGN_IN_SUBMIT_BUTTON("submit"),
+
     REGISTRATION_EMAIL_FIELD("create-account-email"),
     REGISTRATION_PASSWORD_FIELD("create-password"),
     REGISTRATION_RESTORE_PASSWORD_FIELD("retypePassword"),

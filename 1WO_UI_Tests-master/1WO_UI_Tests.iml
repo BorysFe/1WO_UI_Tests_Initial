@@ -99,5 +99,19 @@
     <orderEntry type="library" name="Maven: org.apache.maven.surefire:surefire-api:2.19.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-toolchain:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.plugin-tools:maven-plugin-annotations:3.3" level="project" />
+    <orderEntry type="library" name="Maven: io.rest-assured:json-schema-validator:4.3.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.java-json-tools:json-schema-validator:2.2.10" level="project" />
+    <orderEntry type="library" name="Maven: com.github.java-json-tools:json-schema-core:1.2.10" level="project" />
+    <orderEntry type="library" name="Maven: com.github.java-json-tools:jackson-coreutils:1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.fge:msg-simple:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.fge:btf:1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.fge:uri-template:0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.mozilla:rhino:1.7.7.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:mailapi:1.4.3" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.7" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.libphonenumber:libphonenumber:8.0.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jopt-simple:jopt-simple:5.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest:2.1" level="project" />
   </component>
 </module>
