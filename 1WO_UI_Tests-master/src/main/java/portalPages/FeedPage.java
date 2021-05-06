@@ -1,5 +1,6 @@
 package portalPages;
 
+import base.BaseComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +13,6 @@ public class FeedPage extends BasePage {
     WaitUtils waitUtils;
 
     private final String inputElement = ".//input[@id='%s']";
-
     private final String spanElement = ".//span[@id='%s']";
 
     @FindBy(xpath = ".//label[@id='login-error']")
@@ -26,7 +26,7 @@ public class FeedPage extends BasePage {
         waitUtils = new WaitUtils(driver);
     }
 
-    public void openLoginWindow() {
+    public void openLoginPopUp() {
         waitUtils.waitForLoading();
         waitUtils.waitVisibilityOfElementShort(driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))));
         driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))).click();
@@ -53,14 +53,11 @@ public class FeedPage extends BasePage {
 //        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_SUBMIT_BUTTON)));
 //    }
     public void logInMember(String logIn, String password) {
-        openLoginWindow();
+        openLoginPopUp();
         waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
         driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD))).sendKeys(logIn);
         waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD)));
         driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD))).sendKeys(password);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
-//        waitUtils.waitElementToBeClickableShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
-//        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON))).click();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
     }
 
@@ -70,7 +67,8 @@ public class FeedPage extends BasePage {
     }
 
     public void registrationMember(String newLogIn, String newPassword) {
-        openLoginWindow();
+        waitUtils.waitForLoading();
+        openLoginPopUp();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
         waitUtils.waitForLoading();
         waitUtils.waitPresenceOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD)));
@@ -86,5 +84,10 @@ public class FeedPage extends BasePage {
     public boolean isMemberAuthorised() {
         waitUtils.waitForLoading();
         return waitUtils.isElementVisibleAfterMiddleWait(menuProfileButton);
+    }
+
+    void setField(WebElement element, String text) {
+        element.clear();
+        element.sendKeys(text);
     }
 }

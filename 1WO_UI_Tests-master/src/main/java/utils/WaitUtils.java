@@ -5,11 +5,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.conditions.WOExpectedConditions;
 
+import java.time.Duration;
 import java.util.List;
 
-public class WaitUtils extends DriverFactory {
+//public class WaitUtils extends DriverFactory {
+    public class WaitUtils {
+        WebDriver driver;
 
-    public static final int SHORT_TIMEOUT = 5;
+
+        public static final int SHORT_TIMEOUT = 5;
     private WebDriverWait shortWait;
 
     public static final int MIDDLE_TIMEOUT = 10;
@@ -20,7 +24,6 @@ public class WaitUtils extends DriverFactory {
 
     public WaitUtils(WebDriver driver) {
         this.driver = driver;
-//        jsUtility = new JSUtility(driver);
 
         shortWait = new WebDriverWait(driver, SHORT_TIMEOUT);
         shortWait.ignoring(StaleElementReferenceException.class);
@@ -73,7 +76,7 @@ public class WaitUtils extends DriverFactory {
         midWait.until(ExpectedConditions.alertIsPresent());
     }
 
-    //    public void waitVisibilityOfElement(WebElement element, int timeOut) {
+//        public void waitVisibilityOfElement(WebElement element, int timeOut) {
 //        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
 //        webDriverWait.until(ExpectedConditions.visibilityOf(element));
 //    }
@@ -104,7 +107,7 @@ public class WaitUtils extends DriverFactory {
 //        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
 //        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(element));
 //    }
-//
+
 //    public void waitVisibilityOfElementByShort(By element) {
 //        waitVisibilityOfElementBy(element, shortTimeout);
 //    }
@@ -112,12 +115,12 @@ public class WaitUtils extends DriverFactory {
 //    public void waitVisibilityOfElementByLong(By element) {
 //        waitVisibilityOfElementBy(element, longTimeout);
 //    }
-//
+
 //    public void waitInvisibilityOfElementBy(By element, int timeOut) {
 //        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
 //        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(element));
 //    }
-//
+
 //    public void waitInvisibilityOfElementByShort(By element) {
 //        waitInvisibilityOfElementBy(element, shortTimeout);
 //    }
@@ -190,7 +193,7 @@ public class WaitUtils extends DriverFactory {
 //    public void waitElementToBeClickableLong(By element) {
 //        waitElementToBeClickable(element, longTimeout);
 //    }
-//
+
 //    public boolean isElementVisibleShortTimeout(WebElement element) {
 //        try {
 //            waitVisibilityOfElementShort(element);
@@ -199,12 +202,67 @@ public class WaitUtils extends DriverFactory {
 //            return false;
 //        }
 //    }
-//
+
 //    public void clickWhenReadyAfterShortWait(By element) {
 //        waitVisibilityOfElementByShort(element);
 //        waitElementToBeClickableShort(element);
 //        getDriver("chrome").findElement(element).click();
 //    }
+
+    public WebElement waitForElementToBeDisplayed(By locator, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return new WOWebElement(wait.until(ExpectedConditions.visibilityOfElementLocated(locator)));
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterShortWait(By locator) {
+        return waitForElementToBeDisplayed(locator, SHORT_TIMEOUT);
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterLongWait(By locator) {
+        return waitForElementToBeDisplayed(locator, LONG_TIMEOUT);
+    }
+
+    public WebElement waitForElementToBeDisplayed(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return new WOWebElement(wait.until(WOExpectedConditions.visibilityOf(element)));
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterShortWait(WebElement element) {
+        return waitForElementToBeDisplayed(element, SHORT_TIMEOUT);
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterMiddleWait(WebElement element) {
+        return waitForElementToBeDisplayed(element, MIDDLE_TIMEOUT);
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterMiddleWait(By by) {
+        return waitForElementToBeDisplayed(by, MIDDLE_TIMEOUT);
+    }
+
+    public WebElement waitForElementToBeDisplayedAfterLongWait(WebElement element) {
+        return waitForElementToBeDisplayed(element, LONG_TIMEOUT);
+    }
+
+    public void waitForElementToBeDisplayedWithPageRefresh(WebElement element) {
+        waitForElementToBeDisplayedWithPageRefresh(element, LONG_TIMEOUT);
+    }
+
+    public void waitForElementToBeDisplayedWithPageRefresh(By element) {
+        waitForElementToBeDisplayedWithPageRefresh(element, LONG_TIMEOUT);
+    }
+
+
+    public void waitForElementToBeDisplayedWithPageRefresh(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.pollingEvery(Duration.ofSeconds(1));
+        wait.until(WOExpectedConditions.visibilityOfAfterPageRefresh(element));
+    }
+
+    public void waitForElementToBeDisplayedWithPageRefresh(By element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        wait.pollingEvery(Duration.ofSeconds(1));
+        wait.until(WOExpectedConditions.visibilityOfAfterPageRefresh(element));
+    }
 
     public boolean isElementVisible(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -223,6 +281,91 @@ public class WaitUtils extends DriverFactory {
             return false;
         }
     }
+
+    public WebElement getElementWhenVisibleAfterShortWait(By locator) {
+        return getElementWhenVisible(locator, SHORT_TIMEOUT);
+    }
+
+    public WebElement getElementWhenVisibleAfterMiddleWait(By locator) {
+        return getElementWhenVisible(locator, MIDDLE_TIMEOUT);
+    }
+
+    public WebElement getElementWhenVisibleAfterLongWait(By locator) {
+        return getElementWhenVisible(locator, LONG_TIMEOUT);
+    }
+
+    public WebElement getElementWhenVisible(WebElement element, int timeout) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
+            return wait.until(WOExpectedConditions.visibilityOf(element));
+        } catch (TimeoutException e) {
+            return null;
+        }
+    }
+
+    public WebElement getElementWhenVisibleAfterShortWait(WebElement element) {
+        return getElementWhenVisible(element, SHORT_TIMEOUT);
+    }
+
+    public WebElement getElementWhenVisibleAfterMiddleWait(WebElement element) {
+        return getElementWhenVisible(element, MIDDLE_TIMEOUT);
+    }
+
+    public WebElement getElementWhenVisibleAfterLongWait(WebElement element) {
+        return getElementWhenVisible(element, LONG_TIMEOUT);
+    }
+
+    public void clickWhenReady(By locator, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        waitForNSeconds(1, "Small wait before click on element to avoid random failures");
+        WebElement element = wait.until(WOExpectedConditions.elementToBeClickable(locator));
+        element.click();
+    }
+
+    public WebElement getElementWhenVisible(By locator, int timeout) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
+            //find element via driver, as ExpectedConditions does not return a CSWebElement
+            return new WOWebElement(wait.until(ExpectedConditions.visibilityOfElementLocated(locator)));
+        } catch (TimeoutException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Refer title of the class. This method will be made private shortly
+     */
+    public void clickWhenReadyAfterShortWait(By locator) {
+        clickWhenReady(locator, SHORT_TIMEOUT);
+    }
+
+    public void clickWhenReadyAfterMiddleWait(By locator) {
+        clickWhenReady(locator, MIDDLE_TIMEOUT);
+    }
+
+    public void clickWhenReadyAfterLongWait(By locator) {
+        clickWhenReady(locator, LONG_TIMEOUT);
+    }
+
+    public void clickWhenReady(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        waitForNSeconds(1, "Small wait before click on element to avoid random failures");
+        wait.until(WOExpectedConditions.elementToBeClickable(element))
+                .click();
+    }
+
+    public void clickWhenReadyAfterShortWait(WebElement element) {
+        clickWhenReady(element, SHORT_TIMEOUT);
+    }
+
+    public void clickWhenReadyAfterMiddleWait(WebElement element) {
+        clickWhenReady(element, MIDDLE_TIMEOUT);
+    }
+
+    public void clickWhenReadyAfterLongWait(WebElement element) {
+        clickWhenReady(element, LONG_TIMEOUT);
+    }
+
 
     public boolean isElementVisibleNow(By locator) {
         return isElementVisible(locator, 0);
@@ -386,10 +529,10 @@ public class WaitUtils extends DriverFactory {
             return false;
         }
     }
-
-    public void clickWhenReadyAfterShortWait(By element) {
-        waitVisibilityOfElementByShort(element);
-        waitElementToBeClickableShort(element);
-        driver.findElement(element).click();
-    }
+//
+//    public void clickWhenReadyAfterShortWait(By element) {
+//        waitVisibilityOfElementByShort(element);
+//        waitElementToBeClickableShort(element);
+//        driver.findElement(element).click();
+//    }
 }
