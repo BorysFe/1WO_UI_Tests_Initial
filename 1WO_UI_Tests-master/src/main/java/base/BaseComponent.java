@@ -23,7 +23,7 @@ public abstract class BaseComponent implements WebElementProvider {
     protected abstract WebElement getMainElementInComponent();
 
     public boolean isDisplayed() {
-//        driver.wa
+//        driver.wai
         return waitUtils.isElementVisibleNow(getMainElementInComponent());
     }
 

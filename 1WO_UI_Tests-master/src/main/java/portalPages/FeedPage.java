@@ -1,6 +1,7 @@
 package portalPages;
 
 import base.BaseComponent;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,9 +9,16 @@ import org.openqa.selenium.support.FindBy;
 import portalPages.enums.SignInUpLinks;
 import utils.WaitUtils;
 
-public class FeedPage extends BasePage {
+//public class FeedPage extends BasePage {
+@Getter
+    public class FeedPage extends BaseComponent {
 
     WaitUtils waitUtils;
+
+    public FeedPage(WebDriver driver) {
+        super(driver);
+        waitUtils = new WaitUtils(driver);
+    }
 
     private final String inputElement = ".//input[@id='%s']";
     private final String spanElement = ".//span[@id='%s']";
@@ -21,9 +29,9 @@ public class FeedPage extends BasePage {
     @FindBy(xpath = ".//div[@id='show-menu-profile']")
     private WebElement menuProfileButton;
 
-    public FeedPage(WebDriver driver) {
-        super(driver);
-        waitUtils = new WaitUtils(driver);
+    @Override
+    protected WebElement getMainElementInComponent() {
+        return menuProfileButton;
     }
 
     public void openLoginPopUp() {
