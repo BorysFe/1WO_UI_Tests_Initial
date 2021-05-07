@@ -1,5 +1,6 @@
 package portal;
 
+import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
@@ -17,9 +18,9 @@ public class SignUpTest extends DriverFactory {
 
     @BeforeClass
     public void memberCredentials() {
-        loginNewMember = "borys" + System.currentTimeMillis() + "@mailinator.com";
-        logInWrongMember = System.currentTimeMillis() + "@mailinator.com";
-        password = "Qwerty123";
+        loginNewMember = Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString();
+        logInWrongMember = Accounts.RANDOM_USER_LOGIN.toString();
+        password = Accounts.RANDOM_USER_PASSWORD.toString();
         System.out.println(loginNewMember + " / " + logInWrongMember + " / " + password);
     }
 
