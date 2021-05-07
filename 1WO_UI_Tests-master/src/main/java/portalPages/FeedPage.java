@@ -1,6 +1,7 @@
 package portalPages;
 
 import base.BaseComponent;
+import base.enums.PageURLs;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,8 +49,8 @@ public class FeedPage extends BaseComponent {
 
     @BeforeTest
     public FeedPage getFeedPage() {
-        logger.warn("Feed page was not loaded, try one more time with longer timeout");
-        driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
+        logger.info("Opening Feed page");
+        driver.get(PageURLs.PORTAL_FEED_PAGE.toString());
         waitUtils.waitForElementToBeDisplayed(pollSearch, 120);
         waitUtils.waitForLoading();
         return this;
@@ -59,7 +60,7 @@ public class FeedPage extends BaseComponent {
         getFeedPage();
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
-        logger.info("Opening SignIn box");
+        logger.info("Opening SignIn popup");
         waitUtils.waitForLoading();
     }
 
@@ -84,16 +85,18 @@ public class FeedPage extends BaseComponent {
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
         waitUtils.waitForLoading();
 
+        logger.info("Set SignUp fields with credentials: " + newLogIn + ", " + newPassword);
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_EMAIL_FIELD)), newLogIn);
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_PASSWORD_FIELD)), newPassword);
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_RESTORE_PASSWORD_FIELD)), newPassword);
 
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_SUBMIT_BUTTON)));
+        logger.info("SignUp process");
         waitUtils.waitForLoading();
     }
 
     public boolean isMemberAuthorised() {
-        return waitUtils.isElementVisibleAfterShortWait(menuProfileButton);
+        return waitUtils.isElementVisibleNow(menuProfileButton);
     }
 
     void setField(WebElement element, String text) {
@@ -118,9 +121,10 @@ public class FeedPage extends BaseComponent {
     public void logOut() {
         openMenuProfile();
         waitUtils.clickWhenReadyAfterShortWait(logOutButton);
+        logger.info("LogOut from Account");
     }
 
     private boolean isMenuProfileDropDownOpened() {
-        return waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu);
+        return waitUtils.isElementVisibleNow(profileDropDownMenu);
     }
 }
