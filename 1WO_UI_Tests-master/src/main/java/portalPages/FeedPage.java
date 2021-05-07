@@ -18,6 +18,7 @@ public class FeedPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
     WaitUtils waitUtils;
+    private SignIn_SignUp_Popup signPopup;
 
     public FeedPage(WebDriver driver) {
         super(driver);
@@ -39,9 +40,6 @@ public class FeedPage extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header-search-block']")
     private WebElement pollSearch;
 
-    @FindBy(xpath = ".//a[contains(@class, 'sign-out-link')]")
-    private WebElement logOutButton;
-
     @Override
     protected WebElement getMainElementInComponent() {
         return menuProfileButton;
@@ -56,75 +54,17 @@ public class FeedPage extends BaseComponent {
         return this;
     }
 
-    public void openLoginPopUp() {
-        getFeedPage();
-        waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
-        logger.info("Opening SignIn popup");
-        waitUtils.waitForLoading();
-    }
+    public SignIn_SignUp_Popup openSignPopup() {
+        signPopup = new SignIn_SignUp_Popup(driver);
 
-    public void logInMember(String logIn, String password) {
-        waitUtils.waitForLoading();
-        openLoginPopUp();
-        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), logIn);
-        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), password);
-        logger.info("Set LogIn fields with credentials: " + logIn + ", " + password);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
-        logger.info("LogIn process");
-    }
+        if (!waitUtils.isElementVisibleNow(profileDropDownMenu)) {
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
 
-    public boolean isAuthenticationErrorDisplayed() {
-        waitUtils.waitForLoading();
-        return waitUtils.isElementVisibleAfterMiddleWait(errorMessageAuthenticationFailed);
-    }
-
-    public void registrationMember(String newLogIn, String newPassword) {
-        waitUtils.waitForLoading();
-        openLoginPopUp();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
-        waitUtils.waitForLoading();
-
-        logger.info("Set SignUp fields with credentials: " + newLogIn + ", " + newPassword);
-        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_EMAIL_FIELD)), newLogIn);
-        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_PASSWORD_FIELD)), newPassword);
-        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_RESTORE_PASSWORD_FIELD)), newPassword);
-
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_SUBMIT_BUTTON)));
-        logger.info("SignUp process");
-        waitUtils.waitForLoading();
+        return signPopup;
     }
 
     public boolean isMemberAuthorised() {
         return waitUtils.isElementVisibleNow(menuProfileButton);
-    }
-
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    void setField(By element, String text) {
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).clear();
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).sendKeys(text);
-    }
-
-    public void openMenuProfile() {
-        waitUtils.waitForLoading();
-        if (!isMenuProfileDropDownOpened()) {
-            waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
-        }
-    }
-
-    public void logOut() {
-        openMenuProfile();
-        waitUtils.clickWhenReadyAfterShortWait(logOutButton);
-        logger.info("LogOut from Account");
-    }
-
-    private boolean isMenuProfileDropDownOpened() {
-        return waitUtils.isElementVisibleNow(profileDropDownMenu);
     }
 }

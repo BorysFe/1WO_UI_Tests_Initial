@@ -3,11 +3,13 @@ package portal;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
+import portalPages.SignIn_SignUp_Popup;
 import utils.DriverFactory;
 
 public class SignUpTest extends DriverFactory {
 
     FeedPage feedPage;
+    SignIn_SignUp_Popup signPopup;
 
     String loginNewMember;
     String logInWrongMember;
@@ -24,12 +26,15 @@ public class SignUpTest extends DriverFactory {
     @BeforeMethod
     public void openFeedPage() {
         feedPage = new FeedPage(driver);
+        signPopup = new SignIn_SignUp_Popup(driver);
+        feedPage.getFeedPage();
+        feedPage.openSignPopup();
     }
 
     @AfterMethod
     public void logOutIfNeed() {
         if (feedPage.isMemberAuthorised()) {
-            feedPage.logOut();
+            signPopup.logOut();
         }
     }
 
@@ -39,26 +44,26 @@ public class SignUpTest extends DriverFactory {
     }
 
     @Test
-    public void loginUnexpectedMember() {
-        feedPage.logInMember(logInWrongMember, password);
+    public void loginNotRegisteredMember() {
+        signPopup.logInMember(logInWrongMember, password);
 
-        Assertions.assertThat(feedPage.isAuthenticationErrorDisplayed())
+        Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
                 .isTrue();
     }
 
     @Test
     public void loginMember() {
-        feedPage.logInMember(logInWrongMember, password);
+        signPopup.logInMember(logInWrongMember, password);
 
-        Assertions.assertThat(feedPage.isAuthenticationErrorDisplayed())
+        Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
                 .isTrue();
     }
 
     @Test
     public void signUpMember() {
-        feedPage.registrationMember(loginNewMember, password);
+        signPopup.registrationMember(loginNewMember, password);
 
         Assertions.assertThat(feedPage.isMemberAuthorised())
                 .as("Member isn't registered")
