@@ -4,13 +4,15 @@ import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
-import portalPages.SignIn_SignUp_Popup;
+import portalPages.MenuProfileDropDown;
+import portalPages.SignIn_SignUp_DropDown;
 import utils.DriverFactory;
 
-public class SignUpTest extends DriverFactory {
+public class SignInSignUpTest extends DriverFactory {
 
     FeedPage feedPage;
-    SignIn_SignUp_Popup signPopup;
+    SignIn_SignUp_DropDown signPopup;
+    MenuProfileDropDown menuProfileDropDown;
 
     String loginNewMember;
     String logInWrongMember;
@@ -27,15 +29,16 @@ public class SignUpTest extends DriverFactory {
     @BeforeMethod
     public void openFeedPage() {
         feedPage = new FeedPage(driver);
-        signPopup = new SignIn_SignUp_Popup(driver);
+        signPopup = new SignIn_SignUp_DropDown(driver);
+        menuProfileDropDown = new MenuProfileDropDown(driver);
         feedPage.getFeedPage();
-        feedPage.openSignPopup();
+        feedPage.openSignDropDown();
     }
 
     @AfterMethod
     public void logOutIfNeed() {
         if (feedPage.isMemberAuthorised()) {
-            signPopup.logOut();
+            menuProfileDropDown.logOut();
         }
     }
 

@@ -1,6 +1,8 @@
 package portalPages;
 
 import base.BaseComponent;
+import base.enums.Accounts;
+import base.enums.PageURLs;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,16 +10,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
 import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
 @Getter
-public class SignIn_SignUp_Popup extends BaseComponent {
+public class SignIn_SignUp_DropDown extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
     WaitUtils waitUtils;
 
-    public SignIn_SignUp_Popup(WebDriver driver) {
+    public SignIn_SignUp_DropDown(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
     }
@@ -25,21 +28,19 @@ public class SignIn_SignUp_Popup extends BaseComponent {
     private final String inputElement = ".//input[@id='%s']";
     private final String spanElement = ".//span[@id='%s']";
 
-    @FindBy(xpath = ".//div[@id='profileDropDownMenu']")
-    private WebElement profileDropDownMenu;
-
     @FindBy(xpath = ".//label[@id='login-error']")
     private WebElement errorMessageAuthenticationFailed;
-
-    @FindBy(xpath = ".//ul[@class='user-profile-wrapper']//div//div")
-    private WebElement menuProfileButton;
-
-    @FindBy(xpath = ".//a[contains(@class, 'sign-out-link')]")
-    private WebElement logOutButton;
 
     @Override
     protected WebElement getMainElementInComponent() {
         return driver.findElement(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
+    }
+
+    @BeforeClass
+    private void openFeedPageIfNeed() {
+        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
+            driver.get(PageURLs.QA_PORTAL_FEED_PAGE.toString());
+        }
     }
 
     public void logInMember(String logIn, String password) {
@@ -47,6 +48,15 @@ public class SignIn_SignUp_Popup extends BaseComponent {
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), logIn);
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), password);
         logger.info("Set LogIn fields with credentials: " + logIn + ", " + password);
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
+        logger.info("LogIn process");
+    }
+
+    public void logInAdmin() {
+        waitUtils.waitForLoading();
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), Accounts.ADMIN_LOGIN.toString());
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), Accounts.ADMIN_PASSWORD.toString());
+        logger.info("Set LogIn fields with Admin credentials");
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
         logger.info("LogIn process");
     }
@@ -81,22 +91,5 @@ public class SignIn_SignUp_Popup extends BaseComponent {
         driver.findElement(element).clear();
         waitUtils.waitVisibilityOfElementByShort(element);
         driver.findElement(element).sendKeys(text);
-    }
-
-    public void logOut() {
-        openMenuProfile();
-        waitUtils.clickWhenReadyAfterShortWait(logOutButton);
-        logger.info("LogOut from Account");
-    }
-
-    public void openMenuProfile() {
-        waitUtils.waitForLoading();
-        if (!isMenuProfileDropDownOpened()) {
-            waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
-        }
-    }
-
-    private boolean isMenuProfileDropDownOpened() {
-        return waitUtils.isElementVisibleNow(profileDropDownMenu);
     }
 }

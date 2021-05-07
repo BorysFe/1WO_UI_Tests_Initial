@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
 import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
@@ -18,7 +18,8 @@ public class FeedPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
     WaitUtils waitUtils;
-    private SignIn_SignUp_Popup signPopup;
+    private SignIn_SignUp_DropDown signDropDown;
+    private MenuProfileDropDown menuProfileDropDown;
 
     public FeedPage(WebDriver driver) {
         super(driver);
@@ -40,28 +41,42 @@ public class FeedPage extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header-search-block']")
     private WebElement pollSearch;
 
+    @FindBy(xpath = ".//a[@class='db-link']")
+    private WebElement adminDashboardButton;
+
     @Override
     protected WebElement getMainElementInComponent() {
         return menuProfileButton;
     }
 
-    @BeforeTest
+    @BeforeClass
     public FeedPage getFeedPage() {
         logger.info("Opening Feed page");
-        driver.get(PageURLs.PORTAL_FEED_PAGE.toString());
-        waitUtils.waitForElementToBeDisplayed(pollSearch, 120);
+        driver.get(PageURLs.QA_PORTAL_FEED_PAGE.toString());
+//        waitUtils.waitForElementToBeDisplayed(pollSearch, 120);
         waitUtils.waitForLoading();
         return this;
     }
 
-    public SignIn_SignUp_Popup openSignPopup() {
-        signPopup = new SignIn_SignUp_Popup(driver);
+    public SignIn_SignUp_DropDown openSignDropDown() {
+        signDropDown = new SignIn_SignUp_DropDown(driver);
+        waitUtils.waitForLoading();
+
+        if (!waitUtils.isElementVisibleNow(profileDropDownMenu)) {
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
+        waitUtils.waitForLoading();
+        return signDropDown;
+    }
+
+    public MenuProfileDropDown openMenuProfileDropDown() {
+        menuProfileDropDown = new MenuProfileDropDown(driver);
 
         if (!waitUtils.isElementVisibleNow(profileDropDownMenu)) {
             waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
         }
 
-        return signPopup;
+        return menuProfileDropDown;
     }
 
     public boolean isMemberAuthorised() {
