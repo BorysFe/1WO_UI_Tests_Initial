@@ -2,30 +2,35 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-
-import java.util.concurrent.TimeUnit;
+import org.testng.annotations.BeforeClass;
 
 public class DriverFactory {
 
-//        private static WebDriver driver = null;
+    //        private static WebDriver driver = null;
 //
 //    private static SessionId session = null;
     public WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     public void getDriver() {
-        System.setProperty("webdriver.chrome.driver", "D://chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D://1WO_UI//chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
+        SessionId session = ((ChromeDriver) driver).getSessionId();
+//        driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
     }
 
-    @AfterMethod
-    public void closeDriver() {
-        driver.quit();
-    }
+//    @BeforeMethod
+//    public void openFeedPage() {
+//        driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
+//    }
+
+//    @AfterMethod
+//    public void closeDriver() {
+//        driver.close();
+//        driver.quit();
+//    }
 //    public WebDriver getDriver() {
 
 //    public static WebDriver getDriver(String name) {

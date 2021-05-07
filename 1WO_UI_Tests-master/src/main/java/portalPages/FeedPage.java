@@ -6,12 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import portalPages.enums.SignInUpLinks;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeTest;
+import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
-//public class FeedPage extends BasePage {
 @Getter
-    public class FeedPage extends BaseComponent {
+public class FeedPage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
     WaitUtils waitUtils;
 
@@ -23,50 +26,51 @@ import utils.WaitUtils;
     private final String inputElement = ".//input[@id='%s']";
     private final String spanElement = ".//span[@id='%s']";
 
+    @FindBy(xpath = ".//div[@id='profileDropDownMenu']")
+    private WebElement profileDropDownMenu;
+
     @FindBy(xpath = ".//label[@id='login-error']")
     private WebElement errorMessageAuthenticationFailed;
 
-    @FindBy(xpath = ".//div[@id='show-menu-profile']")
+    @FindBy(xpath = ".//ul[@class='user-profile-wrapper']//div//div")
     private WebElement menuProfileButton;
+
+    @FindBy(xpath = ".//div[@class='header-search-block']")
+    private WebElement pollSearch;
+
+    @FindBy(xpath = ".//a[contains(@class, 'sign-out-link')]")
+    private WebElement logOutButton;
 
     @Override
     protected WebElement getMainElementInComponent() {
         return menuProfileButton;
     }
 
-    public void openLoginPopUp() {
+    @BeforeTest
+    public FeedPage getFeedPage() {
+        logger.warn("Feed page was not loaded, try one more time with longer timeout");
+        driver.get("https://frontend-qa.1worldonline.biz/#!/feed");
+        waitUtils.waitForElementToBeDisplayed(pollSearch, 120);
         waitUtils.waitForLoading();
-        waitUtils.waitVisibilityOfElementShort(driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))));
-        driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))).click();
+        return this;
+    }
+
+    public void openLoginPopUp() {
+        getFeedPage();
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        logger.info("Opening SignIn box");
         waitUtils.waitForLoading();
     }
 
-    //
-//    public void logInMember(String logIn, String password) {
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD))).sendKeys(logIn);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD))).sendKeys(password);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
-//    }
-//
-//    public void registrationMember(String newLogIn, String newPassword) {
-//        openLoginWindow();
-//        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-//        waitUtils.waitPresenceOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD))).sendKeys(newLogIn);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD))).sendKeys(newPassword);
-//        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_SUBMIT_BUTTON)));
-//    }
     public void logInMember(String logIn, String password) {
+        waitUtils.waitForLoading();
         openLoginPopUp();
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD))).sendKeys(logIn);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD))).sendKeys(password);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), logIn);
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), password);
+        logger.info("Set LogIn fields with credentials: " + logIn + ", " + password);
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
+        logger.info("LogIn process");
     }
 
     public boolean isAuthenticationErrorDisplayed() {
@@ -77,25 +81,46 @@ import utils.WaitUtils;
     public void registrationMember(String newLogIn, String newPassword) {
         waitUtils.waitForLoading();
         openLoginPopUp();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
         waitUtils.waitForLoading();
-        waitUtils.waitPresenceOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD))).sendKeys(newLogIn);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD))).sendKeys(newPassword);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_RESTORE_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_RESTORE_PASSWORD_FIELD))).sendKeys(newPassword);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_SUBMIT_BUTTON)));
+
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_EMAIL_FIELD)), newLogIn);
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_PASSWORD_FIELD)), newPassword);
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_RESTORE_PASSWORD_FIELD)), newPassword);
+
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_SUBMIT_BUTTON)));
         waitUtils.waitForLoading();
     }
 
     public boolean isMemberAuthorised() {
-        waitUtils.waitForLoading();
-        return waitUtils.isElementVisibleAfterMiddleWait(menuProfileButton);
+        return waitUtils.isElementVisibleAfterShortWait(menuProfileButton);
     }
 
     void setField(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
+    }
+
+    void setField(By element, String text) {
+        waitUtils.waitVisibilityOfElementByShort(element);
+        driver.findElement(element).clear();
+        waitUtils.waitVisibilityOfElementByShort(element);
+        driver.findElement(element).sendKeys(text);
+    }
+
+    public void openMenuProfile() {
+        waitUtils.waitForLoading();
+        if (!isMenuProfileDropDownOpened()) {
+            waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
+        }
+    }
+
+    public void logOut() {
+        openMenuProfile();
+        waitUtils.clickWhenReadyAfterShortWait(logOutButton);
+    }
+
+    private boolean isMenuProfileDropDownOpened() {
+        return waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu);
     }
 }
