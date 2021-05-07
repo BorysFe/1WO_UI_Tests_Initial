@@ -8,16 +8,17 @@ import utils.DriverFactory;
 public class SignUpTest extends DriverFactory {
 
     FeedPage feedPage;
+
     String loginNewMember;
-    String logInUnexpectedMember;
+    String logInWrongMember;
     String password;
 
     @BeforeClass
     public void memberCredentials() {
         loginNewMember = "borys" + System.currentTimeMillis() + "@mailinator.com";
-        logInUnexpectedMember = System.currentTimeMillis() + "@mailinator.com";
+        logInWrongMember = System.currentTimeMillis() + "@mailinator.com";
         password = "Qwerty123";
-        System.out.println(loginNewMember + " / " + logInUnexpectedMember + " / " + password);
+        System.out.println(loginNewMember + " / " + logInWrongMember + " / " + password);
     }
 
     @BeforeMethod
@@ -39,7 +40,7 @@ public class SignUpTest extends DriverFactory {
 
     @Test
     public void loginUnexpectedMember() {
-        feedPage.logInMember(logInUnexpectedMember, password);
+        feedPage.logInMember(logInWrongMember, password);
 
         Assertions.assertThat(feedPage.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
@@ -48,7 +49,7 @@ public class SignUpTest extends DriverFactory {
 
     @Test
     public void loginMember() {
-        feedPage.logInMember(logInUnexpectedMember, password);
+        feedPage.logInMember(logInWrongMember, password);
 
         Assertions.assertThat(feedPage.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
