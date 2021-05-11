@@ -53,12 +53,12 @@ public class FeedPage extends BaseComponent {
     public FeedPage getFeedPage() {
         logger.info("Opening Feed page");
         driver.get(PageURLs.QA_PORTAL_FEED_PAGE.toString());
-//        waitUtils.waitForElementToBeDisplayed(pollSearch, 120);
         waitUtils.waitForLoading();
         return this;
     }
 
     public SignIn_SignUp_DropDown openSignDropDown() {
+        waitUtils.waitForLoading();
         signDropDown = new SignIn_SignUp_DropDown(driver);
         waitUtils.waitForLoading();
 
