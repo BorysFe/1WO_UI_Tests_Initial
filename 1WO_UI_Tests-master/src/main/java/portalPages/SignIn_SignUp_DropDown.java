@@ -2,8 +2,9 @@ package portalPages;
 
 import base.BaseComponent;
 import base.enums.Accounts;
-import base.enums.PageURLs;
+import base.enums.PageQAURLs;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class SignIn_SignUp_DropDown extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
@@ -36,10 +38,11 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
         return driver.findElement(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
     }
 
+
     @BeforeClass
     private void openFeedPageIfNeed() {
         if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
-            driver.get(PageURLs.QA_PORTAL_FEED_PAGE.toString());
+            driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
         }
     }
 

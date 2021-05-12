@@ -1,16 +1,13 @@
 package portalPages;
 
 import base.BaseComponent;
-import base.enums.PageURLs;
 import lombok.Getter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeTest;
-import portalPages.enums.SignLinks;
+import portalPages.admin.AdminDashboardPage;
 import utils.WaitUtils;
 
 @Getter
@@ -34,7 +31,7 @@ public class MenuProfileDropDown extends BaseComponent {
     @FindBy(xpath = ".//a[@class='db-link']")
     private WebElement adminDashboardButton;
 
-    @FindBy(xpath = ".//ul[@class='user-profile-wrapper']//div//div")
+    @FindBy(xpath = ".//div[@id='show-menu-profile']//div")
     private WebElement menuProfileButton;
 
     @FindBy(xpath = ".//a[contains(@class, 'sign-out-link')]")
@@ -44,13 +41,6 @@ public class MenuProfileDropDown extends BaseComponent {
     protected WebElement getMainElementInComponent() {
         return adminDashboardButton;
     }
-
-//    public void openAdminDashboard() {
-//        waitUtils.waitForLoading();
-//        adminDashboardButton.click();
-//        logger.info("Admin Dashboard opening");
-//        waitUtils.waitForLoading();
-//    }
 
     public AdminDashboardPage openAdminDashboardPage() {
         adminDashboardPage = new AdminDashboardPage(driver);

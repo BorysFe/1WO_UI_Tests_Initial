@@ -10,7 +10,7 @@ import portalPages.SignIn_SignUp_DropDown;
 import utils.DriverFactory;
 import utils.WaitUtils;
 
-public class SignInSignUpTest extends DriverFactory {
+public class SignInTest extends DriverFactory {
 
     FeedPage feedPage;
     SignIn_SignUp_DropDown signPopup;
@@ -35,6 +35,7 @@ public class SignInSignUpTest extends DriverFactory {
         signPopup = new SignIn_SignUp_DropDown(driver);
         menuProfileDropDown = new MenuProfileDropDown(driver);
         mailinator = new Mailinator(driver);
+
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
     }
@@ -67,24 +68,5 @@ public class SignInSignUpTest extends DriverFactory {
         Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
                 .isTrue();
-    }
-
-    @Test
-    public void signUpMember() {
-        String welcomeMail = "Welcome to 1World Online";
-        String nameNewMember = loginNewMember.split("@")[0];
-        signPopup.registrationMember(loginNewMember, password);
-
-        Assertions.assertThat(feedPage.isMemberAuthorised())
-                .as("Member isn't registered")
-                .isTrue();
-
-        Assertions.assertThat(mailinator.getMailButtonText(loginNewMember, welcomeMail))
-                .as("Mail with wrong button text")
-                .isEqualTo("Confirm Email");
-
-        Assertions.assertThat(mailinator.getMailWelcomeText(loginNewMember, welcomeMail))
-                .as("Wrong name in the Welcome mail")
-                .isEqualTo("Hi " + nameNewMember + " !");
     }
 }

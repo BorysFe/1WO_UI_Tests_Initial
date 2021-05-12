@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import portalPages.AdminDashboardPage;
+import portalPages.admin.AdminDashboardPage;
 import utils.WaitUtils;
 
 public class PartnersSummaryTab extends BaseComponent {

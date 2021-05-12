@@ -1,6 +1,6 @@
 package base;
 
-import base.enums.PageURLs;
+import base.enums.PageQAURLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,7 @@ public class Mailinator extends BaseComponent {
 
     WaitUtils waitUtils;
 
-    private final String welcomeMail = ".//td[contains(text(), '%s')]";
+    private final String mailSubject = ".//td[contains(text(), '%s')]";
     private final String bodyFrameId = "html_msg_body";
 
     @FindBy(xpath = ".//input[contains(@class, 'input-text')]")
@@ -44,15 +44,17 @@ public class Mailinator extends BaseComponent {
     }
 
     @BeforeMethod
-    public void openMailinator() {
-        driver.get(PageURLs.MAILINATOR.toString());
+    public Mailinator openMailinator() {
+        driver.get(PageQAURLs.MAILINATOR.toString());
+        return this;
     }
 
-    public void openMailAccount(String testEMail) {
-        driver.get(PageURLs.MAILINATOR.toString());
+    public WebElement openMailAccount(String testEMail) {
+        driver.get(PageQAURLs.MAILINATOR.toString());
         mailSearchInput.sendKeys(testEMail);
         mailSearchButton.click();
         waitUtils.waitVisibilityOfElementLong(publicMessagesText);
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(mailSubject));
     }
 
     public boolean isMalListOpened() {
@@ -63,7 +65,7 @@ public class Mailinator extends BaseComponent {
     }
 
     public String getMailButtonText(String testEMail, String subject) {
-        String mailSubject = String.format(welcomeMail, subject);
+        String mailsSubject = String.format(mailSubject, subject);
 
         openMailAccount(testEMail);
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailSubject));
@@ -72,7 +74,7 @@ public class Mailinator extends BaseComponent {
     }
 
     public String getMailWelcomeText(String testEMail, String subject) {
-        String mailSubject = String.format(welcomeMail, subject);
+        String mailsSubject = String.format(mailSubject, subject);
 
         openMailAccount(testEMail);
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailSubject));
