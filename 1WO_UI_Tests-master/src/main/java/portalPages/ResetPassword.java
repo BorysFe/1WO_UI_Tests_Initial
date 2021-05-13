@@ -1,14 +1,11 @@
 package portalPages;
 
 import base.BaseComponent;
-import base.enums.Accounts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.WaitUtils;
-
-import java.awt.*;
 
 public class ResetPassword extends BaseComponent {
 
@@ -74,6 +71,7 @@ public class ResetPassword extends BaseComponent {
         waitUtils.waitVisibilityOfElementLong(retypeNewPassword);
         setField(retypeNewPassword, newMemberPassword);
         waitUtils.clickWhenReadyAfterShortWait(resetPasswordSubmit);
-        waitUtils.waitForLoading();;
+        waitUtils.waitForLoading();
+        ;
     }
 }

@@ -13,7 +13,7 @@ import utils.WaitUtils;
 public class PollsPage extends BaseComponent {
 
     WaitUtils waitUtils;
-    private NewPollFirstPage newPollFirstPage;
+    private NewPollManagerPage newPollFirstPage;
     private SelectPollLanguageModalPage selectPollLanguageModalPage;
 
     @FindBy(xpath = ".//div[@id='create-poll']")

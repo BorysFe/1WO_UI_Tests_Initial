@@ -1,12 +1,13 @@
 package portal.partners.polls;
 
 import base.enums.Accounts;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.publisher.OnboardingPublisherPage;
 import portalPages.publisher.PublisherLoginPage;
-import portalPages.publisher.polls.NewPollFirstPage;
+import portalPages.publisher.polls.NewPollManagerPage;
 import portalPages.publisher.polls.PollCategory;
 import portalPages.publisher.polls.PollRegionsAndLanguage;
 import portalPages.publisher.polls.PollsPage;
@@ -19,7 +20,7 @@ public class CreateNewPollsTest extends DriverFactory {
     MenuProfileDropDown menuProfileDropDown;
     PollsPage pollsPage;
     OnboardingPublisherPage onboardingPublisherPage;
-    NewPollFirstPage newPollFirstPage;
+    NewPollManagerPage newPollManager;
 
     String loginPublisher;
     String passwordPublisher;
@@ -37,7 +38,7 @@ public class CreateNewPollsTest extends DriverFactory {
         menuProfileDropDown = new MenuProfileDropDown(driver);
         pollsPage = new PollsPage(driver);
         onboardingPublisherPage = new OnboardingPublisherPage(driver);
-        newPollFirstPage = new NewPollFirstPage(driver);
+        newPollManager = new NewPollManagerPage(driver);
 
 
         publisherLoginPage.getPublisherLoginPage();
@@ -57,7 +58,7 @@ public class CreateNewPollsTest extends DriverFactory {
 
     @Test
     public void addNewPoll() {
-        String questionText = "Lorem ipsum";
+        String questionText = String.format("Lorem ipsum" + System.currentTimeMillis());
         String answerText = "Answer%s";
 
         publisherLoginPage.loginPublisher(loginPublisher, passwordPublisher);
@@ -67,11 +68,17 @@ public class CreateNewPollsTest extends DriverFactory {
                 .selectDropdownAndLanguage(PollRegionsAndLanguage.SELECT_LANGUAGE.toString(), PollRegionsAndLanguage.LANGUAGE_ENGLISH.toString())
                 .modalSubmit();
 
-        newPollFirstPage.selectPollCategory(PollCategory.CATEGORY_ART_CULTURE.toString())
+        newPollManager.selectPollCategory(PollCategory.CATEGORY_ART_CULTURE.toString())
                 .fillQuestion(questionText)
                 .fillAnswer("0", String.format(answerText, "1"))
                 .fillAnswer("1", String.format(answerText, "2"))
-                .saveFirstPage();
+                .saveNewPollPage();
+        newPollManager.saveNewPollPage();
 
+        Assertions.assertThat(newPollManager.isNewPollAlertDisplayed())
+                .as("New Poll Alert not showed")
+                .isTrue();
+
+        newPollManager.newPollAlertAccept();
     }
 }

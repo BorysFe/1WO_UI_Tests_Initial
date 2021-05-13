@@ -1,6 +1,7 @@
 package utils;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.conditions.WOExpectedConditions;
@@ -80,6 +81,14 @@ public class WaitUtils extends DriverFactory {
 
     public void waitForAlertToShowUp() {
         midWait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    public void clickElementWithRetryAndAcceptAlert(WebElement elementToClick) {
+        longWait.until((ExpectedCondition<Boolean>) driver -> {
+            clickWhenReadyAfterShortWait(elementToClick);
+            UtilityHelper.acceptAlert(driver);
+            return !isElementVisibleNow(elementToClick);
+        });
     }
 
     public WebElement waitForElementToBeDisplayed(By locator, int timeout) {
