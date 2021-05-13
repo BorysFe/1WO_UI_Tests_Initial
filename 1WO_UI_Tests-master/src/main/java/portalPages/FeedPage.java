@@ -82,6 +82,7 @@ public class FeedPage extends BaseComponent {
     }
 
     public boolean isMemberAuthorised() {
+        waitUtils.waitForLoading();
         return waitUtils.isElementVisibleNow(menuProfileButton);
     }
 }

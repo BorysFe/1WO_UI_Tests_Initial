@@ -53,6 +53,17 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
         logger.info("Set LogIn fields with credentials: " + logIn + ", " + password);
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
         logger.info("LogIn process");
+        waitUtils.waitForLoading();
+    }
+
+    public void logInMemberLongWait(String logIn, String password) {
+        waitUtils.waitForLoading();
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), logIn);
+        setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), password);
+        logger.info("Set LogIn fields with credentials: " + logIn + ", " + password);
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
+        logger.info("LogIn process");
+        waitUtils.waitForLongLoading();
     }
 
     public void logInAdmin() {

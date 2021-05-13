@@ -1,4 +1,4 @@
-package portal.admin.partners.polls;
+package portal.partners.polls;
 
 import base.enums.Accounts;
 import org.testng.annotations.*;

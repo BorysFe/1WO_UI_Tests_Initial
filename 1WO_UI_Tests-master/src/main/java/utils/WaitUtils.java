@@ -43,6 +43,15 @@ public class WaitUtils extends DriverFactory {
         }
     }
 
+    public void waitForLongLoading() {
+        waitMilliseconds(25000, "Wait for loading spinner to be displayed");
+        boolean isSpinnerVisible;
+        isSpinnerVisible = isElementVisibleNow(spinnerSelector);
+        if (isSpinnerVisible) {
+            longWait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerSelector));
+        }
+    }
+
     public static void waitForNSeconds(int n, String reason) {
         waitMilliseconds(n * 1000, reason);
     }
@@ -393,10 +402,4 @@ public class WaitUtils extends DriverFactory {
             return false;
         }
     }
-//
-//    public void clickWhenReadyAfterShortWait(By element) {
-//        waitVisibilityOfElementByShort(element);
-//        waitElementToBeClickableShort(element);
-//        driver.findElement(element).click();
-//    }
 }

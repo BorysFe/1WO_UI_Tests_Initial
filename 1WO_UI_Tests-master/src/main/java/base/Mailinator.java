@@ -30,8 +30,14 @@ public class Mailinator extends BaseComponent {
     @FindBy(xpath = ".//h4[contains(text(), 'Public Messages')]")
     private WebElement publicMessagesText;
 
+    @FindBy(xpath = ".//span[contains(text(), 'Username')]//span[2]")
+    private WebElement mailResetPassword;
+
     @FindBy(xpath = ".//a[@class='btniphone']")
     private WebElement mailButton;
+
+    String welcomeSubject = "Welcome to 1World Online";
+    String resetPasswordSubject = "Password reset notification";
 
     public Mailinator(WebDriver driver) {
         super(driver);
@@ -68,17 +74,26 @@ public class Mailinator extends BaseComponent {
         String mailsSubject = String.format(mailSubject, subject);
 
         openMailAccount(testEMail);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailSubject));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailsSubject));
         driver.switchTo().frame(bodyFrameId);
         return waitUtils.getElementWhenVisibleAfterShortWait(mailButton).getText();
     }
 
-    public String getMailWelcomeText(String testEMail, String subject) {
-        String mailsSubject = String.format(mailSubject, subject);
+    public String getMailWelcomeText(String testEMail) {
+        String mailsSubject = String.format(mailSubject, welcomeSubject);
 
         openMailAccount(testEMail);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailSubject));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailsSubject));
         driver.switchTo().frame(bodyFrameId);
         return waitUtils.getElementWhenVisibleAfterShortWait(welcomeName).getText();
+    }
+
+    public String getPasswordFromEmail(String testEmail) {
+        String mailsSubject = String.format(mailSubject, resetPasswordSubject);
+
+        openMailAccount(testEmail);
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(mailsSubject));
+        driver.switchTo().frame(bodyFrameId);
+        return waitUtils.getElementWhenVisibleAfterShortWait(mailResetPassword).getText();
     }
 }

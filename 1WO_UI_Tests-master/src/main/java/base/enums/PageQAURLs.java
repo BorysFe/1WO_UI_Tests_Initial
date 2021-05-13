@@ -1,6 +1,8 @@
 package base.enums;
 
 public enum PageQAURLs {
+
+    QA_ACCOUNT_INFO("https://app-qa.1worldonline.biz/account"),
     QA_WELCOME_PAGE("https://welcome-qa-ecs.1worldonline.biz/"),
     QA_PORTAL_FEED_PAGE("https://frontend-qa.1worldonline.biz/#!/feed"),
     QA_PORTAL_BECOME_PARTNER("https://frontend-qa.1worldonline.biz/#!/become-partner"),

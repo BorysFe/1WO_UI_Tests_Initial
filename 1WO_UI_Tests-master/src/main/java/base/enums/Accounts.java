@@ -4,6 +4,7 @@ public enum Accounts {
     SUPERADMIN_LOGIN("borys1620396905044@mailinator.com"),
     SUPERADMIN_PASSWORD("Qwerty123!"),
 
+    //  "roles" : [ "agent", "member", "admin" ]
     ADMIN_LOGIN("borys1620397016978@mailinator.com"),
     ADMIN_PASSWORD("Qwerty123!"),
 

@@ -49,7 +49,7 @@ public class SignUpTest extends DriverFactory {
 
     @Test
     public void signUpMember() {
-        String welcomeMail = "Welcome to 1World Online";
+        String welcomeMailSubject = "Welcome to 1World Online";
         String nameNewMember = loginNewMember.split("@")[0];
         signPopup.registrationMember(loginNewMember, password);
 
@@ -57,11 +57,11 @@ public class SignUpTest extends DriverFactory {
                 .as("Member isn't registered")
                 .isTrue();
 
-        Assertions.assertThat(mailinator.getMailButtonText(loginNewMember, welcomeMail))
+        Assertions.assertThat(mailinator.getMailButtonText(loginNewMember, welcomeMailSubject))
                 .as("Mail with wrong button text")
                 .isEqualTo("Confirm Email");
 
-        Assertions.assertThat(mailinator.getMailWelcomeText(loginNewMember, welcomeMail))
+        Assertions.assertThat(mailinator.getMailWelcomeText(loginNewMember))
                 .as("Wrong name in the Welcome mail")
                 .isEqualTo("Hi " + nameNewMember + " !");
     }
