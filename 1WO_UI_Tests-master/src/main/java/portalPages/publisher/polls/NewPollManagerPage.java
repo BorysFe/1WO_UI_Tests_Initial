@@ -47,7 +47,7 @@ public class NewPollManagerPage extends BaseComponent {
     }
 
     public NewPollManagerPage selectPollCategory(String selectItem) {
-
+        waitUtils.waitForLoading();
         if (Objects.equals(getDropdownItem(selectItem).getAttribute("selected"), null)) {
             Select select = new Select(pollCategoryDropdown);
             select.selectByVisibleText(selectItem);
@@ -62,7 +62,7 @@ public class NewPollManagerPage extends BaseComponent {
     }
 
     private WebElement getDropdownItem(String dropdownItem) {
-
+        waitUtils.waitForLoading();
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(categorySelectItem, dropdownItem)));
     }
 
@@ -84,10 +84,16 @@ public class NewPollManagerPage extends BaseComponent {
         return this;
     }
 
-    public NewPollManagerPage saveNewPollPage() {
-        waitUtils.clickWhenReadyAfterShortWait(savePageButton);
+    public void saveNewPollPageWithAlertAccept() {
         waitUtils.waitForLoading();
-        return this;
+        waitUtils.clickWhenReadyAfterShortWait(savePageButton);
+        waitUtils.waitMilliseconds(1000, "Wait for alert displayed");
+        driver.switchTo().alert().accept();
+    }
+
+    public void saveNewPollPage() {
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(savePageButton);
     }
 
     public boolean isNewPollAlertDisplayed() {
@@ -96,6 +102,7 @@ public class NewPollManagerPage extends BaseComponent {
     }
 
     public void newPollAlertAccept() {
-        UtilityHelper.acceptAlert(driver);
+        waitUtils.waitMilliseconds(100, "Wait for alert displayed");
+        driver.switchTo().alert().accept();
     }
 }

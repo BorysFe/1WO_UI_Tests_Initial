@@ -3,6 +3,7 @@ package portalPages.publisher.polls;
 import base.BaseComponent;
 import lombok.Getter;
 import lombok.Setter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,6 +16,8 @@ public class PollsPage extends BaseComponent {
     WaitUtils waitUtils;
     private NewPollManagerPage newPollFirstPage;
     private SelectPollLanguageModalPage selectPollLanguageModalPage;
+
+    private final String pollDetails = ".//span[contains(text(), '%s')]";
 
     @FindBy(xpath = ".//div[@id='create-poll']")
     private WebElement newPollButton;
@@ -43,10 +46,16 @@ public class PollsPage extends BaseComponent {
     }
 
     public SelectPollLanguageModalPage startNewPollCreating() {
+        waitUtils.waitForLoading();
+
         selectPollLanguageModalPage = new SelectPollLanguageModalPage(driver);
 
-        waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(newPollButton);
         return selectPollLanguageModalPage;
+    }
+
+    public boolean isPollTitleDisplayed(String pollTitle) {
+        waitUtils.waitForLoading();
+        return waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(pollDetails, pollTitle)));
     }
 }

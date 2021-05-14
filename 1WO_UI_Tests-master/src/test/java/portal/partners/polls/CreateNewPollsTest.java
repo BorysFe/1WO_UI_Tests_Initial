@@ -73,12 +73,13 @@ public class CreateNewPollsTest extends DriverFactory {
                 .fillAnswer("0", String.format(answerText, "1"))
                 .fillAnswer("1", String.format(answerText, "2"))
                 .saveNewPollPage();
-        newPollManager.saveNewPollPage();
+        newPollManager.saveNewPollPageWithAlertAccept();
+//        driver.switchTo().alert().accept();
 
-        Assertions.assertThat(newPollManager.isNewPollAlertDisplayed())
-                .as("New Poll Alert not showed")
+//        newPollManager.newPollAlertAccept();
+
+        Assertions.assertThat(pollsPage.isPollTitleDisplayed(questionText))
+                .as("New Poll doesn't displayed")
                 .isTrue();
-
-        newPollManager.newPollAlertAccept();
     }
 }
