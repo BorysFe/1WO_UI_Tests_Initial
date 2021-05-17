@@ -3,12 +3,16 @@ package portal;
 import base.Mailinator;
 import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.ResetPassword;
 import portalPages.SignIn_SignUp_DropDown;
+import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
+import welcomePages.WelcomePage;
 
 public class SignInTest extends DriverFactory {
 
@@ -17,6 +21,8 @@ public class SignInTest extends DriverFactory {
     MenuProfileDropDown menuProfileDropDown;
     Mailinator mailinator;
     ResetPassword resetPassword;
+    WelcomePage welcomePage;
+    PublisherLoginPage publisherLoginPage;
 
     String loginNewMember;
     String loginWrongMember;
@@ -33,15 +39,14 @@ public class SignInTest extends DriverFactory {
     }
 
     @BeforeMethod
-    public void openFeedPage() {
+    public void pagesDriver() {
         feedPage = new FeedPage(driver);
         signPopup = new SignIn_SignUp_DropDown(driver);
         menuProfileDropDown = new MenuProfileDropDown(driver);
         mailinator = new Mailinator(driver);
         resetPassword = new ResetPassword(driver);
-
-        feedPage.getFeedPage();
-        feedPage.openSignDropDown();
+        welcomePage = new WelcomePage(driver);
+        publisherLoginPage = new PublisherLoginPage(driver);
     }
 
     @AfterMethod
@@ -58,6 +63,8 @@ public class SignInTest extends DriverFactory {
 
     @Test
     public void loginNotRegisteredMemberWithError() {
+        feedPage.getFeedPage();
+        feedPage.openSignDropDown();
         signPopup.logInMember(loginWrongMember, password);
 
         Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
@@ -67,6 +74,8 @@ public class SignInTest extends DriverFactory {
 
     @Test
     public void loginMemberWithError() {
+        feedPage.getFeedPage();
+        feedPage.openSignDropDown();
         signPopup.logInMember(loginWrongMember, password);
 
         Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
@@ -76,6 +85,8 @@ public class SignInTest extends DriverFactory {
 
     @Test
     public void loginPublisher() {
+        feedPage.getFeedPage();
+        feedPage.openSignDropDown();
         signPopup.logInMember(loginPublisher, password);
 
         Assertions.assertThat(feedPage.isMemberAuthorised())
@@ -84,10 +95,46 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void recoveryPasswordMailSentSuccess() {
-        String accountMail = Accounts.USER_EXISTED_LOGIN.toString();
+    public void emptyLoginErrorVerification() {
+        publisherLoginPage.getPublisherLoginPage().loginPublisher(null, null);
 
-        resetPassword.resetPassword(accountMail);
+        Assertions.assertThat(publisherLoginPage.isPublisherLoginErrorDisplayed())
+                .as("Error message below Login field not showed")
+                .isTrue();
+
+        Assertions.assertThat(publisherLoginPage.getPublisherLoginErrorText())
+                .as("Error message below Login field not showed")
+                .isEqualTo("This field is required.");
+
+        Assertions.assertThat(publisherLoginPage.isPublisherPasswordErrorDisplayed())
+                .as("Error message below Password field not showed")
+                .isTrue();
+
+        Assertions.assertThat(publisherLoginPage.getPublisherLoginErrorText())
+                .as("Error message below Login field not showed")
+                .isEqualTo("This field is required.");
+    }
+
+    @Test
+    public void loginTextErrorVerification() {
+        String incorrectPublisherLogin = Accounts.PUBLISHER_LOGIN.toString();
+
+        publisherLoginPage.getPublisherLoginPage().loginPublisher(incorrectPublisherLogin.split("@")[0], null);
+
+        Assertions.assertThat(publisherLoginPage.isPublisherLoginErrorDisplayed())
+                .as("Error message below Login field not showed")
+                .isTrue();
+
+        Assertions.assertThat(publisherLoginPage.getPublisherLoginErrorText())
+                .as("Error message below Login field is incorrect")
+                .isEqualTo("Please enter a valid email address.");
+    }
+
+    @Test
+    public void recoveryPasswordMailSentSuccess() {
+        feedPage.getFeedPage();
+        feedPage.openSignDropDown();
+        resetPassword.resetPassword(loginPublisher);
 
         Assertions.assertThat(resetPassword.isResetPasswordMailSent())
                 .as("Mail for recovery password wasn't sent")
@@ -96,21 +143,32 @@ public class SignInTest extends DriverFactory {
 
     @Test
     public void recoveryPasswordSuccess() {
-        String accountMail = Accounts.USER_EXISTED_LOGIN.toString();
-
-        resetPassword.resetPassword(accountMail);
+        feedPage.getFeedPage();
+        feedPage.openSignDropDown();
+        resetPassword.resetPassword(loginPublisher);
 
         Assertions.assertThat(resetPassword.isResetPasswordMailSent())
                 .as("Mail for recovery password wasn't sent")
                 .isTrue();
 
-        String newPassword = mailinator.getPasswordFromEmail(accountMail);
+        String newPassword = mailinator.getPasswordFromEmail(loginPublisher);
 
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
-        signPopup.logInMemberLongWait(accountMail, newPassword);
+        signPopup.logInMemberLongWait(loginPublisher, newPassword);
 
         resetPassword.enterNewPassword(Accounts.USER_EXISTED_PASSWORD.toString());
+
+        Assertions.assertThat(feedPage.isMemberAuthorised())
+                .as("Member not authorised")
+                .isTrue();
+    }
+
+    @Test
+    public void publisherSignInFromWelcomePage() {
+        welcomePage.openWelcomePage().openPublisherLoginPage();
+
+        publisherLoginPage.loginPublisher(loginPublisher, password);
 
         Assertions.assertThat(feedPage.isMemberAuthorised())
                 .as("Member not authorised")

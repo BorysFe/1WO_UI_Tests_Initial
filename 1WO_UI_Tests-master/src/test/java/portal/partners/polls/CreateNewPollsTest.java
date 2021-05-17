@@ -74,9 +74,6 @@ public class CreateNewPollsTest extends DriverFactory {
                 .fillAnswer("1", String.format(answerText, "2"))
                 .saveNewPollPage();
         newPollManager.saveNewPollPageWithAlertAccept();
-//        driver.switchTo().alert().accept();
-
-//        newPollManager.newPollAlertAccept();
 
         Assertions.assertThat(pollsPage.isPollTitleDisplayed(questionText))
                 .as("New Poll doesn't displayed")

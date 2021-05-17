@@ -3,7 +3,6 @@ package portalPages.publisher;
 import base.BaseComponent;
 import base.enums.PageQAURLs;
 import lombok.Getter;
-import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +13,6 @@ import portalPages.publisher.polls.PollsPage;
 import utils.WaitUtils;
 
 @Getter
-@Setter
 public class PublisherLoginPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(PublisherLoginPage.class);
 
@@ -33,6 +31,12 @@ public class PublisherLoginPage extends BaseComponent {
 
     @FindBy(xpath = ".//li[@data-menu='polls']")
     private WebElement pollsMenuButton;
+
+    @FindBy(xpath = ".//label[@id= 'signin-email-error']")
+    private WebElement publisherEmailFieldError;
+
+    @FindBy(xpath = ".//label[@id= 'signin-pswd-error']")
+    private WebElement publisherPasswordFieldError;
 
     public PublisherLoginPage(WebDriver driver) {
         super(driver);
@@ -55,8 +59,14 @@ public class PublisherLoginPage extends BaseComponent {
 
     public void loginPublisher(String login, String password) {
         waitUtils.waitForLoading();
-        waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(login);
-        waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
+        if (login != null) {
+            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(login);
+        } else {
+
+            if (login != null) {
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
+            }
+        }
         waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
         waitUtils.waitForLoading();
     }
@@ -81,4 +91,23 @@ public class PublisherLoginPage extends BaseComponent {
         return pollsPage;
     }
 
+    public boolean isPublisherLoginErrorDisplayed() {
+        waitUtils.waitForLoading();
+        return waitUtils.isElementVisibleNow(publisherEmailFieldError);
+    }
+
+    public boolean isPublisherPasswordErrorDisplayed() {
+        waitUtils.waitForLoading();
+        return waitUtils.isElementVisibleNow(publisherPasswordFieldError);
+    }
+
+    public String getPublisherLoginErrorText() {
+        waitUtils.waitForLoading();
+        return waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailFieldError).getText();
+    }
+
+    public String getPublisherPasswordErrorText() {
+        waitUtils.waitForLoading();
+        return waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordFieldError).getText();
+    }
 }
