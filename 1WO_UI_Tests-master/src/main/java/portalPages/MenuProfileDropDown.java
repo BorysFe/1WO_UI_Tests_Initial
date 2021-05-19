@@ -22,9 +22,6 @@ public class MenuProfileDropDown extends BaseComponent {
         waitUtils = new WaitUtils(driver);
     }
 
-    private final String inputElement = ".//input[@id='%s']";
-    private final String spanElement = ".//span[@id='%s']";
-
     @FindBy(xpath = ".//div[@id='profileDropDownMenu']")
     private WebElement profileDropDownMenu;
 
@@ -34,7 +31,7 @@ public class MenuProfileDropDown extends BaseComponent {
     @FindBy(xpath = ".//div[@id='show-menu-profile']//div")
     private WebElement menuProfileButton;
 
-    @FindBy(xpath = ".//a[contains(@class, 'sign-out-link')]")
+    @FindBy(xpath = ".//a[contains(text(), 'Sign out')]")
     private WebElement logOutButton;
 
     @Override
@@ -55,7 +52,11 @@ public class MenuProfileDropDown extends BaseComponent {
 
     public void logOut() {
         openMenuProfile();
+        waitUtils.waitForLoading();
+        waitUtils.isElementVisibleAfterShortWait(logOutButton);
         waitUtils.clickWhenReadyAfterShortWait(logOutButton);
+        waitUtils.waitMilliseconds(500);
+
         logger.info("LogOut from Account");
     }
 
@@ -63,6 +64,7 @@ public class MenuProfileDropDown extends BaseComponent {
         waitUtils.waitForLoading();
         if (!isMenuProfileDropDownOpened()) {
             waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
+            waitUtils.waitForLoading();
         }
     }
 

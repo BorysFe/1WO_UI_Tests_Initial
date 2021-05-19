@@ -5,9 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
 
-public class ResetPassword extends BaseComponent {
+public class ResetPasswordPage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(ResetPasswordPage.class);
 
     WaitUtils waitUtils;
 
@@ -29,7 +32,7 @@ public class ResetPassword extends BaseComponent {
     @FindBy(xpath = ".//input[@id='rp-re_pswd']")
     private WebElement retypeNewPassword;
 
-    public ResetPassword(WebDriver driver) {
+    public ResetPasswordPage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
     }
@@ -55,6 +58,7 @@ public class ResetPassword extends BaseComponent {
         waitUtils.clickWhenReadyAfterShortWait(forgotPasswordButton);
         waitUtils.waitForLoading();
         setField(resetPasswordEmailField, accountEmail);
+        waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(resetPasswordSubmit);
         waitUtils.waitForLoading();
     }

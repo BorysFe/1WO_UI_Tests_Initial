@@ -7,11 +7,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import portalPages.publisher.PublisherLoginPage;
 import utils.WaitUtils;
 
 @Getter
 public class WelcomePage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(WelcomePage.class);
 
     WaitUtils waitUtils;
     PublisherLoginPage publisherLoginPage;

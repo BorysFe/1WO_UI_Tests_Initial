@@ -1,10 +1,13 @@
-package portalPages.publisher.polls;
+package portalPages.polls;
 
-public enum PollRegionsAndLanguage {
+public enum RegionsAndLanguages {
 
-    SELECT_REGION("js-entity-region"),
-    SELECT_LANGUAGE("js-entity-language"),
+    SELECT_POLL_REGION("js-entity-region"),
+    SELECT_POLL_LANGUAGE("js-entity-language"),
     CREATE_POLL_BUTTON("js-create-new-entity"),
+
+    SELECT_WIDGET_REGION("regionId"),
+    SELECT_WIDGET_LANGUAGE("poll.locale"),
 
     REGION_AFRICA("Africa"),
     REGION_ASIA("Asia"),
@@ -87,7 +90,7 @@ public enum PollRegionsAndLanguage {
 
     private String pollRegionAndLanguage;
 
-    PollRegionsAndLanguage(final String title) {
+    RegionsAndLanguages(final String title) {
         this.pollRegionAndLanguage = title;
     }
 

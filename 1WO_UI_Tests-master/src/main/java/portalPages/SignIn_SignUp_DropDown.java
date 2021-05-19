@@ -38,7 +38,6 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
         return driver.findElement(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
     }
 
-
     @BeforeClass
     private void openFeedPageIfNeed() {
         if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {

@@ -1,5 +1,6 @@
 package utils;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
@@ -132,24 +133,6 @@ public class ActionHelperUtils {
 
     public static final int DEFAULT_WAIT_MILLIS = 20000;
 
-//    public static WebElement waitForAvailableName(AppiumDriver driver, String elemName) {
-//        long start = System.currentTimeMillis();
-//        WebElement elem = null;
-//
-//        while (elem == null && (start + DEFAULT_WAIT_MILLIS < System.currentTimeMillis())) {
-//            try {
-//                elem = driver.findElementByName(elemName);
-//            } catch (NoSuchElementException e) {
-//                // ignore
-//            }
-//        }
-//
-//        // just try one more time and let exception get thrown
-//        elem = driver.findElementByName(elemName);
-//
-//        return elem;
-//    }
-
     public static void leftDoubleClick(Point p) throws AWTException {
         Robot robot = new Robot();
 
@@ -184,11 +167,6 @@ public class ActionHelperUtils {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript(String.format("arguments[0].value = '%s';", str), element);
     }
-
-//    public void sendKeysHtmlTextByJavascript(WebElement element, String str) {
-//        JavascriptExecutor executor = (JavascriptExecutor) driver;
-//        executor.executeScript(String.format("arguments[0].value = '%s';", StringEscapeUtils.escapeJavaScript(str)), element);
-//    }
 
     public String getValueWithJavascript(WebElement element) {
         JavascriptExecutor executor = (JavascriptExecutor) driver;

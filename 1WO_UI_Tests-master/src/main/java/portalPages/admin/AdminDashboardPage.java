@@ -1,6 +1,7 @@
 package portalPages.admin;
 
 import base.BaseComponent;
+import base.enums.GeneralLocators;
 import base.enums.PageQAURLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +20,6 @@ public class AdminDashboardPage extends BaseComponent {
     WaitUtils waitUtils;
     FeedPage feedPage;
 
-    private final String inputElement = ".//input[@id='%s']";
-
     @FindBy(xpath = ".//li[contains(@class, 'input-daterange')]")
     private WebElement dateFilter;
 
@@ -32,7 +31,7 @@ public class AdminDashboardPage extends BaseComponent {
 
     @BeforeClass
     public void isPageOpened() {
-        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
+        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(GeneralLocators.INPUT_BY_ID.toString(), SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
             driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
         }
     }
@@ -43,7 +42,7 @@ public class AdminDashboardPage extends BaseComponent {
     }
 
     public void openAdminDashboardSummaryPage() {
-        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
+        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(GeneralLocators.INPUT_BY_ID.toString(), SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
             driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
             waitUtils.waitForLoading();
         }

@@ -8,8 +8,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import portalPages.publisher.polls.PollsPage;
+import org.testng.annotations.BeforeMethod;
+import portalPages.polls.polls.PollsPage;
 import utils.WaitUtils;
 
 @Getter
@@ -48,7 +50,7 @@ public class PublisherLoginPage extends BaseComponent {
         return publisherEmailField;
     }
 
-    @BeforeClass
+    @BeforeMethod
     public PublisherLoginPage getPublisherLoginPage() {
         logger.info("Opening Publisher Login page");
         driver.get(PageQAURLs.QA_PORTAL_LOGIN_PARTNER.toString());
@@ -57,16 +59,26 @@ public class PublisherLoginPage extends BaseComponent {
         return this;
     }
 
-    public void loginPublisher(String login, String password) {
-        waitUtils.waitForLoading();
-        if (login != null) {
-            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(login);
-        } else {
+    @AfterMethod
+    public void closeBrowser() {
+        driver.close();
+    }
 
-            if (login != null) {
-                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
-            }
+    public void loginPublisher(String eMail, String password) {
+        waitUtils.waitForLoading();
+
+        if (eMail != null) {
+            waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailField).clear();
+            waitUtils.waitForLoading();
+            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(eMail);
         }
+        if (password != null) {
+            waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordField).clear();
+            waitUtils.waitForLoading();
+            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
+        }
+
+        System.out.println(eMail + " / " + password);
         waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
         waitUtils.waitForLoading();
     }

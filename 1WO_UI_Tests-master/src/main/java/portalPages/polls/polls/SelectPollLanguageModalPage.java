@@ -1,6 +1,7 @@
-package portalPages.publisher.polls;
+package portalPages.polls.polls;
 
 import base.BaseComponent;
+import base.enums.GeneralLocators;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import portalPages.polls.RegionsAndLanguages;
 import utils.WaitUtils;
 
 import java.util.Objects;
@@ -18,13 +20,6 @@ public class SelectPollLanguageModalPage extends BaseComponent {
 
     WaitUtils waitUtils;
 
-    private final String selectItems = ".//option[contains(text(), '%s')]";
-
-    private final String modalSelect = ".//select[contains(@class, '%s')]";
-
-    @FindBy(xpath = ".//input[contains(@class, 'js-create-new-entity')]")
-    private WebElement createNewPollButton;
-
     public SelectPollLanguageModalPage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
@@ -32,12 +27,12 @@ public class SelectPollLanguageModalPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(modalSelect, PollRegionsAndLanguage.SELECT_REGION)));
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SELECT_BY_CLASS.toString(), RegionsAndLanguages.SELECT_POLL_REGION)));
     }
 
-    public SelectPollLanguageModalPage selectDropdownAndLanguage(String selectTitle, String selectItem) {
+    public SelectPollLanguageModalPage selectDropdownAndItem(String selectTitle, String selectItem) {
         WebElement openedSelect =
-                waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(modalSelect, selectTitle)));
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(GeneralLocators.SELECT_BY_CLASS.toString(), selectTitle)));
 
         if (Objects.equals(getDropdownItem(selectItem).getAttribute("selected"), null)) {
             Select select = new Select(openedSelect);
@@ -48,7 +43,7 @@ public class SelectPollLanguageModalPage extends BaseComponent {
     }
 
     public void modalSubmit() {
-        waitUtils.clickWhenReadyAfterShortWait(createNewPollButton);
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.INPUT_BY_CLASS.toString(), "js-create-new-entity")));
     }
 
     public boolean isOptionSelectedInDropdown(String dropdownItem) {
@@ -56,6 +51,6 @@ public class SelectPollLanguageModalPage extends BaseComponent {
     }
 
     private WebElement getDropdownItem(String dropdownItem) {
-        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(selectItems, dropdownItem)));
+        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(GeneralLocators.OPTION_BY_TEXT.toString(), dropdownItem)));
     }
 }

@@ -10,7 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
@@ -37,7 +39,7 @@ public class FeedPage extends BaseComponent {
     @FindBy(xpath = ".//label[@id='login-error']")
     private WebElement errorMessageAuthenticationFailed;
 
-    @FindBy(xpath = ".//ul[@class='user-profile-wrapper']//div//div")
+    @FindBy(xpath = ".//img[@data-type='show-menu-profile']")
     private WebElement menuProfileButton;
 
     @FindBy(xpath = ".//div[@class='header-search-block']")
@@ -51,7 +53,7 @@ public class FeedPage extends BaseComponent {
         return menuProfileButton;
     }
 
-    @BeforeClass
+    @BeforeMethod
     public FeedPage getFeedPage() {
         logger.info("Opening Feed page");
         driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
@@ -64,11 +66,20 @@ public class FeedPage extends BaseComponent {
         signDropDown = new SignIn_SignUp_DropDown(driver);
         waitUtils.waitForLoading();
 
-        if (!waitUtils.isElementVisibleNow(profileDropDownMenu)) {
+        if (!waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu)) {
+            waitUtils.waitForLoading();
             waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
         }
         waitUtils.waitForLoading();
         return signDropDown;
+    }
+
+    public void openSignDropdown() {
+        if (!waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu)) {
+            waitUtils.waitForLoading();
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
+        waitUtils.waitForLoading();
     }
 
     public MenuProfileDropDown openMenuProfileDropDown() {
@@ -83,6 +94,6 @@ public class FeedPage extends BaseComponent {
 
     public boolean isMemberAuthorised() {
         waitUtils.waitForLoading();
-        return waitUtils.isElementVisibleNow(menuProfileButton);
+        return waitUtils.isElementVisibleAfterShortWait(menuProfileButton);
     }
 }

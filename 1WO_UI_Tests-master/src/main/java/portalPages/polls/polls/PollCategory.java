@@ -1,4 +1,4 @@
-package portalPages.publisher.polls;
+package portalPages.polls.polls;
 
 public enum PollCategory {
 

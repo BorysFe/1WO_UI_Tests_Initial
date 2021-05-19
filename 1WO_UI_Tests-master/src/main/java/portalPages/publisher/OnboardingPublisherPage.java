@@ -6,12 +6,15 @@ import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import portalPages.publisher.polls.PollsPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import portalPages.polls.polls.PollsPage;
 import utils.WaitUtils;
 
 @Getter
 @Setter
 public class OnboardingPublisherPage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(OnboardingPublisherPage.class);
 
     WaitUtils waitUtils;
     private PollsPage pollsPage;
@@ -32,7 +35,7 @@ public class OnboardingPublisherPage extends BaseComponent {
         return publisherFullName;
     }
 
-    private boolean isPublisherlogged() {
+    private boolean isPublisherAuthorised() {
         waitUtils.waitForLoading();
         return waitUtils.isElementVisibleNow(publisherFullName);
     }
@@ -42,6 +45,7 @@ public class OnboardingPublisherPage extends BaseComponent {
 
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
+        waitUtils.waitForLoading();
         return pollsPage;
     }
 }

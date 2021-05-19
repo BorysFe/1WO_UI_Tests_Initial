@@ -3,12 +3,10 @@ package portal;
 import base.Mailinator;
 import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
-import portalPages.ResetPassword;
+import portalPages.ResetPasswordPage;
 import portalPages.SignIn_SignUp_DropDown;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
@@ -20,7 +18,7 @@ public class SignInTest extends DriverFactory {
     SignIn_SignUp_DropDown signPopup;
     MenuProfileDropDown menuProfileDropDown;
     Mailinator mailinator;
-    ResetPassword resetPassword;
+    ResetPasswordPage resetPassword;
     WelcomePage welcomePage;
     PublisherLoginPage publisherLoginPage;
 
@@ -44,7 +42,7 @@ public class SignInTest extends DriverFactory {
         signPopup = new SignIn_SignUp_DropDown(driver);
         menuProfileDropDown = new MenuProfileDropDown(driver);
         mailinator = new Mailinator(driver);
-        resetPassword = new ResetPassword(driver);
+        resetPassword = new ResetPasswordPage(driver);
         welcomePage = new WelcomePage(driver);
         publisherLoginPage = new PublisherLoginPage(driver);
     }
@@ -52,6 +50,7 @@ public class SignInTest extends DriverFactory {
     @AfterMethod
     public void logOutIfNeed() {
         if (feedPage.isMemberAuthorised()) {
+            System.out.println("Member is authorised, need to LogOut");
             menuProfileDropDown.logOut();
         }
     }
@@ -116,10 +115,10 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void loginTextErrorVerification() {
-        String incorrectPublisherLogin = Accounts.PUBLISHER_LOGIN.toString();
+    public void loginErrorTextVerification() {
+        String incorrectPublisherLogin = loginPublisher.split("@")[0];
 
-        publisherLoginPage.getPublisherLoginPage().loginPublisher(incorrectPublisherLogin.split("@")[0], null);
+        publisherLoginPage.getPublisherLoginPage().loginPublisher(incorrectPublisherLogin, null);
 
         Assertions.assertThat(publisherLoginPage.isPublisherLoginErrorDisplayed())
                 .as("Error message below Login field not showed")
@@ -132,8 +131,7 @@ public class SignInTest extends DriverFactory {
 
     @Test
     public void recoveryPasswordMailSentSuccess() {
-        feedPage.getFeedPage();
-        feedPage.openSignDropDown();
+        feedPage.getFeedPage().openSignDropDown();
         resetPassword.resetPassword(loginPublisher);
 
         Assertions.assertThat(resetPassword.isResetPasswordMailSent())
@@ -171,7 +169,9 @@ public class SignInTest extends DriverFactory {
         publisherLoginPage.loginPublisher(loginPublisher, password);
 
         Assertions.assertThat(feedPage.isMemberAuthorised())
-                .as("Member not authorised")
+                .as("Publisher not authorised")
                 .isTrue();
+
+        menuProfileDropDown.logOut();
     }
 }
