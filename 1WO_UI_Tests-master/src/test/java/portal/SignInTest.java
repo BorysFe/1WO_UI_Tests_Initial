@@ -61,7 +61,7 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void loginNotRegisteredMemberWithError() {
+    public void signInNotRegisteredMemberWithError() {
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
         signPopup.logInMember(loginWrongMember, password);
@@ -72,7 +72,7 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void loginMemberWithError() {
+    public void signInMemberWithError() {
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
         signPopup.logInMember(loginWrongMember, password);
@@ -83,7 +83,7 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void loginPublisher() {
+    public void signInPublisher() {
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
         signPopup.logInMember(loginPublisher, password);
@@ -94,7 +94,7 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void emptyLoginErrorVerification() {
+    public void emptySignInErrorVerification() {
         publisherLoginPage.getPublisherLoginPage().loginPublisher(null, null);
 
         Assertions.assertThat(publisherLoginPage.isPublisherLoginErrorDisplayed())
@@ -115,7 +115,7 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void loginErrorTextVerification() {
+    public void signInErrorTextVerification() {
         String incorrectPublisherLogin = loginPublisher.split("@")[0];
 
         publisherLoginPage.getPublisherLoginPage().loginPublisher(incorrectPublisherLogin, null);

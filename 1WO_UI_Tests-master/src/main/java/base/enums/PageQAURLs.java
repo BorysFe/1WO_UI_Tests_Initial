@@ -17,6 +17,7 @@ public enum PageQAURLs {
 
     DAN_CAMPAIGN_ANSWER_URL("https://isa.decipherinc.com/survey/selfserve/584/190602#?"),
 
+    QA_WIDGET_PREVIEW_PAGE_URL("https://frontend-qa.1worldonline.biz/#!/widget/%s"),
 
     MAILINATOR("https://mailinator.com");
 

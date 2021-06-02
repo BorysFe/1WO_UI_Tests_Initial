@@ -64,11 +64,21 @@ public class MenuProfileDropDown extends BaseComponent {
         waitUtils.waitForLoading();
         if (!isMenuProfileDropDownOpened()) {
             waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
+            logger.info("Menu was opened");
             waitUtils.waitForLoading();
-        }
+        } logger.info("Menu opened");
     }
 
     private boolean isMenuProfileDropDownOpened() {
         return waitUtils.isElementVisibleNow(profileDropDownMenu);
+    }
+
+    public void tryLogOut() {
+        logger.info("Member authorization verification");
+        try {
+            logOut();
+        } catch (Exception e) {
+            logger.error("Member not authorised");
+        }
     }
 }

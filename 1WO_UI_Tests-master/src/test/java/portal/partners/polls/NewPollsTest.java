@@ -13,7 +13,7 @@ import portalPages.publisher.OnboardingPublisherPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
 
-public class CreateNewPollsTest extends DriverFactory {
+public class NewPollsTest extends DriverFactory {
 
     FeedPage feedPage;
     PublisherLoginPage publisherLoginPage;

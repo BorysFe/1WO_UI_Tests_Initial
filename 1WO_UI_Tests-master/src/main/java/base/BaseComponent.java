@@ -29,10 +29,10 @@ public abstract class BaseComponent implements WebElementProvider {
     }
 
     protected boolean isCheckBoxSelected(WebElement element) {
-        if (element.getAttribute("class").contains("checked")) {
-            return element.getAttribute("class").contains(" checked");
+        if (element.getAttribute("checked").contains("checked")) {
+            return element.getAttribute("checked").contains(" checked");
         } else {
-            return element.getAttribute("aria-checked").contains("true");
+            return element.getAttribute("value").contains("true");
         }
     }
 

@@ -64,7 +64,8 @@ public class PublisherLoginPage extends BaseComponent {
         driver.close();
     }
 
-    public void loginPublisher(String eMail, String password) {
+    public OnboardingPublisherPage loginPublisher(String eMail, String password) {
+        onboardingPage = new OnboardingPublisherPage(driver);
         waitUtils.waitForLoading();
 
         if (eMail != null) {
@@ -81,6 +82,8 @@ public class PublisherLoginPage extends BaseComponent {
         System.out.println(eMail + " / " + password);
         waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
         waitUtils.waitForLoading();
+
+        return onboardingPage;
     }
 
     public OnboardingPublisherPage openOnboardingPage(String login, String password) {

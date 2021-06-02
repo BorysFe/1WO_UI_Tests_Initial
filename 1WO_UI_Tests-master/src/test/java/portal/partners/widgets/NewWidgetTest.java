@@ -1,10 +1,12 @@
 package portal.partners.widgets;
 
 import base.enums.Accounts;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
+import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.OnboardingPublisherPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
@@ -16,6 +18,7 @@ public class NewWidgetTest extends DriverFactory {
     PublisherLoginPage publisherLoginPage;
     OnboardingPublisherPage onboardingPublisherPage;
     PollsPage pollsPage;
+    PollerWidgetsPage pollerWidgetsPage;
 
     String loginPublisher;
     String passwordPublisher;
@@ -34,6 +37,7 @@ public class NewWidgetTest extends DriverFactory {
         publisherLoginPage = new PublisherLoginPage(driver);
         onboardingPublisherPage = new OnboardingPublisherPage(driver);
         pollsPage = new PollsPage(driver);
+        pollerWidgetsPage = new PollerWidgetsPage(driver);
 
         publisherLoginPage.getPublisherLoginPage();
     }
@@ -59,6 +63,7 @@ public class NewWidgetTest extends DriverFactory {
         String widgetName = String.format("Widget" + System.currentTimeMillis());
 
         publisherLoginPage.loginPublisher(loginPublisher, passwordPublisher);
+
         onboardingPublisherPage.openPollsPage();
         pollsPage.addNewPoll(pollQuestionText1,
                 String.format(pollAnswerText, "1"),
@@ -66,6 +71,7 @@ public class NewWidgetTest extends DriverFactory {
         pollsPage.addNewPoll(pollQuestionText2,
                 String.format(pollAnswerText, "1"),
                 String.format(pollAnswerText, "2"));
+
         pollsPage.startNewWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
                 .nextButtonClick()
@@ -75,5 +81,8 @@ public class NewWidgetTest extends DriverFactory {
                 .nextButtonClick()
                 .finishButtonClick();
 
+        Assertions.assertThat(pollerWidgetsPage.isWidgetTitleDisplayed(widgetName))
+                .as("New Widget doesn't displayed")
+                .isTrue();
     }
 }

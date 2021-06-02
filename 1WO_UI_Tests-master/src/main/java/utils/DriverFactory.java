@@ -2,7 +2,6 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class DriverFactory {
@@ -13,10 +12,5 @@ public class DriverFactory {
     public void getDriver() {
         System.setProperty("webdriver.chrome.driver", "D://1WO_UI//chromedriver.exe");
         driver = new ChromeDriver();
-    }
-
-    @AfterClass
-    public void driverQuit() {
-        driver.quit();
     }
 }

@@ -11,6 +11,7 @@ public enum GeneralLocators {
     SELECT_BY_CLASS(".//select[contains(@class, '%s')]"),
     INPUT_BY_CLASS(".//input[contains(@class, '%s')]"),
     SPAN_BY_CLASS(".//span[contains(@class, '%s')]"),
+    DIV_BY_CLASS(".//div[contains(@class, '%s')]"),
 
     DIV_BY_ID(".//div[@id='%s']"),
     INPUT_BY_ID(".//input[@id='%s']");

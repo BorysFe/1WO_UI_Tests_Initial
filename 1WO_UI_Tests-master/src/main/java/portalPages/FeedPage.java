@@ -96,4 +96,11 @@ public class FeedPage extends BaseComponent {
         waitUtils.waitForLoading();
         return waitUtils.isElementVisibleAfterShortWait(menuProfileButton);
     }
+
+    public void logOutIfNeed() {
+        if (isMemberAuthorised()) {
+            System.out.println("Member is authorised, need to LogOut");
+            menuProfileDropDown.logOut();
+        }
+    }
 }

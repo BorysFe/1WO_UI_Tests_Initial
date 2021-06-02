@@ -53,6 +53,16 @@ public class WaitUtils extends DriverFactory {
         }
     }
 
+    public void waitForWidgetLoading(String widgetFrameID) {
+        waitMilliseconds(500, "Wait for loading spinner to be displayed");
+        driver.switchTo().frame(widgetFrameID);
+        boolean isSpinnerVisible;
+        isSpinnerVisible = isElementVisibleNow(spinnerSelector);
+        if (isSpinnerVisible) {
+            longWait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerSelector));
+        }
+    }
+
     public static void waitForNSeconds(int n, String reason) {
         waitMilliseconds(n * 1000, reason);
     }
@@ -252,6 +262,8 @@ public class WaitUtils extends DriverFactory {
     public boolean isElementVisibleNow(By locator) {
         return isElementVisible(locator, 0);
     }
+
+
 
     public boolean isElementVisibleAfterShortWait(By locator) {
         return isElementVisible(locator, SHORT_TIMEOUT);

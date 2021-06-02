@@ -2,6 +2,7 @@ package portalPages.polls.polls;
 
 import base.BaseComponent;
 import base.enums.GeneralLocators;
+import base.enums.WidgetDefaultContent;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.polls.RegionsAndLanguages;
-import portalPages.polls.widgets.widgetPages.LanguageAndNamePage;
+import portalPages.polls.widgets.pollerWidgetsPages.LanguageAndNamePage;
+import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import utils.WaitUtils;
 
 @Getter
@@ -20,6 +22,7 @@ public class PollsPage extends BaseComponent {
     private NewPollManagerPage newPollManager;
     private SelectPollLanguageModalPage selectPollLanguageModalPage;
     private LanguageAndNamePage languageAndNamePage;
+    private PollerWidgetsPage pollerWidgetsPage;
 
     public PollsPage(WebDriver driver) {
         super(driver);
@@ -73,9 +76,10 @@ public class PollsPage extends BaseComponent {
         return languageAndNamePage;
     }
 
-    public PollsPage addNewDefaultWidget(String widgetTitle) {
-        waitUtils.waitForLoading();
+    public PollerWidgetsPage openPollerWidgetsPage() {
+        pollerWidgetsPage = new PollerWidgetsPage(driver);
 
-        return this;
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Poller widgets")));
+        return pollerWidgetsPage;
     }
 }
