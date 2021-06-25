@@ -29,12 +29,12 @@ public class AdminDashboardPage extends BaseComponent {
         feedPage = new FeedPage(driver);
     }
 
-    @BeforeClass
-    public void isPageOpened() {
-        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(GeneralLocators.INPUT_BY_ID.toString(), SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
-            driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
-        }
-    }
+//    @BeforeClass
+//    public void isPageOpened() {
+//        if (!waitUtils.isElementVisibleNow(By.xpath(String.format(GeneralLocators.INPUT_BY_ID.toString(), SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
+//            driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
+//        }
+//    }
 
     @Override
     protected WebElement getMainElementInComponent() {
@@ -51,5 +51,9 @@ public class AdminDashboardPage extends BaseComponent {
             waitUtils.waitForLoading();
         }
         driver.get(PageQAURLs.QA_PORTAL_ADMIN_DASHBOARD_SUMMARY.toString());
+    }
+
+    public void openPartnerAccount(String partnerName) {
+
     }
 }

@@ -13,7 +13,7 @@ public class PollerWidgetPreviewPage extends BaseComponent {
     WaitUtils waitUtils;
     PollerWidgetsPage pollerWidgetsPage;
 
-    private final String pollVotingButton = ".//label[contains(@title,'%s')]//span[contains(@class,'radio')]";
+    private final String pollVotingButton = ".//label[contains(@title,'%s')]//span[contains(@class,'radio-button')]";
     private final String pollVotingPercent = ".//label[contains(@title,'%s')]//span[contains(@class,'votes-percentage')]";
 
     public PollerWidgetPreviewPage(WebDriver driver) {
@@ -37,10 +37,10 @@ public class PollerWidgetPreviewPage extends BaseComponent {
         return this;
     }
 
-    public PollerWidgetPreviewPage voteAnswer(String answerText) {
+    public PollerWidgetPreviewPage voteAnswer(String pollAnswerText) {
         waitUtils.waitForLoading();
         openWidgetFrame();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), answerText)));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollAnswerText)));
 
         return this;
     }
@@ -57,14 +57,24 @@ public class PollerWidgetPreviewPage extends BaseComponent {
         return waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(pollVotingPercent, pollAnswerText)));
     }
 
-    public String getPollVotePercent(String pollQuestionText) {
+    public boolean isAnswerVoted(String pollAnswerText) {
+        waitUtils.waitForLoading();
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(pollVotingButton, pollAnswerText)))
+                .getAttribute("checked").equals("checked");
+    }
+
+    public String getUsersScore() {
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_CLASS.toString(), "count-of-user-score"))).getText();
+    }
+
+    public String getPollVotePercent(String pollAnswerText) {
         waitUtils.waitForLoading();
 
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollQuestionText))).getText();
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollAnswerText))).getText();
     }
 
     private void pollSearching(String pollQuestionText) {
         waitUtils.waitForLoading();
-            waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollQuestionText)));
+        waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollQuestionText)));
     }
 }
