@@ -34,6 +34,7 @@ public class PollsPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
     }
 
@@ -43,16 +44,20 @@ public class PollsPage extends BaseComponent {
         selectPollLanguageModalPage = new SelectPollLanguageModalPage(driver);
 
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
+        waitUtils.waitForLoading();
+
         return selectPollLanguageModalPage;
     }
 
     public boolean isPollTitleDisplayed(String pollTitle) {
         waitUtils.waitForLoading();
+
         return waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollTitle)));
     }
 
     public PollsPage addNewPoll(String questionText, String answer1, String answer2) {
 
+        waitUtils.waitForLoading();
         startNewPollCreating()
                 .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_REGION.toString(), RegionsAndLanguages.REGION_ALL.toString())
                 .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_LANGUAGE.toString(), RegionsAndLanguages.LANGUAGE_ENGLISH.toString())
@@ -80,6 +85,7 @@ public class PollsPage extends BaseComponent {
         pollerWidgetsPage = new PollerWidgetsPage(driver);
 
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Poller widgets")));
+
         return pollerWidgetsPage;
     }
 }

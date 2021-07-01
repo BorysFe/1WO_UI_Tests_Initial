@@ -40,7 +40,7 @@ public class PollerWidgetPreviewPage extends BaseComponent {
     public PollerWidgetPreviewPage voteAnswer(String pollAnswerText) {
         waitUtils.waitForLoading();
         openWidgetFrame();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollAnswerText)));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(pollVotingButton, pollAnswerText)));
 
         return this;
     }

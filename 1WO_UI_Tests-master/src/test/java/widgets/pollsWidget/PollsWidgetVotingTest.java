@@ -4,12 +4,15 @@ import base.enums.Accounts;
 import base.enums.WidgetDefaultContent;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
+import portalPages.AccountsInfoPage;
 import portalPages.FeedPage;
+import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
+import utils.UtilityHelper;
 
 public class PollsWidgetVotingTest extends DriverFactory {
     FeedPage feedPage;
@@ -17,6 +20,8 @@ public class PollsWidgetVotingTest extends DriverFactory {
     PollsPage pollsPage;
     PollerWidgetsPage pollerWidgetsPage;
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
+    MenuProfileDropDown menuProfileDropDown;
+    AccountsInfoPage accountsInfoPage;
 
     String loginPublisher;
     String passwordPublisher;
@@ -35,6 +40,8 @@ public class PollsWidgetVotingTest extends DriverFactory {
         pollsPage = new PollsPage(driver);
         pollerWidgetsPage = new PollerWidgetsPage(driver);
         pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
+        menuProfileDropDown = new MenuProfileDropDown(driver);
+        accountsInfoPage = new AccountsInfoPage(driver);
 
         publisherLoginPage.getPublisherLoginPage()
                 .loginPublisher(loginPublisher, passwordPublisher)
@@ -43,7 +50,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-        feedPage.logOutIfNeed();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass
@@ -62,15 +69,23 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
 
         pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
-        pollsPage.addNewPoll(pollQuestionText2, pollAnswerText1, pollAnswerText2);
+//        pollsPage.addNewPoll(pollQuestionText2, pollAnswerText1, pollAnswerText2);
         pollsPage.startNewWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
                 .nextButtonClick()
                 .addPollToWidget(pollQuestionText1)
-                .addPollToWidget(pollQuestionText2)
+//                .addPollToWidget(pollQuestionText2)
                 .nextButtonClick()
                 .nextButtonClick()
                 .finishButtonClick();
+
+        UtilityHelper.deleteAllCookies(driver);
+
+        accountsInfoPage.openAccountInfoPage();
+
+        Assertions.assertThat(accountsInfoPage.isUserAnonim())
+                .as("User isn't Anonim")
+                .isTrue();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
         pollerWidgetPreviewPage.voteAnswer(String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
@@ -79,6 +94,8 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .as("Vote from member wasn't counted")
                 .isTrue();
 
-
+        Assertions.assertThat(accountsInfoPage.isUserSynthetic())
+                .as("User isn't Member")
+                .isTrue();
     }
 }

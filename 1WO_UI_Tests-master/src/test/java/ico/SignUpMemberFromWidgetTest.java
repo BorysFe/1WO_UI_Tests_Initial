@@ -4,7 +4,7 @@ import base.enums.Accounts;
 import base.enums.WidgetDefaultContent;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
-import portalPages.AccountInfoPage;
+import portalPages.AccountsInfoPage;
 import portalPages.FeedPage;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
@@ -18,7 +18,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
     PollsPage pollsPage;
     PollerWidgetsPage pollerWidgetsPage;
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
-    AccountInfoPage accountInfoPage;
+    AccountsInfoPage accountInfoPage;
 
     String loginAdmin;
     String passwordAdmin;
@@ -41,7 +41,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
         pollsPage = new PollsPage(driver);
         pollerWidgetsPage = new PollerWidgetsPage(driver);
         pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
-        accountInfoPage = new AccountInfoPage(driver);
+        accountInfoPage = new AccountsInfoPage(driver);
 
         publisherLoginPage.getPublisherLoginPage()
                 .loginPublisher(loginAdmin, passwordAdmin)

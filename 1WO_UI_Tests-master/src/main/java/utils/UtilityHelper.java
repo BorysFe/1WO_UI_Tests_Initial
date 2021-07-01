@@ -120,7 +120,7 @@ public class UtilityHelper {
         return filename;
     }
 
-    public static void logout(WebDriver driver) {
+    public static void deleteAllCookies(WebDriver driver) {
         driver.manage().deleteAllCookies();
     }
 

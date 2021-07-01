@@ -6,7 +6,6 @@ import base.enums.PageQAURLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
@@ -57,11 +56,6 @@ public class PollerWidgetsPage extends BaseComponent {
 
         String widgetOWOCode = getWidgetOWOCode(widgetName);
         String widgetPreviewPageURL = String.format(PageQAURLs.QA_WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
-
-        driver.quit();
-
-        System.setProperty("webdriver.chrome.driver", "D://1WO_UI//chromedriver.exe");
-        driver = new ChromeDriver();
 
         driver.get(widgetPreviewPageURL);
 
