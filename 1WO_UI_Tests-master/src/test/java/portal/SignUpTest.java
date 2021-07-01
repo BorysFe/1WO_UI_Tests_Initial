@@ -37,9 +37,7 @@ public class SignUpTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-        if (feedPage.isMemberAuthorised()) {
-            menuProfileDropDown.logOut();
-        }
+            menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass

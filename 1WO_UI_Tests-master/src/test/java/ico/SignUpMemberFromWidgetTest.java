@@ -6,6 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.AccountsInfoPage;
 import portalPages.FeedPage;
+import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
@@ -19,6 +20,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
     PollerWidgetsPage pollerWidgetsPage;
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
     AccountsInfoPage accountInfoPage;
+    MenuProfileDropDown menuProfileDropDown;
 
     String loginAdmin;
     String passwordAdmin;
@@ -42,6 +44,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
         pollerWidgetsPage = new PollerWidgetsPage(driver);
         pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
         accountInfoPage = new AccountsInfoPage(driver);
+        menuProfileDropDown = new MenuProfileDropDown(driver);
 
         publisherLoginPage.getPublisherLoginPage()
                 .loginPublisher(loginAdmin, passwordAdmin)
@@ -58,7 +61,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-        feedPage.logOutIfNeed();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass

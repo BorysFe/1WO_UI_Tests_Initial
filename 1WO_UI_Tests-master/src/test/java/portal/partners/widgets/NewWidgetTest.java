@@ -44,10 +44,7 @@ public class NewWidgetTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-        if (feedPage.isMemberAuthorised()) {
-            System.out.println("Member is authorised, need to LogOut");
-            menuProfileDropDown.logOut();
-        }
+            menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass
