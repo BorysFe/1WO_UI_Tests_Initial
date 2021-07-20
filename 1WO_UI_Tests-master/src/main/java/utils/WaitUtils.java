@@ -1,6 +1,7 @@
 package utils;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.conditions.WOExpectedConditions;
@@ -8,12 +9,9 @@ import utils.conditions.WOExpectedConditions;
 import java.time.Duration;
 import java.util.List;
 
-//public class WaitUtils extends DriverFactory {
-    public class WaitUtils {
-        WebDriver driver;
+public class WaitUtils extends DriverFactory {
 
-
-        public static final int SHORT_TIMEOUT = 5;
+    public static final int SHORT_TIMEOUT = 5;
     private WebDriverWait shortWait;
 
     public static final int MIDDLE_TIMEOUT = 10;
@@ -39,6 +37,25 @@ import java.util.List;
 
     public void waitForLoading() {
         waitMilliseconds(500, "Wait for loading spinner to be displayed");
+        boolean isSpinnerVisible;
+        isSpinnerVisible = isElementVisibleNow(spinnerSelector);
+        if (isSpinnerVisible) {
+            longWait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerSelector));
+        }
+    }
+
+    public void waitForLongLoading() {
+        waitMilliseconds(25000, "Wait for loading spinner to be displayed");
+        boolean isSpinnerVisible;
+        isSpinnerVisible = isElementVisibleNow(spinnerSelector);
+        if (isSpinnerVisible) {
+            longWait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerSelector));
+        }
+    }
+
+    public void waitForWidgetLoading(String widgetFrameID) {
+        waitMilliseconds(500, "Wait for loading spinner to be displayed");
+        driver.switchTo().frame(widgetFrameID);
         boolean isSpinnerVisible;
         isSpinnerVisible = isElementVisibleNow(spinnerSelector);
         if (isSpinnerVisible) {
@@ -76,138 +93,13 @@ import java.util.List;
         midWait.until(ExpectedConditions.alertIsPresent());
     }
 
-//        public void waitVisibilityOfElement(WebElement element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.visibilityOf(element));
-//    }
-//
-//    public WebElement waitVisibilityOfElementShort(WebElement element) {
-//        waitVisibilityOfElement(element, shortTimeout);
-//        return element;
-//    }
-//
-//    public void waitVisibilityOfElementLong(WebElement element) {
-//        waitVisibilityOfElement(element, longTimeout);
-//    }
-//
-//    public void waitVisibilityOfListElements(List<WebElement> elements, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(elements));
-//    }
-//
-//    public void waitVisibilityOfElementsShort(List<WebElement> elements) {
-//        waitVisibilityOfListElements(elements, shortTimeout);
-//    }
-//
-//    public void waitVisibilityOfElementsLong(List<WebElement> elements) {
-//        waitVisibilityOfListElements(elements, longTimeout);
-//    }
-//
-//    public void waitVisibilityOfElementBy(By element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(element));
-//    }
-
-//    public void waitVisibilityOfElementByShort(By element) {
-//        waitVisibilityOfElementBy(element, shortTimeout);
-//    }
-//
-//    public void waitVisibilityOfElementByLong(By element) {
-//        waitVisibilityOfElementBy(element, longTimeout);
-//    }
-
-//    public void waitInvisibilityOfElementBy(By element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(element));
-//    }
-
-//    public void waitInvisibilityOfElementByShort(By element) {
-//        waitInvisibilityOfElementBy(element, shortTimeout);
-//    }
-//
-//    public void waitInvisibilityOfElementByLong(By element) {
-//        waitInvisibilityOfElementBy(element, longTimeout);
-//    }
-//
-//    public void waitInvisibilityOfElement(WebElement element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.invisibilityOf(element));
-//    }
-//
-//    public void waitInvisibilityOfElementShort(WebElement element) {
-//        waitInvisibilityOfElement(element, shortTimeout);
-//    }
-//
-//    public void waitInvisibilityOfElementLong(WebElement element) {
-//        waitInvisibilityOfElement(element, longTimeout);
-//    }
-//
-//    public void waitInvisibilityOfListElements(List<WebElement> elements, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
-//    }
-//
-//    public void waitInvisibilityOfElementsShort(List<WebElement> elements) {
-//        waitInvisibilityOfListElements(elements, shortTimeout);
-//    }
-//
-//    public void waitInvisibilityOfElementsLong(List<WebElement> elements) {
-//        waitInvisibilityOfListElements(elements, longTimeout);
-//    }
-//
-//    public void waitPresenceOfElementByLocated(By element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(element));
-//    }
-//
-//    public void waitPresenceOfElementByShort(By element) {
-//        waitPresenceOfElementByLocated(element, shortTimeout);
-//    }
-//
-//    public void waitPresenceOfElementByLong(By element) {
-//        waitPresenceOfElementByLocated(element, longTimeout);
-//    }
-//
-//    public void waitElementToBeClickable(WebElement element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
-//    }
-//
-//    public void waitElementToBeClickableShort(WebElement element) {
-//        waitElementToBeClickable(element, shortTimeout);
-//    }
-//
-//    public void waitElementToBeClickableLong(WebElement element) {
-//        waitElementToBeClickable(element, longTimeout);
-//    }
-//
-//    public void waitElementToBeClickable(By element, int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver("chrome"), timeOut);
-//        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
-//    }
-//
-//    public void waitElementToBeClickableShort(By element) {
-//        waitElementToBeClickable(element, shortTimeout);
-//    }
-//
-//    public void waitElementToBeClickableLong(By element) {
-//        waitElementToBeClickable(element, longTimeout);
-//    }
-
-//    public boolean isElementVisibleShortTimeout(WebElement element) {
-//        try {
-//            waitVisibilityOfElementShort(element);
-//            return true;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//    }
-
-//    public void clickWhenReadyAfterShortWait(By element) {
-//        waitVisibilityOfElementByShort(element);
-//        waitElementToBeClickableShort(element);
-//        getDriver("chrome").findElement(element).click();
-//    }
+    public void clickElementWithRetryAndAcceptAlert(WebElement elementToClick) {
+        longWait.until((ExpectedCondition<Boolean>) driver -> {
+            clickWhenReadyAfterShortWait(elementToClick);
+            UtilityHelper.acceptAlert(driver);
+            return !isElementVisibleNow(elementToClick);
+        });
+    }
 
     public WebElement waitForElementToBeDisplayed(By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -325,7 +217,7 @@ import java.util.List;
     public WebElement getElementWhenVisible(By locator, int timeout) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, timeout);
-            //find element via driver, as ExpectedConditions does not return a CSWebElement
+            //find element via driver, as ExpectedConditions does not return a WOWebElement
             return new WOWebElement(wait.until(ExpectedConditions.visibilityOfElementLocated(locator)));
         } catch (TimeoutException e) {
             return null;
@@ -370,6 +262,8 @@ import java.util.List;
     public boolean isElementVisibleNow(By locator) {
         return isElementVisible(locator, 0);
     }
+
+
 
     public boolean isElementVisibleAfterShortWait(By locator) {
         return isElementVisible(locator, SHORT_TIMEOUT);
@@ -529,10 +423,4 @@ import java.util.List;
             return false;
         }
     }
-//
-//    public void clickWhenReadyAfterShortWait(By element) {
-//        waitVisibilityOfElementByShort(element);
-//        waitElementToBeClickableShort(element);
-//        driver.findElement(element).click();
-//    }
 }

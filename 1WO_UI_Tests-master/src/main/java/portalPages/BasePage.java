@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 public class BasePage {
 
     WebDriver driver;
-//    private WebDriver driver;
 
     private String url;
+    protected FeedPage feedPage;
     private static final Logger logger = LoggerFactory.getLogger(BasePage.class);
 
     public BasePage(WebDriver driver) {

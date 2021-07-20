@@ -1,8 +1,6 @@
 package utils;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
@@ -10,7 +8,7 @@ import org.openqa.selenium.interactions.Locatable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WOWebElement  implements WebElement, WrapsElement, Locatable {
+public class WOWebElement implements WebElement, WrapsElement, Locatable {
 
     private final By by;
     private final SearchContext context;

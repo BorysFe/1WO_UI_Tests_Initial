@@ -1,6 +1,6 @@
 package base;
 
-import org.apache.commons.lang3.reflect.TypeUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -9,21 +9,18 @@ import utils.WaitUtils;
 
 public abstract class BaseComponent implements WebElementProvider {
     protected WebDriver driver;
-    protected TypeUtils typeUtils;
     protected ActionHelperUtils actions;
     WaitUtils waitUtils;
 
     public BaseComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = (WebDriver) driver;
-//        typeUtils = new TypeUtils(driver);
+        this.driver = driver;
         actions = new ActionHelperUtils(driver);
     }
 
     protected abstract WebElement getMainElementInComponent();
 
     public boolean isDisplayed() {
-//        driver.wa
         return waitUtils.isElementVisibleNow(getMainElementInComponent());
     }
 
@@ -32,10 +29,10 @@ public abstract class BaseComponent implements WebElementProvider {
     }
 
     protected boolean isCheckBoxSelected(WebElement element) {
-        if (element.getAttribute("class").contains("checked")) {
-            return element.getAttribute("class").contains(" checked");
+        if (element.getAttribute("checked").contains("checked")) {
+            return element.getAttribute("checked").contains(" checked");
         } else {
-            return element.getAttribute("aria-checked").contains("true");
+            return element.getAttribute("value").contains("true");
         }
     }
 

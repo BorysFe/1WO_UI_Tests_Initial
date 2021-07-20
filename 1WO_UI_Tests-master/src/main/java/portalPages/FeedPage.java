@@ -1,93 +1,106 @@
 package portalPages;
 
 import base.BaseComponent;
+import base.enums.PageQAURLs;
+import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import portalPages.enums.SignInUpLinks;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import portalPages.enums.SignLinks;
 import utils.WaitUtils;
 
-public class FeedPage extends BasePage {
+@Getter
+@Setter
+public class FeedPage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
 
     WaitUtils waitUtils;
-
-    private final String inputElement = ".//input[@id='%s']";
-    private final String spanElement = ".//span[@id='%s']";
-
-    @FindBy(xpath = ".//label[@id='login-error']")
-    private WebElement errorMessageAuthenticationFailed;
-
-    @FindBy(xpath = ".//div[@id='show-menu-profile']")
-    private WebElement menuProfileButton;
+    private SignIn_SignUp_DropDown signDropDown;
+    private MenuProfileDropDown menuProfileDropDown;
 
     public FeedPage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
     }
 
-    public void openLoginPopUp() {
+    private final String inputElement = ".//input[@id='%s']";
+    private final String spanElement = ".//span[@id='%s']";
+
+    @FindBy(xpath = ".//div[@id='profileDropDownMenu']")
+    private WebElement profileDropDownMenu;
+
+    @FindBy(xpath = ".//label[@id='login-error']")
+    private WebElement errorMessageAuthenticationFailed;
+
+    @FindBy(xpath = ".//img[@data-type='show-menu-profile']")
+    private WebElement menuProfileButton;
+
+    @FindBy(xpath = ".//div[@class='header-search-block']")
+    private WebElement pollSearch;
+
+    @FindBy(xpath = ".//a[@class='db-link']")
+    private WebElement adminDashboardButton;
+
+    @Override
+    protected WebElement getMainElementInComponent() {
+        return menuProfileButton;
+    }
+
+    @BeforeMethod
+    public FeedPage getFeedPage() {
+        logger.info("Opening Feed page");
+        driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
         waitUtils.waitForLoading();
-        waitUtils.waitVisibilityOfElementShort(driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))));
-        driver.findElement(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_SIGN_UP_BUTTON))).click();
+        return this;
+    }
+
+    public SignIn_SignUp_DropDown openSignDropDown() {
+        waitUtils.waitForLoading();
+        signDropDown = new SignIn_SignUp_DropDown(driver);
+        waitUtils.waitForLoading();
+
+        if (!waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu)) {
+            waitUtils.waitForLoading();
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
+        waitUtils.waitForLoading();
+        return signDropDown;
+    }
+
+    public void openSignDropdown() {
+        if (!waitUtils.isElementVisibleAfterShortWait(profileDropDownMenu)) {
+            waitUtils.waitForLoading();
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
         waitUtils.waitForLoading();
     }
 
-    //
-//    public void logInMember(String logIn, String password) {
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD))).sendKeys(logIn);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD))).sendKeys(password);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
-//    }
-//
-//    public void registrationMember(String newLogIn, String newPassword) {
-//        openLoginWindow();
-//        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-//        waitUtils.waitPresenceOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD))).sendKeys(newLogIn);
-//        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD)));
-//        getDriver("chrome").findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD))).sendKeys(newPassword);
-//        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_SUBMIT_BUTTON)));
-//    }
-    public void logInMember(String logIn, String password) {
-        openLoginPopUp();
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_LOGIN_FIELD))).sendKeys(logIn);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_PASSWORD_FIELD))).sendKeys(password);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.SIGN_IN_SIGN_IN_BUTTON)));
-    }
+    public MenuProfileDropDown openMenuProfileDropDown() {
+        menuProfileDropDown = new MenuProfileDropDown(driver);
 
-    public boolean isAuthenticationErrorDisplayed() {
-        waitUtils.waitForLoading();
-        return waitUtils.isElementVisibleAfterMiddleWait(errorMessageAuthenticationFailed);
-    }
+        if (!waitUtils.isElementVisibleNow(profileDropDownMenu)) {
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)));
+        }
 
-    public void registrationMember(String newLogIn, String newPassword) {
-        waitUtils.waitForLoading();
-        openLoginPopUp();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(spanElement, SignInUpLinks.SIGN_IN_CREATE_ACCOUNT_BUTTON)));
-        waitUtils.waitForLoading();
-        waitUtils.waitPresenceOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_EMAIL_FIELD))).sendKeys(newLogIn);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_PASSWORD_FIELD))).sendKeys(newPassword);
-        waitUtils.waitVisibilityOfElementByShort(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_RESTORE_PASSWORD_FIELD)));
-        driver.findElement(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_RESTORE_PASSWORD_FIELD))).sendKeys(newPassword);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignInUpLinks.REGISTRATION_SUBMIT_BUTTON)));
-        waitUtils.waitForLoading();
+        return menuProfileDropDown;
     }
 
     public boolean isMemberAuthorised() {
         waitUtils.waitForLoading();
-        return waitUtils.isElementVisibleAfterMiddleWait(menuProfileButton);
+        return waitUtils.isElementVisibleAfterShortWait(menuProfileButton);
     }
 
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
+    public void logOutIfNeed() {
+        if (isMemberAuthorised()) {
+            System.out.println("Member is authorised, need to LogOut");
+            menuProfileDropDown.logOut();
+        }
     }
 }
