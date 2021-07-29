@@ -7,14 +7,13 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.SignIn_SignUp_DropDown;
 import utils.DriverFactory;
 
-import java.io.IOException;
 
 public class SignUpTest extends DriverFactory {
 
