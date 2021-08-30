@@ -1,6 +1,7 @@
 package apiTests.portal;
 
 import io.restassured.RestAssured;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
@@ -14,6 +15,8 @@ public class PurtnerDashBoardTest {
     public static void valueScorePartner() {
         JSONObject requestBody = new JSONObject();
 
+        RestAssured.baseURI = "https://app.1worldonline.com/";
+
         requestBody.put("partners", Collections.singleton("\"f9f5cc9e-cf6c-4c6e-90a1-a54f0863dcbc\""));
 
         RequestSpecification request = RestAssured.given()
@@ -23,7 +26,7 @@ public class PurtnerDashBoardTest {
                 .and()
                 .body(requestBody.toString());
 
-        Response response = request.post("https://app.1worldonline.com/partners/features-analytics");
+        Response response = request.request(Method.POST, "/partners/features-analytics");
 
         System.out.println("request - " + request);
         System.out.println("requestBody - " + requestBody);
