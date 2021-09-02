@@ -1,6 +1,6 @@
 package base;
 
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,12 +51,12 @@ public class Mailinator extends BaseComponent {
 
     @BeforeMethod
     public Mailinator openMailinator() {
-        driver.get(PageQAURLs.MAILINATOR.toString());
+        driver.get(PageURLs.MAILINATOR.toString());
         return this;
     }
 
     public WebElement openMailAccount(String testEMail) {
-        driver.get(PageQAURLs.MAILINATOR.toString());
+        driver.get(PageURLs.MAILINATOR.toString());
         mailSearchInput.sendKeys(testEMail);
         mailSearchButton.click();
         waitUtils.waitVisibilityOfElementLong(publicMessagesText);

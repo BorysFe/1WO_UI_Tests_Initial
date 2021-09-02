@@ -79,7 +79,9 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .nextButtonClick()
                 .finishButtonClick();
 
-        UtilityHelper.deleteAllCookies(driver);
+        String widgetOWOCode = pollerWidgetsPage.getWidgetOWOCode(widgetName);
+
+        menuProfileDropDown.logOut();
 
         accountsInfoPage.openAccountInfoPage();
 
@@ -87,12 +89,14 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .as("User isn't Anonim")
                 .isTrue();
 
-        pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
+        pollerWidgetsPage.openPollerWidgetPreviewPage(widgetOWOCode);
         pollerWidgetPreviewPage.voteAnswer(String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
 
         Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1")))
                 .as("Vote from member wasn't counted")
                 .isTrue();
+
+        accountsInfoPage.openAccountInfoPage();
 
         Assertions.assertThat(accountsInfoPage.isUserSynthetic())
                 .as("User isn't Member")

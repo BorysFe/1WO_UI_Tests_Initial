@@ -35,6 +35,7 @@ public class SummaryTabTest extends DriverFactory {
 
     @Test
     public void openAdminDashboardSummeryTab() {
+
         adminDashboardPage.openAdminDashboardSummaryPage();
 
         Assertions.assertThat(feedPage.isMemberAuthorised())

@@ -2,7 +2,7 @@ package portalPages;
 
 import base.BaseComponent;
 import base.enums.Accounts;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
@@ -41,7 +41,7 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
     @BeforeClass
     private void openFeedPageIfNeed() {
         if (!waitUtils.isElementVisibleNow(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_UP_BUTTON)))) {
-            driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
+            driver.get(PageURLs.PORTAL_FEED_PAGE.toString());
         }
     }
 
