@@ -1,7 +1,7 @@
 package portalPages;
 
 import base.BaseComponent;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,19 +27,19 @@ public class AccountsInfoPage extends BaseComponent {
     }
 
     public AccountsInfoPage openAccountInfoPage() {
-        driver.get(PageQAURLs.QA_ACCOUNT_INFO.toString());
+        driver.get(PageURLs.ACCOUNT_INFO.toString());
 
         return this;
     }
 
     public boolean isUserAnonim() {
 
-        return waitUtils.isElementVisible((WebElement) By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"));
+        return waitUtils.isElementVisible(By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"), 100);
 //        return !waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(".//h1")).getText().equals("Whitelabelelabel Error Page");
     }
 
     public boolean isUserSynthetic() {
 
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(".//pre[contains(@style, 'word-wrap:')]")).getText().equals("synthetic");
+        return waitUtils.isElementVisible(By.xpath(".//pre[contains(text(), 'synthetic')]"), 100);
     }
 }

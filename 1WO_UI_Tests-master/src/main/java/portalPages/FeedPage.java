@@ -1,7 +1,7 @@
 package portalPages;
 
 import base.BaseComponent;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
@@ -10,8 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import portalPages.enums.SignLinks;
 import utils.WaitUtils;
@@ -56,7 +54,7 @@ public class FeedPage extends BaseComponent {
     @BeforeMethod
     public FeedPage getFeedPage() {
         logger.info("Opening Feed page");
-        driver.get(PageQAURLs.QA_PORTAL_FEED_PAGE.toString());
+        driver.get(PageURLs.PORTAL_FEED_PAGE.toString());
         waitUtils.waitForLoading();
         return this;
     }

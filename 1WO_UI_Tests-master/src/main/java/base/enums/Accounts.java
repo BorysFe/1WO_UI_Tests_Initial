@@ -12,7 +12,10 @@ public enum Accounts {
     ADMIN_GOOGLE_PASSWORD("workboris4"),
 
     ADVERTISER_LOGIN("borys@1worldboris.com"),
+//    borys1621001022771 - adver
     ADVERTISER_PASSWORD("Qwerty123!"),
+
+//    borys1621001754765 - agent
 
     PUBLISHER_LOGIN("borys1620396685711@mailinator.com"),
     PUBLISHER_PASSWORD("Qwerty123!"),

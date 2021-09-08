@@ -1,7 +1,7 @@
 package welcomePages;
 
 import base.BaseComponent;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +43,7 @@ public class WelcomePage extends BaseComponent {
 
     public WelcomePage openWelcomePage() {
         waitUtils.waitForLoading();
-        driver.get(PageQAURLs.QA_WELCOME_PAGE.toString());
+        driver.get(PageURLs.WELCOME_PAGE.toString());
         return this;
     }
 
@@ -64,7 +64,7 @@ public class WelcomePage extends BaseComponent {
         waitUtils.clickWhenReadyAfterShortWait(signInButton);
 
         //From QAWelcomePage wrong redirect to PROD PublisherLoginPage.
-        if (driver.getCurrentUrl() != PageQAURLs.QA_PORTAL_LOGIN_PARTNER.toString()) {
+        if (driver.getCurrentUrl() != PageURLs.PORTAL_LOGIN_PARTNER.toString()) {
             publisherLoginPage.getPublisherLoginPage();
         }
 

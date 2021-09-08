@@ -16,9 +16,9 @@ public enum GeneralLocators {
     DIV_BY_ID(".//div[@id='%s']"),
     INPUT_BY_ID(".//input[@id='%s']");
 
-    private String xPath;
+    private final String xPath;
 
-    GeneralLocators(String xPath) {
+    GeneralLocators(final String xPath) {
         this.xPath = xPath;
     }
 

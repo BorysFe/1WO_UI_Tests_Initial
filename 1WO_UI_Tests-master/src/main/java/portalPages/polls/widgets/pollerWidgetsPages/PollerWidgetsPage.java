@@ -2,7 +2,7 @@ package portalPages.polls.widgets.pollerWidgetsPages;
 
 import base.BaseComponent;
 import base.enums.GeneralLocators;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,11 +51,11 @@ public class PollerWidgetsPage extends BaseComponent {
                 .xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), widgetName)));
     }
 
-    public PollerWidgetPreviewPage openPollerWidgetPreviewPage(String widgetName) {
+    public PollerWidgetPreviewPage openPollerWidgetPreviewPage(String widgetOWOCode) {
         pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
 
-        String widgetOWOCode = getWidgetOWOCode(widgetName);
-        String widgetPreviewPageURL = String.format(PageQAURLs.QA_WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
+//        String widgetOWOCode = getWidgetOWOCode(widgetName);
+        String widgetPreviewPageURL = String.format(PageURLs.WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
 
         driver.get(widgetPreviewPageURL);
 

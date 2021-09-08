@@ -1,7 +1,7 @@
 package portalPages.publisher;
 
 import base.BaseComponent;
-import base.enums.PageQAURLs;
+import base.enums.PageURLs;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import portalPages.polls.polls.PollsPage;
 import utils.WaitUtils;
@@ -53,7 +52,7 @@ public class PublisherLoginPage extends BaseComponent {
     @BeforeMethod
     public PublisherLoginPage getPublisherLoginPage() {
         logger.info("Opening Publisher Login page");
-        driver.get(PageQAURLs.QA_PORTAL_LOGIN_PARTNER.toString());
+        driver.get(PageURLs.PORTAL_LOGIN_PARTNER.toString());
         waitUtils.waitForLoading();
 
         return this;
