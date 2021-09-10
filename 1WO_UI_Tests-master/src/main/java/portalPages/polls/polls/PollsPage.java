@@ -2,13 +2,13 @@ package portalPages.polls.polls;
 
 import base.BaseComponent;
 import base.enums.GeneralLocators;
-import base.enums.WidgetDefaultContent;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import portalPages.SelectLanguageModalPage;
 import portalPages.polls.RegionsAndLanguages;
 import portalPages.polls.widgets.pollerWidgetsPages.LanguageAndNamePage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
@@ -20,7 +20,7 @@ public class PollsPage extends BaseComponent {
 
     WaitUtils waitUtils;
     private NewPollManagerPage newPollManager;
-    private SelectPollLanguageModalPage selectPollLanguageModalPage;
+    private SelectLanguageModalPage selectPollLanguageModalPage;
     private LanguageAndNamePage languageAndNamePage;
     private PollerWidgetsPage pollerWidgetsPage;
 
@@ -28,7 +28,7 @@ public class PollsPage extends BaseComponent {
         super(driver);
         waitUtils = new WaitUtils(driver);
         newPollManager = new NewPollManagerPage(driver);
-        selectPollLanguageModalPage = new SelectPollLanguageModalPage(driver);
+        selectPollLanguageModalPage = new SelectLanguageModalPage(driver);
         languageAndNamePage = new LanguageAndNamePage(driver);
     }
 
@@ -38,10 +38,10 @@ public class PollsPage extends BaseComponent {
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
     }
 
-    public SelectPollLanguageModalPage startNewPollCreating() {
+    public SelectLanguageModalPage startNewPollCreating() {
         waitUtils.waitForLoading();
 
-        selectPollLanguageModalPage = new SelectPollLanguageModalPage(driver);
+        selectPollLanguageModalPage = new SelectLanguageModalPage(driver);
 
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
         waitUtils.waitForLoading();

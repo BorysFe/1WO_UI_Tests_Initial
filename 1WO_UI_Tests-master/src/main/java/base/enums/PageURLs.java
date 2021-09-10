@@ -37,6 +37,6 @@ public enum PageURLs {
 
     @Override
     public String toString() {
-        return pageURL;
+        return String.valueOf(pageURL);
     }
 }

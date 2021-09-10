@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.polls.polls.PollsPage;
+import portalPages.surveys.SurveysPage;
 import utils.WaitUtils;
 
 @Getter
@@ -18,12 +19,16 @@ public class OnboardingPublisherPage extends BaseComponent {
 
     WaitUtils waitUtils;
     private PollsPage pollsPage;
+    private SurveysPage surveysPage;
 
     @FindBy(xpath = ".//div[@class='user-profile-name']")
     private WebElement publisherFullName;
 
     @FindBy(xpath = ".//li[@data-menu='polls']")
     private WebElement pollsMenuButton;
+
+    @FindBy(xpath = ".//li[@data-menu='surveys']")
+    private WebElement surveysMenuButton;
 
     public OnboardingPublisherPage(WebDriver driver) {
         super(driver);
@@ -47,5 +52,14 @@ public class OnboardingPublisherPage extends BaseComponent {
         waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
         waitUtils.waitForLoading();
         return pollsPage;
+    }
+
+    public SurveysPage openSurveysPage() {
+        surveysPage = new SurveysPage(driver);
+
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
+        waitUtils.waitForLoading();
+        return surveysPage;
     }
 }
