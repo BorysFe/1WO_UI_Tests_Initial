@@ -53,11 +53,21 @@ public class PublisherLoginPage extends BaseComponent {
 
     @BeforeMethod
     public PublisherLoginPage getPublisherLoginPage() {
-        logger.info("Opening Publisher Login page");
-        driver.get(PageURLs.PORTAL_LOGIN_PARTNER.toString());
+
         waitUtils.waitForLoading();
 
-        return this;
+        try {
+            logger.info("Opening Publisher Login page");
+            driver.get(PageURLs.PORTAL_LOGIN_PARTNER.toString());
+            waitUtils.waitForLoading();
+
+            return this;
+
+        } catch (Exception e) {
+            logger.error("Member already authorised");
+        }
+
+        return null;
     }
 
     @AfterMethod
@@ -69,20 +79,24 @@ public class PublisherLoginPage extends BaseComponent {
         onboardingPage = new OnboardingPublisherPage(driver);
         waitUtils.waitForLoading();
 
-        if (eMail != null) {
-            waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailField).clear();
-            waitUtils.waitForLoading();
-            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(eMail);
-        }
-        if (password != null) {
-            waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordField).clear();
-            waitUtils.waitForLoading();
-            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
-        }
+        try {
+            if (eMail != null) {
+                waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailField).clear();
+                waitUtils.waitForLoading();
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(eMail);
+            }
+            if (password != null) {
+                waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordField).clear();
+                waitUtils.waitForLoading();
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
+            }
 
-        System.out.println(eMail + " / " + password);
-        waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
-        waitUtils.waitForLoading();
+            System.out.println(eMail + " / " + password);
+            waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
+            waitUtils.waitForLoading();
+        } catch (Exception e) {
+            logger.error("Member already authorised");
+        }
 
         return onboardingPage;
     }

@@ -52,11 +52,6 @@ public class newFullPageSurveyTest extends DriverFactory {
         menuProfileDropDown.tryLogOut();
     }
 
-    @AfterClass
-    public void closeDriver() {
-        driver.quit();
-    }
-
     @Test
     public void checkDisplayLanguageModal() {
         surveysPage.startNewFullPageSurveyCreating();

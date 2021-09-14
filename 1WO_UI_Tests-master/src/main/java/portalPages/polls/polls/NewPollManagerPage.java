@@ -115,16 +115,4 @@ public class NewPollManagerPage extends BaseComponent {
         waitUtils.waitMilliseconds(100, "Wait for alert displayed");
         driver.switchTo().alert().accept();
     }
-
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    void setField(By element, String text) {
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).clear();
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).sendKeys(text);
-    }
 }
