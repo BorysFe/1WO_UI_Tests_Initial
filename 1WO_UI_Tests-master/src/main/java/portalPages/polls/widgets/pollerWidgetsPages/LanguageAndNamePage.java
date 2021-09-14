@@ -18,6 +18,8 @@ public class LanguageAndNamePage extends BaseComponent {
     WaitUtils waitUtils;
     ContentBuilderPage contentBuilderPage;
 
+    String nameWidgetField = String.format(GeneralLocators.INPUT_BY_ID.toString(), "widget-name");
+
     public LanguageAndNamePage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
@@ -25,6 +27,7 @@ public class LanguageAndNamePage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath
                 (String.format(GeneralLocators.INPUT_BY_ID.toString(), "widget-name")));
     }
@@ -57,29 +60,16 @@ public class LanguageAndNamePage extends BaseComponent {
     }
 
     private WebElement getDropdownItem(String dropdownItem) {
+
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
                 (String.format(GeneralLocators.SELECT_BY_NAME.toString(), dropdownItem)));
     }
 
     public LanguageAndNamePage newWidgetDefaultLanguage(String widgetName) {
-        String nameWidgetField = String.format(GeneralLocators.INPUT_BY_ID.toString(), "widget-name");
-
         waitUtils.waitForLoading();
         logger.info("Set Widget Name field with: " + widgetName);
         setField(By.xpath(nameWidgetField), widgetName);
 
         return this;
-    }
-
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    void setField(By element, String text) {
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).clear();
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).sendKeys(text);
     }
 }

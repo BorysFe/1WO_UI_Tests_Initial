@@ -1,4 +1,4 @@
-package portal.partners.widgets;
+package portal.partners.polls.pollerWidgets;
 
 import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
@@ -44,7 +44,7 @@ public class NewWidgetTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-            menuProfileDropDown.tryLogOut();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass

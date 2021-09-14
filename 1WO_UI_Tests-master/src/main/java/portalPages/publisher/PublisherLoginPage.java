@@ -3,6 +3,7 @@ package portalPages.publisher;
 import base.BaseComponent;
 import base.enums.PageURLs;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,7 @@ import portalPages.polls.polls.PollsPage;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class PublisherLoginPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(PublisherLoginPage.class);
 

@@ -1,21 +1,18 @@
 package widgets.pollsWidget;
 
 import base.enums.Accounts;
-import base.enums.WidgetDefaultContent;
+import base.enums.DefaultContent;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.AccountsInfoPage;
-import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
-import utils.UtilityHelper;
 
 public class PollsWidgetVotingTest extends DriverFactory {
-    FeedPage feedPage;
     PublisherLoginPage publisherLoginPage;
     PollsPage pollsPage;
     PollerWidgetsPage pollerWidgetsPage;
@@ -34,8 +31,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
     }
 
     @BeforeMethod
-    public void pagesDriver() {
-        feedPage = new FeedPage(driver);
+    public void loginPublisher() {
         publisherLoginPage = new PublisherLoginPage(driver);
         pollsPage = new PollsPage(driver);
         pollerWidgetsPage = new PollerWidgetsPage(driver);
@@ -59,22 +55,19 @@ public class PollsWidgetVotingTest extends DriverFactory {
     }
 
     @Test
-    public void votingDefaultPollerWidget() {
-        String widgetName = String.format(WidgetDefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
+    public void votingPollerWidgetByAnonimToSynthetic() {
+        String widgetName = String.format(DefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
 
-        String pollQuestionText1 = String.format(WidgetDefaultContent.POLL_QUESTION_TEXT.toString(), "1");
-        String pollAnswerText1 = String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1");
-        String pollQuestionText2 = String.format(WidgetDefaultContent.POLL_QUESTION_TEXT.toString(), "2");
-        String pollAnswerText2 = String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "2");
+        String pollQuestionText1 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "1");
+        String pollAnswerText1 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1");
+        String pollAnswerText2 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "2");
 
 
         pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
-//        pollsPage.addNewPoll(pollQuestionText2, pollAnswerText1, pollAnswerText2);
         pollsPage.startNewWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
                 .nextButtonClick()
                 .addPollToWidget(pollQuestionText1)
-//                .addPollToWidget(pollQuestionText2)
                 .nextButtonClick()
                 .nextButtonClick()
                 .finishButtonClick();
@@ -90,9 +83,9 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .isTrue();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetOWOCode);
-        pollerWidgetPreviewPage.voteAnswer(String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
+        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
 
-        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(WidgetDefaultContent.POLL_ANSWER_TEXT.toString(), "1")))
+        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1")))
                 .as("Vote from member wasn't counted")
                 .isTrue();
 

@@ -42,18 +42,6 @@ public class ResetPasswordPage extends BaseComponent {
         return resetPasswordEmailField;
     }
 
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    void setField(By element, String text) {
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).clear();
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).sendKeys(text);
-    }
-
     public void resetPassword(String accountEmail) {
         waitUtils.clickWhenReadyAfterShortWait(forgotPasswordButton);
         waitUtils.waitForLoading();
@@ -65,6 +53,7 @@ public class ResetPasswordPage extends BaseComponent {
 
     public boolean isResetPasswordMailSent() {
         waitUtils.waitForLoading();
+
         return waitUtils.isElementVisibleNow(resetPasswordSuccessMessage);
     }
 
@@ -76,6 +65,5 @@ public class ResetPasswordPage extends BaseComponent {
         setField(retypeNewPassword, newMemberPassword);
         waitUtils.clickWhenReadyAfterShortWait(resetPasswordSubmit);
         waitUtils.waitForLoading();
-        ;
     }
 }

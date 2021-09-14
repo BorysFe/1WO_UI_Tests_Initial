@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 public class PurtnerDashBoardTest {
+
     @Test
     public static void valueScorePartner() {
         JSONObject requestBody = new JSONObject();

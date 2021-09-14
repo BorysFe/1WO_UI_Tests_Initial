@@ -14,7 +14,7 @@ public class SurveysPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(SurveysPage.class);
 
     WaitUtils waitUtils;
-    private SelectLanguageModalPage languageModal;
+    private final SelectLanguageModalPage languageModal;
 
     @Override
     protected WebElement getMainElementInComponent() {
@@ -28,8 +28,6 @@ public class SurveysPage extends BaseComponent {
     }
 
     public SelectLanguageModalPage startNewFullPageSurveyCreating() {
-        languageModal = new SelectLanguageModalPage(driver);
-
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath
                 (String.format(GeneralLocators.INPUT_BY_VALUE.toString(), "New Full Page survey")));
@@ -43,5 +41,12 @@ public class SurveysPage extends BaseComponent {
 
         return waitUtils.isElementVisibleAfterShortWait(By.xpath
                 (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), title)));
+    }
+
+    public boolean isLanguageModalDisplayed() {
+        waitUtils.waitForLoading();
+
+        return waitUtils.isElementVisibleAfterShortWait(By.xpath
+                (String.format(GeneralLocators.DIV_BY_CLASS.toString(), "g-modal-padding-box")));
     }
 }

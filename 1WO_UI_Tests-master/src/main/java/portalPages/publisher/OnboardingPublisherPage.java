@@ -37,11 +37,13 @@ public class OnboardingPublisherPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return publisherFullName;
     }
 
     private boolean isPublisherAuthorised() {
         waitUtils.waitForLoading();
+
         return waitUtils.isElementVisibleNow(publisherFullName);
     }
 
@@ -51,6 +53,7 @@ public class OnboardingPublisherPage extends BaseComponent {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
         waitUtils.waitForLoading();
+
         return pollsPage;
     }
 
@@ -58,8 +61,9 @@ public class OnboardingPublisherPage extends BaseComponent {
         surveysPage = new SurveysPage(driver);
 
         waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
+        waitUtils.clickWhenReadyAfterShortWait(surveysMenuButton);
         waitUtils.waitForLoading();
+
         return surveysPage;
     }
 }

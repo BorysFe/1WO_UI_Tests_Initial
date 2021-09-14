@@ -35,6 +35,7 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return driver.findElement(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_SIGN_IN_BUTTON)));
     }
 
@@ -76,6 +77,7 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
 
     public boolean isAuthenticationErrorDisplayed() {
         waitUtils.waitForLoading();
+
         return waitUtils.isElementVisibleAfterMiddleWait(errorMessageAuthenticationFailed);
     }
 
@@ -92,17 +94,5 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(inputElement, SignLinks.SIGN_UP_SUBMIT_BUTTON)));
         logger.info("SignUp process");
         waitUtils.waitForLoading();
-    }
-
-    void setField(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    void setField(By element, String text) {
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).clear();
-        waitUtils.waitVisibilityOfElementByShort(element);
-        driver.findElement(element).sendKeys(text);
     }
 }

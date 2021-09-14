@@ -36,6 +36,7 @@ public class MenuProfileDropDown extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return adminDashboardButton;
     }
 
@@ -52,7 +53,6 @@ public class MenuProfileDropDown extends BaseComponent {
 
     public void logOut() {
         openMenuProfile();
-        waitUtils.waitForLoading();
         waitUtils.isElementVisibleAfterShortWait(logOutButton);
         waitUtils.clickWhenReadyAfterShortWait(logOutButton);
         waitUtils.waitMilliseconds(500);
@@ -66,15 +66,15 @@ public class MenuProfileDropDown extends BaseComponent {
             waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
             logger.info("Menu was opened");
             waitUtils.waitForLoading();
-        } logger.info("Menu opened");
+        }
     }
 
     private boolean isMenuProfileDropDownOpened() {
+
         return waitUtils.isElementVisibleNow(profileDropDownMenu);
     }
 
     public void tryLogOut() {
-        logger.info("Member authorization verification");
         try {
             logOut();
         } catch (Exception e) {

@@ -17,19 +17,19 @@ public class SurveyBrandingPage extends BaseComponent {
 
     public SurveyBrandingPage(WebDriver driver) {
         super(driver);
+        waitUtils = new WaitUtils(driver);
         builderPage = new SurveyBuilderPage(driver);
     }
 
     @Override
     protected WebElement getMainElementInComponent() {
-        return null;
+
+        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
+                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
     }
 
     public SurveyBuilderPage clickNext() {
-
-        waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+        clickNextButton();
 
         return builderPage;
     }

@@ -10,26 +10,26 @@ import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
 
 public class SurveyMessagesPage extends BaseComponent {
-    private static final Logger logger = LoggerFactory.getLogger(SurveyBrandingPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(SurveyMessagesPage.class);
 
     WaitUtils waitUtils;
-    private SurveyBrandingPage brandingPage;
+    SurveysPage surveysPage;
+
+    String finishButton = String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish");
 
     public SurveyMessagesPage(WebDriver driver) {
         super(driver);
-        brandingPage = new SurveyBrandingPage(driver);
+        waitUtils = new WaitUtils(driver);
+        surveysPage = new SurveysPage(driver);
     }
 
     @Override
     protected WebElement getMainElementInComponent() {
-        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+
+        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(finishButton));
     }
 
     public void clickFinish() {
-
-        waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+        clickFinishButton();
     }
 }

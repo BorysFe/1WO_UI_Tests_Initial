@@ -83,11 +83,9 @@ public class WaitUtils extends DriverFactory {
         midWait.until(WOExpectedConditions.isJavascriptTrue(js));
     }
 
-
     public void waitMilliseconds(int milliseconds) {
         waitMilliseconds(milliseconds, "wait");
     }
-
 
     public void waitForAlertToShowUp() {
         midWait.until(ExpectedConditions.alertIsPresent());
@@ -142,7 +140,6 @@ public class WaitUtils extends DriverFactory {
     public void waitForElementToBeDisplayedWithPageRefresh(By element) {
         waitForElementToBeDisplayedWithPageRefresh(element, LONG_TIMEOUT);
     }
-
 
     public void waitForElementToBeDisplayedWithPageRefresh(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -258,12 +255,9 @@ public class WaitUtils extends DriverFactory {
         clickWhenReady(element, LONG_TIMEOUT);
     }
 
-
     public boolean isElementVisibleNow(By locator) {
         return isElementVisible(locator, 0);
     }
-
-
 
     public boolean isElementVisibleAfterShortWait(By locator) {
         return isElementVisible(locator, SHORT_TIMEOUT);
