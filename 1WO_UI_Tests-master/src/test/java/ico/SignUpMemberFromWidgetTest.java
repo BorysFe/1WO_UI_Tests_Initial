@@ -9,21 +9,27 @@ import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
+import portalPages.polls.widgets.pollerWidgetsPages.ContentBuilderPage;
+import portalPages.polls.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
+import portalPages.polls.widgets.pollerWidgetsPages.MobileSettingsAndPreviewPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
 
 public class SignUpMemberFromWidgetTest extends DriverFactory {
-    FeedPage feedPage;
     PublisherLoginPage publisherLoginPage;
+    MenuProfileDropDown menuProfileDropDown;
+
     PollsPage pollsPage;
     PollerWidgetsPage pollerWidgetsPage;
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
+    ContentBuilderPage contentBuilderPage;
+    DesktopSettingsAndPreviewPage desktopSettingsAndPreviewPage;
+    MobileSettingsAndPreviewPage mobileSettingsAndPreviewPage;
     AccountsInfoPage accountInfoPage;
-    MenuProfileDropDown menuProfileDropDown;
 
-    String loginAdmin;
-    String passwordAdmin;
+    String loginPublisher;
+    String passwordPublisher;
     String pollQuestionText1;
     String pollAnswerText1;
     String pollQuestionText2;
@@ -31,23 +37,27 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
 
     @BeforeClass
     public void memberCredentials() {
-        loginAdmin = Accounts.ADMIN_LOGIN.toString();
-        passwordAdmin = Accounts.ADMIN_PASSWORD.toString();
-        System.out.println(loginAdmin + " / " + passwordAdmin);
+        loginPublisher = Accounts.PUBLISHER_LOGIN.toString();
+        passwordPublisher = Accounts.PUBLISHER_PASSWORD.toString();
+        System.out.println(loginPublisher + " / " + passwordPublisher);
     }
 
     @BeforeMethod
-    public void pagesDriver() {
-        feedPage = new FeedPage(driver);
+    public void creatingPoll() {
         publisherLoginPage = new PublisherLoginPage(driver);
+        menuProfileDropDown = new MenuProfileDropDown(driver);
+
         pollsPage = new PollsPage(driver);
         pollerWidgetsPage = new PollerWidgetsPage(driver);
         pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
+        contentBuilderPage = new ContentBuilderPage(driver);
+        desktopSettingsAndPreviewPage = new DesktopSettingsAndPreviewPage(driver);
+        mobileSettingsAndPreviewPage = new MobileSettingsAndPreviewPage(driver);
+
         accountInfoPage = new AccountsInfoPage(driver);
-        menuProfileDropDown = new MenuProfileDropDown(driver);
 
         publisherLoginPage.getPublisherLoginPage()
-                .loginPublisher(loginAdmin, passwordAdmin)
+                .loginPublisher(loginPublisher, passwordPublisher)
                 .openPollsPage();
 
         pollQuestionText1 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "1");
@@ -64,34 +74,30 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
         menuProfileDropDown.tryLogOut();
     }
 
-    @AfterClass
-    public void closeDriver() {
-        driver.quit();
-    }
-
     @Test
     public void signUpMemberAfterVote() {
         String widgetName = String.format(DefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
 
         pollsPage.startNewWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
-                .nextButtonClick()
-                .addPollToWidget(pollQuestionText1)
+                .nextButtonClick();
+        contentBuilderPage.addPollToWidget(pollQuestionText1)
                 .addPollToWidget(pollQuestionText2)
-                .nextButtonClick()
-                .selectCheckBox("Show user's score**")
-                .nextButtonClick()
-                .finishButtonClick();
+                .nextButtonClick();
+        desktopSettingsAndPreviewPage.nextButtonClick();
+        mobileSettingsAndPreviewPage.finishButtonClick();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
         pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
 
-        Assertions.assertThat(pollerWidgetPreviewPage.getUsersScore())
-                .as("Vote from member wasn't counted")
-                .isEqualTo("10");
+        Assertions.assertThat(pollerWidgetPreviewPage.isAnswerVoted(pollAnswerText1))
+                .as("Vote from user wasn't counted")
+                .isTrue();
 
         accountInfoPage.openAccountInfoPage();
 
-
+        Assertions.assertThat(accountInfoPage.isUserSynthetic())
+                .as("User isn't synthetic")
+                .isTrue();
     }
 }

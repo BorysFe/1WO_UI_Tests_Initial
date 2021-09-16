@@ -51,20 +51,32 @@ public class MenuProfileDropDown extends BaseComponent {
         return adminDashboardPage;
     }
 
-    public void logOut() {
-        openMenuProfile();
-        waitUtils.isElementVisibleAfterShortWait(logOutButton);
-        waitUtils.clickWhenReadyAfterShortWait(logOutButton);
-        waitUtils.waitMilliseconds(500);
+    public void tryLogOut() {
 
-        logger.info("LogOut from Account");
+        try {
+            logOut();
+        } catch (Exception e) {
+            logger.error("Member not authorised");
+        }
+    }
+
+    public void logOut() {
+        try {
+            openMenuProfile();
+            waitUtils.isElementVisibleAfterShortWait(logOutButton);
+            waitUtils.clickWhenReadyAfterShortWait(logOutButton);
+            waitUtils.waitMilliseconds(500);
+
+            logger.info("LogOut from Account");
+        } catch (Exception e) {
+            logger.error("User not authorised");
+        }
     }
 
     public void openMenuProfile() {
         waitUtils.waitForLoading();
         if (!isMenuProfileDropDownOpened()) {
             waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
-            logger.info("Menu was opened");
             waitUtils.waitForLoading();
         }
     }
@@ -72,13 +84,5 @@ public class MenuProfileDropDown extends BaseComponent {
     private boolean isMenuProfileDropDownOpened() {
 
         return waitUtils.isElementVisibleNow(profileDropDownMenu);
-    }
-
-    public void tryLogOut() {
-        try {
-            logOut();
-        } catch (Exception e) {
-            logger.error("Member not authorised");
-        }
     }
 }

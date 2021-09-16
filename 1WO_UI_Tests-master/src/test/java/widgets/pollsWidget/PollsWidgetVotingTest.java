@@ -55,7 +55,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
     }
 
     @Test
-    public void votingPollerWidgetByAnonimToSynthetic() {
+    public void votingPollerWidgetByAnonymousToSynthetic() {
         String widgetName = String.format(DefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
 
         String pollQuestionText1 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "1");

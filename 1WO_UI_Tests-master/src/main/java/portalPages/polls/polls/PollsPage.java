@@ -43,7 +43,8 @@ public class PollsPage extends BaseComponent {
 
         selectPollLanguageModalPage = new SelectLanguageModalPage(driver);
 
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String
+                .format(GeneralLocators.DIV_BY_ID.toString(), "create-poll")));
         waitUtils.waitForLoading();
 
         return selectPollLanguageModalPage;
@@ -57,20 +58,31 @@ public class PollsPage extends BaseComponent {
 
     public PollsPage addNewPoll(String questionText, String answer1, String answer2) {
 
-        waitUtils.waitForLoading();
-        startNewPollCreating()
-                .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_REGION.toString(), RegionsAndLanguages.REGION_ALL.toString())
-                .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_LANGUAGE.toString(), RegionsAndLanguages.LANGUAGE_ENGLISH.toString())
-                .modalSubmit();
+        try {
+            waitUtils.waitForLoading();
+            startNewPollCreating()
+                    .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_REGION.toString(), RegionsAndLanguages.REGION_ALL.toString())
+                    .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_LANGUAGE.toString(), RegionsAndLanguages.LANGUAGE_ENGLISH.toString())
+                    .modalSubmit();
 
-        newPollManager.selectPollCategoryOpen(PollCategory.CATEGORY_ART_CULTURE.toString())
-                .fillQuestion(questionText)
-                .fillAnswer("0", answer1)
-                .fillAnswer("1", answer2)
-                .saveNewPollPage();
-        newPollManager.saveNewPollPageWithAlertAccept();
+            newPollManager.selectPollCategoryOpen(PollCategory.CATEGORY_ART_CULTURE.toString())
+                    .fillQuestion(questionText)
+                    .fillAnswer("0", answer1)
+                    .fillAnswer("1", answer2)
+                    .saveNewPollPage();
 
-        return this;
+            try {
+                newPollManager.saveNewPollPageWithAlertAccept();
+            } catch (Exception e) {
+                logger.info("Can't submit alert");
+            }
+
+            return this;
+
+        } catch (Exception e) {
+            logger.error("Some Problem with poll creating");
+            return this;
+        }
     }
 
     public LanguageAndNamePage startNewWidgetCreating() {
