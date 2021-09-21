@@ -17,10 +17,10 @@ public enum GeneralLocators {
 
     DIV_BY_ID(".//div[@id='%s']");
 
-    private final String xPath;
+    private String xPath;
 
-    GeneralLocators(final String xPath) {
-        this.xPath = xPath;
+    GeneralLocators(String xPatth) {
+        this.xPath = xPatth;
     }
 
     @Override

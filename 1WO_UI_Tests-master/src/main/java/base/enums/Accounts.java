@@ -19,6 +19,10 @@ public enum Accounts {
 
     PUBLISHER_LOGIN("borys1620396685711@mailinator.com"),
     PUBLISHER_PASSWORD("Qwerty123!"),
+    PUBLISHER_COOKIE("RememberMe=Ym9yeXNib3J5c0BtYWlsaW5hdG9yLmNvbQ~~#l7DMAoTz70MSh4CXoIp3hA~~"),
+    PUBLISHER_ID("\"f9f5cc9e-cf6c-4c6e-90a1-a54f0863dcbc\""),
+
+
 
     USER_EXISTED_LOGIN("borys1620398454294@mailinator.com"),
     USER_EXISTED_PASSWORD("Qwerty123!"),

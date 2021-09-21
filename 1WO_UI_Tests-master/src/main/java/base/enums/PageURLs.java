@@ -22,14 +22,16 @@ public enum PageURLs {
     PORTAL_ADMIN_PARTNERS_LIST(PORTAL + "admin/partner-list/1/votesCount/desc"),
     PORTAL_ADMIN_DASHBOARD_SUMMARY(PORTAL + "admin/dashboard/summary"),
 
-
     DAN_CAMPAIGN_ANSWER_URL("https://isa.decipherinc.com/survey/selfserve/584/190602#?"),
 
     WIDGET_PREVIEW_PAGE_URL(PORTAL + "widget/%s"),
 
+    REST_ASSURED_BASE_URI("https://app.1worldonline.com/"),
+
     MAILINATOR("https://mailinator.com");
 
     private String pageURL;
+
 
     PageURLs(String pageURL) {
         this.pageURL = pageURL;

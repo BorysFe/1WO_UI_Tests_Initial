@@ -33,6 +33,8 @@ public class OnboardingPublisherPage extends BaseComponent {
     public OnboardingPublisherPage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
+        pollsPage = new PollsPage(driver);
+        surveysPage = new SurveysPage(driver);
     }
 
     @Override
@@ -48,8 +50,6 @@ public class OnboardingPublisherPage extends BaseComponent {
     }
 
     public PollsPage openPollsPage() {
-        pollsPage = new PollsPage(driver);
-
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
         waitUtils.waitForLoading();
@@ -58,8 +58,6 @@ public class OnboardingPublisherPage extends BaseComponent {
     }
 
     public SurveysPage openSurveysPage() {
-        surveysPage = new SurveysPage(driver);
-
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(surveysMenuButton);
         waitUtils.waitForLoading();
