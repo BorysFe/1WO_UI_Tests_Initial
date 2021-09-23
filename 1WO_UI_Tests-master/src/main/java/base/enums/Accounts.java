@@ -19,10 +19,8 @@ public enum Accounts {
 
     PUBLISHER_LOGIN("borys1620396685711@mailinator.com"),
     PUBLISHER_PASSWORD("Qwerty123!"),
-    PUBLISHER_COOKIE("RememberMe=Ym9yeXNib3J5c0BtYWlsaW5hdG9yLmNvbQ~~#l7DMAoTz70MSh4CXoIp3hA~~"),
-    PUBLISHER_ID("\"f9f5cc9e-cf6c-4c6e-90a1-a54f0863dcbc\""),
-
-
+    PUBLISHER_COOKIE("RememberMe=Ym9yeXMxNjIwMzk2Njg1NzExQG1haWxpbmF0b3IuY29t#oWbTK96pAx7mm2/SI7NHdA~~"),
+    PUBLISHER_ID("0818ac2f-d972-4f28-9aa0-ef340ed6527f"),
 
     USER_EXISTED_LOGIN("borys1620398454294@mailinator.com"),
     USER_EXISTED_PASSWORD("Qwerty123!"),

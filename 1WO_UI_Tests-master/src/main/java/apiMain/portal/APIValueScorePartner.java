@@ -90,7 +90,6 @@ public class APIValueScorePartner {
             lists.add(names);
         }
 
-        System.out.println(lists.get(0));
         return lists.get(0).get(0);
     }
 }

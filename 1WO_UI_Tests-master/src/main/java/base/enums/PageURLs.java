@@ -5,11 +5,13 @@ public enum PageURLs {
     //    APP("https://app.1worldonline.com/"),
     //    PORTAL("https://frontend.1worldonline.com/#!/"),
     //    WELCOME_PAGE("https://welcome.1worldonline.com/"),
+//    REST_ASSURED_BASE_URI("https://app.1worldonline.com/"),
 
 
     APP("https://app-qa.1worldonline.biz/"),
     PORTAL("https://frontend-qa.1worldonline.biz/#!/"),
     WELCOME_PAGE("https://welcome-qa-ecs.1worldonline.biz/"),
+    REST_ASSURED_BASE_URI("https://app-qa.1worldonline.biz/"),
 
     ACCOUNT_INFO(APP + "account/"),
 
@@ -25,8 +27,6 @@ public enum PageURLs {
     DAN_CAMPAIGN_ANSWER_URL("https://isa.decipherinc.com/survey/selfserve/584/190602#?"),
 
     WIDGET_PREVIEW_PAGE_URL(PORTAL + "widget/%s"),
-
-    REST_ASSURED_BASE_URI("https://app.1worldonline.com/"),
 
     MAILINATOR("https://mailinator.com");
 

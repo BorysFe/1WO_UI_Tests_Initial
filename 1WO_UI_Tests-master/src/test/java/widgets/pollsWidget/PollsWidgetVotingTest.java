@@ -56,11 +56,11 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
     @Test
     public void votingPollerWidgetByAnonymousToSynthetic() {
-        String widgetName = String.format(DefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
+        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
 
-        String pollQuestionText1 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "1");
-        String pollAnswerText1 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1");
-        String pollAnswerText2 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "2");
+        String pollQuestionText1 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "1");
+        String pollAnswerText1 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1");
+        String pollAnswerText2 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "2");
 
 
         pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
@@ -83,9 +83,9 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .isTrue();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetOWOCode);
-        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
+        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1"));
 
-        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1")))
+        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1")))
                 .as("Vote from member wasn't counted")
                 .isTrue();
 

@@ -2,14 +2,24 @@ package apiTests.portal;
 
 import apiMain.portal.APIValueScorePartner;
 import base.enums.Accounts;
+import base.enums.PageURLs;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
+import org.json.simple.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class APIIntroductionScreenValueScorePartnerTest {
 
-    private static String partnerId;
     private static String partnerCookie;
+    private static String partnerId;
 
     @BeforeClass
     public void preparePartnerData() {

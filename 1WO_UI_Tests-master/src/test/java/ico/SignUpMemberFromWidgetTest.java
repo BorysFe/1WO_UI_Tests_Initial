@@ -5,7 +5,6 @@ import base.enums.DefaultContent;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import portalPages.AccountsInfoPage;
-import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
@@ -60,10 +59,10 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
                 .loginPublisher(loginPublisher, passwordPublisher)
                 .openPollsPage();
 
-        pollQuestionText1 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "1");
-        pollAnswerText1 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1");
-        pollQuestionText2 = String.format(DefaultContent.POLL_QUESTION_TEXT.toString(), "2");
-        pollAnswerText2 = String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "2");
+        pollQuestionText1 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "1");
+        pollAnswerText1 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1");
+        pollQuestionText2 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "2");
+        pollAnswerText2 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "2");
 
         pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
         pollsPage.addNewPoll(pollQuestionText2, pollAnswerText1, pollAnswerText2);
@@ -76,7 +75,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
 
     @Test
     public void signUpMemberAfterVote() {
-        String widgetName = String.format(DefaultContent.DEFAULT_WIDGET_NAME.toString(), "1");
+        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
 
         pollsPage.startNewWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
@@ -88,7 +87,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
         mobileSettingsAndPreviewPage.finishButtonClick();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
-        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.POLL_ANSWER_TEXT.toString(), "1"));
+        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1"));
 
         Assertions.assertThat(pollerWidgetPreviewPage.isAnswerVoted(pollAnswerText1))
                 .as("Vote from user wasn't counted")
