@@ -1,5 +1,7 @@
 package widgets.pollsWidget;
 
+import apiMain.portal.pollerWidget.APIPoll;
+import apiMain.portal.pollerWidget.APIPollerWidget;
 import base.enums.Accounts;
 import base.enums.DefaultContent;
 import org.assertj.core.api.Assertions;
@@ -12,6 +14,8 @@ import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
 
+import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
+
 public class PollsWidgetVotingTest extends DriverFactory {
     PublisherLoginPage publisherLoginPage;
     PollsPage pollsPage;
@@ -22,11 +26,15 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
     String loginPublisher;
     String passwordPublisher;
+    String partnerId;
+    String partnerCookie;
 
     @BeforeClass
     public void memberCredentials() {
         loginPublisher = Accounts.PUBLISHER_LOGIN.toString();
         passwordPublisher = Accounts.PUBLISHER_PASSWORD.toString();
+        partnerId = Accounts.PUBLISHER_ID.toString();
+        partnerCookie = Accounts.PUBLISHER_COOKIE.toString();
         System.out.println(loginPublisher + " / " + passwordPublisher);
     }
 
@@ -39,9 +47,9 @@ public class PollsWidgetVotingTest extends DriverFactory {
         menuProfileDropDown = new MenuProfileDropDown(driver);
         accountsInfoPage = new AccountsInfoPage(driver);
 
-        publisherLoginPage.getPublisherLoginPage()
-                .loginPublisher(loginPublisher, passwordPublisher)
-                .openPollsPage();
+//        publisherLoginPage.getPublisherLoginPage()
+//                .loginPublisher(loginPublisher, passwordPublisher)
+//                .openPollsPage();
     }
 
     @AfterMethod
@@ -58,21 +66,15 @@ public class PollsWidgetVotingTest extends DriverFactory {
     public void votingPollerWidgetByAnonymousToSynthetic() {
         String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
 
-        String pollQuestionText1 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "1");
-        String pollAnswerText1 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1");
-        String pollAnswerText2 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "2");
+        Integer pollId1 = new APIPoll().getIdForNewRandomPoll(partnerId, partnerCookie, "Text1");
+        Integer pollId2 = new APIPoll().getIdForNewRandomPoll(partnerId, partnerCookie, "Text2");
+        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Text11");
 
+        String newWidgetId = new APIPollerWidget().getIdForNewPollerWidget(partnerId, partnerCookie, widgetName);
 
-        pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
-        pollsPage.startNewWidgetCreating()
-                .newWidgetDefaultLanguage(widgetName)
-                .nextButtonClick()
-                .addPollToWidget(pollQuestionText1)
-                .nextButtonClick()
-                .nextButtonClick()
-                .finishButtonClick();
+        System.out.println("Widget - " + newWidgetId + "; Poll1 - " + pollId1 + "; Poll2 - " + pollId2);
 
-        String widgetOWOCode = pollerWidgetsPage.getWidgetOWOCode(widgetName);
+        new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, newWidgetId);
 
         menuProfileDropDown.logOut();
 
@@ -82,10 +84,10 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .as("User isn't Anonim")
                 .isTrue();
 
-        pollerWidgetsPage.openPollerWidgetPreviewPage(widgetOWOCode);
-        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1"));
+        pollerWidgetsPage.openPollerWidgetPreviewPageByOWOCode(newWidgetId);
+        pollerWidgetPreviewPage.voteAnswer(answerText1);
 
-        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1")))
+        Assertions.assertThat(pollerWidgetPreviewPage.isPollsPercentsDisplayed(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "Text11")))
                 .as("Vote from member wasn't counted")
                 .isTrue();
 

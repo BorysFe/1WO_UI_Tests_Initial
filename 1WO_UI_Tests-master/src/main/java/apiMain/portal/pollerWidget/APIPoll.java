@@ -26,15 +26,6 @@ import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT;
 
 public class APIPoll {
 
-    String partnerId;
-    String partnerCookie;
-
-    @BeforeClass
-    public void preparePartnerData() {
-        partnerId = PUBLISHER_ID.toString();
-        partnerCookie = PUBLISHER_COOKIE.toString();
-    }
-
     public Response getResponseNewPollRequest(String partnerId,
                                               String partnerCookie,
                                               String questionText,
@@ -79,11 +70,14 @@ public class APIPoll {
         return response;
     }
 
-    public Response getResponseNewRandomPollRequest() {
+    public Response getResponseNewRandomPollRequest(String additionalText) {
 
-        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "1");
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "2");
+        String partnerId = Accounts.PUBLISHER_ID.toString();
+        String partnerCookie = Accounts.PUBLISHER_COOKIE.toString();
+
+        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), additionalText + "");
+        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");
+        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "2");
         String categoryId = String.valueOf(PollCategory.CATEGORY_VALUE_ART_CULTURE);
         String pollType = "dpoll";
         String locale = "en";
@@ -123,11 +117,11 @@ public class APIPoll {
         return response;
     }
 
-    public String getIdForNewRandomPoll() {
+    public Integer getIdForNewRandomPoll(String partnerId, String partnerCookie, String additionalText) {
 
-        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "1");
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "2");
+        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), additionalText);
+        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");
+        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "2");
         String categoryId = String.valueOf(PollCategory.CATEGORY_VALUE_ART_CULTURE);
         String pollType = "dpoll";
         String locale = "en";
@@ -144,6 +138,6 @@ public class APIPoll {
             e.printStackTrace();
         }
 
-        return jsonObject.get("id").toString();
+        return Integer.valueOf(jsonObject.get("id").toString());
     }
 }

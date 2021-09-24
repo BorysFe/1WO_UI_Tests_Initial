@@ -78,4 +78,14 @@ public class PollerWidgetsPage extends BaseComponent {
 
         return pollerWidgetPreviewPage;
     }
+
+    public PollerWidgetPreviewPage openPollerWidgetPreviewPageByOWOCode(String widgetOWOCode) {
+        waitUtils.waitForLoading();
+
+        String widgetPreviewPageURL = String.format(PageURLs.WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
+
+        driver.get(widgetPreviewPageURL);
+
+        return pollerWidgetPreviewPage;
+    }
 }
