@@ -117,7 +117,9 @@ public class APIPoll {
         return response;
     }
 
-    public Integer getIdForNewRandomPoll(String partnerId, String partnerCookie, String additionalText) {
+    public Integer getIdForNewRandomPoll(String partnerId,
+                                         String partnerCookie,
+                                         String additionalText) {
 
         String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), additionalText);
         String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");

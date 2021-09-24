@@ -28,68 +28,6 @@ public class APIPollerWidget {
         pollText = "Random Poll";
     }
 
-    //    private Response getResponseNewPollRequest(String partnerId,
-//                                               String partnerCookie,
-//                                               String questionText,
-//                                               String answerText1,
-//                                               String answerText2,
-//                                               int categoryId,
-//                                               String pollType,
-//                                               String locale) {
-//
-//        JSONObject requestBody = new JSONObject();
-//
-//        RestAssured.baseURI = PageURLs.REST_ASSURED_BASE_URI.toString();
-//
-//        JSONObject answer1json = new JSONObject();
-//        answer1json.put("answer", answerText1);
-//        JSONObject answer2json = new JSONObject();
-//        answer2json.put("answer", answerText2);
-//        List<JSONObject> jsonObjects = Arrays.asList(answer1json, answer2json);
-//        JSONObject sides = new JSONObject();
-//        sides.put("sides", jsonObjects);
-//
-//        JSONObject poll = new JSONObject();
-//        poll.put("categoryId", categoryId);
-//        poll.put("tagLine", questionText);
-//        poll.put("sides", jsonObjects);
-//        poll.put("type", pollType);
-//        poll.put("privatePoll", false);
-//
-//        requestBody.put("poll", poll);
-//        requestBody.put("partnerExternalId", partnerId);
-//        requestBody.put("locale", locale);
-//
-//        System.out.println(requestBody);
-//        RequestSpecification request = RestAssured.given()
-//                .header("cookie", partnerCookie)
-//                .and()
-//                .header("Content-Type", "application/json")
-//                .and()
-//                .body(requestBody.toString());
-//
-//        Response response = request.request(Method.POST, "1ws/json/PollCreateWithMultipleSides");
-//
-//        return response;
-//    }
-//
-//    public int getStatusNewPollerWidgetRequest(String questionText,
-//                                               String answerText1,
-//                                               String answerText2,
-//                                               int categoryId,
-//                                               String pollType,
-//                                               String locale) {
-//
-//        return getResponseNewPollRequest(partnerId,
-//                partnerCookie,
-//                questionText,
-//                answerText1,
-//                answerText2,
-//                categoryId,
-//                pollType,
-//                locale)
-//                .getStatusCode();
-//    }
     public int getStatusNewRandomPollerWidgetRequest() {
 
         int statusCode = new APIPoll().getResponseNewRandomPollRequest(pollText).getStatusCode();
@@ -134,7 +72,9 @@ public class APIPollerWidget {
         return response;
     }
 
-    public String getIdForNewPollerWidget(String partnerId, String partnerCookie, String widgetTitle) {
+    public String getIdForNewPollerWidget(String partnerId,
+                                          String partnerCookie,
+                                          String widgetTitle) {
 
         JSONObject requestBody = new JSONObject();
 
