@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="11.082" tests="66" errors="0" skipped="57" failures="8">
+  <properties>
+    <property name="gopherProxySet" value="false"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.specification.version" value="9"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/test-classes:/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/classes:/Users/1worldonline/.m2/repository/io/github/bonigarcia/webdrivermanager/4.3.1/webdrivermanager-4.3.1.jar:/Users/1worldonline/.m2/repository/commons-io/commons-io/2.8.0/commons-io-2.8.0.jar:/Users/1worldonline/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.0.3/httpclient5-5.0.3.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.0.2/httpcore5-5.0.2.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.0.2/httpcore5-h2-5.0.2.jar:/Users/1worldonline/.m2/repository/org/rauschig/jarchivelib/1.1.0/jarchivelib-1.1.0.jar:/Users/1worldonline/.m2/repository/org/jsoup/jsoup/1.13.1/jsoup-1.13.1.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.jar:/Users/1worldonline/.m2/repository/net/bytebuddy/byte-buddy/1.8.15/byte-buddy-1.8.15.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/1worldonline/.m2/repository/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar:/Users/1worldonline/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/1worldonline/.m2/repository/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.jar:/Users/1worldonline/.m2/repository/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar:/Users/1worldonline/.m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar:/Users/1worldonline/.m2/repository/com/squareup/okhttp3/okhttp/3.11.0/okhttp-3.11.0.jar:/Users/1worldonline/.m2/repository/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar:/Users/1worldonline/.m2/repository/org/assertj/assertj-core/3.15.0/assertj-core-3.15.0.jar:/Users/1worldonline/.m2/repository/org/testng/testng/6.14.3/testng-6.14.3.jar:/Users/1worldonline/.m2/repository/com/beust/jcommander/1.72/jcommander-1.72.jar:/Users/1worldonline/.m2/repository/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar:/Users/1worldonline/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugins/maven-compiler-plugin/3.8.1/maven-compiler-plugin-3.8.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-model/3.0/maven-model-3.0.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-core/3.0/maven-core-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-settings/3.0/maven-settings-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar:/Users/1worldonline/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar:/Users/1worldonline/.m2/repository/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/shared/maven-shared-incremental/1.1/maven-shared-incremental-1.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-java/0.9.10/plexus-java-0.9.10.jar:/Users/1worldonline/.m2/repository/org/ow2/asm/asm/6.2/asm-6.2.jar:/Users/1worldonline/.m2/repository/com/thoughtworks/qdox/qdox/2.0-M8/qdox-2.0-M8.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-api/2.8.4/plexus-compiler-api-2.8.4.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-manager/2.8.4/plexus-compiler-manager-2.8.4.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-javac/2.8.4/plexus-compiler-javac-2.8.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/maven-surefire-common/2.19.1/maven-surefire-common-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/surefire-booter/2.19.1/surefire-booter-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-descriptor/2.2.1/maven-plugin-descriptor-2.2.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar:/Users/1worldonline/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar:/Users/1worldonline/.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/surefire-api/2.19.1/surefire-api-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-toolchain/2.2.1/maven-toolchain-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugin-tools/maven-plugin-annotations/3.3/maven-plugin-annotations-3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/rest-assured/4.3.3/rest-assured-4.3.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy/3.0.7/groovy-3.0.7.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy-xml/3.0.7/groovy-xml-3.0.7.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpclient/4.5.3/httpclient-4.5.3.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpcore/4.4.6/httpcore-4.4.6.jar:/Users/1worldonline/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpmime/4.5.3/httpmime-4.5.3.jar:/Users/1worldonline/.m2/repository/org/hamcrest/hamcrest/2.1/hamcrest-2.1.jar:/Users/1worldonline/.m2/repository/org/ccil/cowan/tagsoup/tagsoup/1.2.1/tagsoup-1.2.1.jar:/Users/1worldonline/.m2/repository/io/rest-assured/json-path/4.3.3/json-path-4.3.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy-json/3.0.7/groovy-json-3.0.7.jar:/Users/1worldonline/.m2/repository/io/rest-assured/rest-assured-common/4.3.3/rest-assured-common-4.3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/xml-path/4.3.3/xml-path-4.3.3.jar:/Users/1worldonline/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3.jar:/Users/1worldonline/.m2/repository/jakarta/activation/jakarta.activation-api/1.2.2/jakarta.activation-api-1.2.2.jar:/Users/1worldonline/.m2/repository/com/sun/xml/bind/jaxb-impl/2.3.3/jaxb-impl-2.3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/json-schema-validator/4.3.1/json-schema-validator-4.3.1.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/json-schema-validator/2.2.10/json-schema-validator-2.2.10.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/json-schema-core/1.2.10/json-schema-core-1.2.10.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/jackson-coreutils/1.9/jackson-coreutils-1.9.jar:/Users/1worldonline/.m2/repository/com/github/fge/msg-simple/1.1/msg-simple-1.1.jar:/Users/1worldonline/.m2/repository/com/github/fge/btf/1.2/btf-1.2.jar:/Users/1worldonline/.m2/repository/com/github/fge/uri-template/0.9/uri-template-0.9.jar:/Users/1worldonline/.m2/repository/org/mozilla/rhino/1.7.7.1/rhino-1.7.7.1.jar:/Users/1worldonline/.m2/repository/javax/mail/mailapi/1.4.3/mailapi-1.4.3.jar:/Users/1worldonline/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/1worldonline/.m2/repository/joda-time/joda-time/2.9.7/joda-time-2.9.7.jar:/Users/1worldonline/.m2/repository/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.jar:/Users/1worldonline/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.jar:/Users/1worldonline/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/Users/1worldonline/.m2/repository/junit/junit/4.10/junit-4.10.jar:/Users/1worldonline/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-testng/2.13.1/allure-testng-2.13.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-java-commons/2.13.1/allure-java-commons-2.13.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-model/2.13.1/allure-model-2.13.1.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar:/Users/1worldonline/.m2/repository/org/apache/tika/tika-core/1.20/tika-core-1.20.jar:/Users/1worldonline/.m2/repository/org/jooq/joor-java-8/0.9.10/joor-java-8-0.9.10.jar:/Users/1worldonline/.m2/repository/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.jar:/Users/1worldonline/.m2/repository/org/slf4j/slf4j-simple/2.0.0-alpha1/slf4j-simple-2.0.0-alpha1.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi/3.17/poi-3.17.jar:/Users/1worldonline/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi-ooxml/4.1.2/poi-ooxml-4.1.2.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi-ooxml-schemas/4.1.2/poi-ooxml-schemas-4.1.2.jar:/Users/1worldonline/.m2/repository/org/apache/xmlbeans/xmlbeans/3.1.0/xmlbeans-3.1.0.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar:/Users/1worldonline/.m2/repository/com/github/virtuald/curvesapi/1.06/curvesapi-1.06.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.vm.specification.version" value="9"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="UA"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/surefire/surefirebooter17716763302260362741.jar /Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/surefire 2021-09-14T17-48-14_989-jvmRun1 surefire11678747112786841499tmp surefire_02798605423852623987tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/test-classes:/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/classes:/Users/1worldonline/.m2/repository/io/github/bonigarcia/webdrivermanager/4.3.1/webdrivermanager-4.3.1.jar:/Users/1worldonline/.m2/repository/commons-io/commons-io/2.8.0/commons-io-2.8.0.jar:/Users/1worldonline/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.0.3/httpclient5-5.0.3.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.0.2/httpcore5-5.0.2.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.0.2/httpcore5-h2-5.0.2.jar:/Users/1worldonline/.m2/repository/org/rauschig/jarchivelib/1.1.0/jarchivelib-1.1.0.jar:/Users/1worldonline/.m2/repository/org/jsoup/jsoup/1.13.1/jsoup-1.13.1.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.jar:/Users/1worldonline/.m2/repository/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.jar:/Users/1worldonline/.m2/repository/net/bytebuddy/byte-buddy/1.8.15/byte-buddy-1.8.15.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/1worldonline/.m2/repository/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar:/Users/1worldonline/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/1worldonline/.m2/repository/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.jar:/Users/1worldonline/.m2/repository/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar:/Users/1worldonline/.m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar:/Users/1worldonline/.m2/repository/com/squareup/okhttp3/okhttp/3.11.0/okhttp-3.11.0.jar:/Users/1worldonline/.m2/repository/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar:/Users/1worldonline/.m2/repository/org/assertj/assertj-core/3.15.0/assertj-core-3.15.0.jar:/Users/1worldonline/.m2/repository/org/testng/testng/6.14.3/testng-6.14.3.jar:/Users/1worldonline/.m2/repository/com/beust/jcommander/1.72/jcommander-1.72.jar:/Users/1worldonline/.m2/repository/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar:/Users/1worldonline/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugins/maven-compiler-plugin/3.8.1/maven-compiler-plugin-3.8.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-model/3.0/maven-model-3.0.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar:/Users/1worldonline/.m2/repository/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-core/3.0/maven-core-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-settings/3.0/maven-settings-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar:/Users/1worldonline/.m2/repository/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar:/Users/1worldonline/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar:/Users/1worldonline/.m2/repository/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/shared/maven-shared-incremental/1.1/maven-shared-incremental-1.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-java/0.9.10/plexus-java-0.9.10.jar:/Users/1worldonline/.m2/repository/org/ow2/asm/asm/6.2/asm-6.2.jar:/Users/1worldonline/.m2/repository/com/thoughtworks/qdox/qdox/2.0-M8/qdox-2.0-M8.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-api/2.8.4/plexus-compiler-api-2.8.4.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-manager/2.8.4/plexus-compiler-manager-2.8.4.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-compiler-javac/2.8.4/plexus-compiler-javac-2.8.4.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/2.19.1/maven-surefire-plugin-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/maven-surefire-common/2.19.1/maven-surefire-common-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/surefire-booter/2.19.1/surefire-booter-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-descriptor/2.2.1/maven-plugin-descriptor-2.2.1.jar:/Users/1worldonline/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar:/Users/1worldonline/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar:/Users/1worldonline/.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/surefire/surefire-api/2.19.1/surefire-api-2.19.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/maven-toolchain/2.2.1/maven-toolchain-2.2.1.jar:/Users/1worldonline/.m2/repository/org/apache/maven/plugin-tools/maven-plugin-annotations/3.3/maven-plugin-annotations-3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/rest-assured/4.3.3/rest-assured-4.3.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy/3.0.7/groovy-3.0.7.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy-xml/3.0.7/groovy-xml-3.0.7.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpclient/4.5.3/httpclient-4.5.3.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpcore/4.4.6/httpcore-4.4.6.jar:/Users/1worldonline/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/1worldonline/.m2/repository/org/apache/httpcomponents/httpmime/4.5.3/httpmime-4.5.3.jar:/Users/1worldonline/.m2/repository/org/hamcrest/hamcrest/2.1/hamcrest-2.1.jar:/Users/1worldonline/.m2/repository/org/ccil/cowan/tagsoup/tagsoup/1.2.1/tagsoup-1.2.1.jar:/Users/1worldonline/.m2/repository/io/rest-assured/json-path/4.3.3/json-path-4.3.3.jar:/Users/1worldonline/.m2/repository/org/codehaus/groovy/groovy-json/3.0.7/groovy-json-3.0.7.jar:/Users/1worldonline/.m2/repository/io/rest-assured/rest-assured-common/4.3.3/rest-assured-common-4.3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/xml-path/4.3.3/xml-path-4.3.3.jar:/Users/1worldonline/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3.jar:/Users/1worldonline/.m2/repository/jakarta/activation/jakarta.activation-api/1.2.2/jakarta.activation-api-1.2.2.jar:/Users/1worldonline/.m2/repository/com/sun/xml/bind/jaxb-impl/2.3.3/jaxb-impl-2.3.3.jar:/Users/1worldonline/.m2/repository/io/rest-assured/json-schema-validator/4.3.1/json-schema-validator-4.3.1.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/json-schema-validator/2.2.10/json-schema-validator-2.2.10.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/json-schema-core/1.2.10/json-schema-core-1.2.10.jar:/Users/1worldonline/.m2/repository/com/github/java-json-tools/jackson-coreutils/1.9/jackson-coreutils-1.9.jar:/Users/1worldonline/.m2/repository/com/github/fge/msg-simple/1.1/msg-simple-1.1.jar:/Users/1worldonline/.m2/repository/com/github/fge/btf/1.2/btf-1.2.jar:/Users/1worldonline/.m2/repository/com/github/fge/uri-template/0.9/uri-template-0.9.jar:/Users/1worldonline/.m2/repository/org/mozilla/rhino/1.7.7.1/rhino-1.7.7.1.jar:/Users/1worldonline/.m2/repository/javax/mail/mailapi/1.4.3/mailapi-1.4.3.jar:/Users/1worldonline/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/1worldonline/.m2/repository/joda-time/joda-time/2.9.7/joda-time-2.9.7.jar:/Users/1worldonline/.m2/repository/com/googlecode/libphonenumber/libphonenumber/8.0.0/libphonenumber-8.0.0.jar:/Users/1worldonline/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.jar:/Users/1worldonline/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/Users/1worldonline/.m2/repository/junit/junit/4.10/junit-4.10.jar:/Users/1worldonline/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-testng/2.13.1/allure-testng-2.13.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-java-commons/2.13.1/allure-java-commons-2.13.1.jar:/Users/1worldonline/.m2/repository/io/qameta/allure/allure-model/2.13.1/allure-model-2.13.1.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar:/Users/1worldonline/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar:/Users/1worldonline/.m2/repository/org/apache/tika/tika-core/1.20/tika-core-1.20.jar:/Users/1worldonline/.m2/repository/org/jooq/joor-java-8/0.9.10/joor-java-8-0.9.10.jar:/Users/1worldonline/.m2/repository/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.jar:/Users/1worldonline/.m2/repository/org/slf4j/slf4j-simple/2.0.0-alpha1/slf4j-simple-2.0.0-alpha1.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi/3.17/poi-3.17.jar:/Users/1worldonline/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi-ooxml/4.1.2/poi-ooxml-4.1.2.jar:/Users/1worldonline/.m2/repository/org/apache/poi/poi-ooxml-schemas/4.1.2/poi-ooxml-schemas-4.1.2.jar:/Users/1worldonline/.m2/repository/org/apache/xmlbeans/xmlbeans/3.1.0/xmlbeans-3.1.0.jar:/Users/1worldonline/.m2/repository/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar:/Users/1worldonline/.m2/repository/com/github/virtuald/curvesapi/1.06/curvesapi-1.06.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/1worldonline"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master/target/surefire/surefirebooter17716763302260362741.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="9.0.4+11"/>
+    <property name="user.name" value="1worldonline"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="10.16"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="/Users/1worldonline/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/var/folders/qz/4ybl8t8s48v064ffr1_tvy900000gn/T/"/>
+    <property name="idea.version" value="2021.1.2"/>
+    <property name="java.version" value="9.0.4"/>
+    <property name="user.dir" value="/Users/1worldonline/IdeaProjects/1WO_UI_Tests_Initial/1WO_UI_Tests-master"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/Users/1worldonline/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="9.0.4+11"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="java.class.version" value="53.0"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+  </properties>
+  <testcase name="pages" classname="portal.admin.dashboard.SummaryTabTest" time="1.769">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.admin.dashboard.SummaryTabTest.pages(SummaryTabTest.java:21)
+</failure>
+  </testcase>
+  <testcase name="openAdminDashboardSummeryTab" classname="portal.admin.dashboard.SummaryTabTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.admin.dashboard.SummaryTabTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.admin.dashboard.SummaryTabTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="loginPublisher" classname="portal.partners.surveys.newFullPageSurveyTest" time="2.084">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.partners.surveys.newFullPageSurveyTest.loginPublisher(newFullPageSurveyTest.java:35)
+</failure>
+    <system-out><![CDATA[borys1620396685711@mailinator.com / Qwerty123!
+]]></system-out>
+  </testcase>
+  <testcase name="loginPublisher" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="loginPublisher" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="loginPublisher" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="loginPublisher" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="checkDisplayLanguageModal" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="checkErrorByCorrectFillingNumberOfParticipants" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="checkErrorByRequiredCategory" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="createDefaultContentSurvey" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="createEmptySurvey" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.partners.surveys.newFullPageSurveyTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="openFeedPage" classname="portal.partners.polls.NewPollsTest" time="2.164">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.partners.polls.NewPollsTest.openFeedPage(NewPollsTest.java:36)
+</failure>
+  </testcase>
+  <testcase name="addNewPoll" classname="portal.partners.polls.NewPollsTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.polls.NewPollsTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.partners.polls.NewPollsTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="2.213">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.SignInTest.pagesDriver(SignInTest.java:41)
+</failure>
+    <system-out><![CDATA[borys1631630898403@mailinator.com / 1631630898415@mailinator.com / Qwerty123!
+]]></system-out>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="emptySignInErrorVerification" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="publisherSignInFromWelcomePage" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="recoveryPasswordMailSentSuccess" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="recoveryPasswordSuccess" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="signInErrorTextVerification" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="signInMemberWithError" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="signInNotRegisteredMemberWithError" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="signInPublisher" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.SignInTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="pagesDriver" classname="portal.partners.polls.pollerWidgets.NewWidgetTest" time="2.327">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.partners.polls.pollerWidgets.NewWidgetTest.pagesDriver(NewWidgetTest.java:35)
+</failure>
+    <system-out><![CDATA[borys1620396685711@mailinator.com / Qwerty123!
+]]></system-out>
+  </testcase>
+  <testcase name="addNewWidget" classname="portal.partners.polls.pollerWidgets.NewWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.partners.polls.pollerWidgets.NewWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.partners.polls.pollerWidgets.NewWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="openFeedPage" classname="portal.SignUpTest" time="2.366">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at portal.SignUpTest.openFeedPage(SignUpTest.java:36)
+</failure>
+  </testcase>
+  <testcase name="signUpMember" classname="portal.SignUpTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="portal.SignUpTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="portal.SignUpTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="valueScorePartner" classname="apiTests.portal.PurtnerDashBoardTest" time="8.019"/>
+  <testcase name="pagesDriver" classname="ico.SignUpMemberFromWidgetTest" time="8.03">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at ico.SignUpMemberFromWidgetTest.pagesDriver(SignUpMemberFromWidgetTest.java:41)
+</failure>
+    <system-out><![CDATA[borys1620397016978@mailinator.com / Qwerty123!
+]]></system-out>
+  </testcase>
+  <testcase name="signUpMemberAfterVote" classname="ico.SignUpMemberFromWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="ico.SignUpMemberFromWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="ico.SignUpMemberFromWidgetTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="loginPublisher" classname="widgets.pollsWidget.PollsWidgetVotingTest" time="8.085">
+    <failure type="java.lang.NullPointerException">java.lang.NullPointerException
+	at widgets.pollsWidget.PollsWidgetVotingTest.loginPublisher(PollsWidgetVotingTest.java:35)
+</failure>
+    <system-out><![CDATA[borys1620396685711@mailinator.com / Qwerty123!
+]]></system-out>
+  </testcase>
+  <testcase name="votingPollerWidgetByAnonimToSynthetic" classname="widgets.pollsWidget.PollsWidgetVotingTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="logOutIfNeed" classname="widgets.pollsWidget.PollsWidgetVotingTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="closeDriver" classname="widgets.pollsWidget.PollsWidgetVotingTest" time="0">
+    <skipped/>
+  </testcase>
+</testsuite>

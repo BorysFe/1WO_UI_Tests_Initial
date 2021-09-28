@@ -24,27 +24,32 @@ public class DesktopSettingsAndPreviewPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CLASS.toString(), "add")));
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
+                .format(GeneralLocators.SPAN_BY_CLASS.toString(), "add")));
     }
 
     public MobileSettingsAndPreviewPage nextButtonClick() {
         mobileSettingsAndPreviewPage = new MobileSettingsAndPreviewPage(driver);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String
+                .format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
         logger.info("Click Next button in the page Desktop Settings And Preview Page");
         logger.info(getWidgetOWOCode());
+
         return mobileSettingsAndPreviewPage;
     }
 
     public DesktopSettingsAndPreviewPage selectCheckBox(String checkBoxName) {
         waitUtils.waitForLoading();
-        unselectCheckBox(waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.INPUT_BY_ID.toString(), checkBoxName))));
+        unselectCheckBox(waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
+                .format(GeneralLocators.INPUT_BY_ID.toString(), checkBoxName))));
+
         return this;
     }
 
     public String getWidgetOWOCode() {
 
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.DIV_BY_CLASS
-                .toString() + "/div", "widget-element")))
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
+                .format(GeneralLocators.DIV_BY_CLASS + "/div", "widget-element")))
                 .getAttribute("data-owo-code");
     }
 }

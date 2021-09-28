@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 66, Failures: 8, Errors: 0, Skipped: 57, Time elapsed: 11.082 s <<< FAILURE! - in TestSuite
+pages(portal.admin.dashboard.SummaryTabTest)  Time elapsed: 1.769 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.admin.dashboard.SummaryTabTest.pages(SummaryTabTest.java:21)
+
+loginPublisher(portal.partners.surveys.newFullPageSurveyTest)  Time elapsed: 2.084 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.partners.surveys.newFullPageSurveyTest.loginPublisher(newFullPageSurveyTest.java:35)
+
+openFeedPage(portal.partners.polls.NewPollsTest)  Time elapsed: 2.164 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.partners.polls.NewPollsTest.openFeedPage(NewPollsTest.java:36)
+
+pagesDriver(portal.SignInTest)  Time elapsed: 2.213 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.SignInTest.pagesDriver(SignInTest.java:41)
+
+pagesDriver(portal.partners.polls.pollerWidgets.NewWidgetTest)  Time elapsed: 2.327 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.partners.polls.pollerWidgets.NewWidgetTest.pagesDriver(NewWidgetTest.java:35)
+
+openFeedPage(portal.SignUpTest)  Time elapsed: 2.366 s  <<< FAILURE!
+java.lang.NullPointerException
+	at portal.SignUpTest.openFeedPage(SignUpTest.java:36)
+
+pagesDriver(ico.SignUpMemberFromWidgetTest)  Time elapsed: 8.03 s  <<< FAILURE!
+java.lang.NullPointerException
+	at ico.SignUpMemberFromWidgetTest.pagesDriver(SignUpMemberFromWidgetTest.java:41)
+
+loginPublisher(widgets.pollsWidget.PollsWidgetVotingTest)  Time elapsed: 8.085 s  <<< FAILURE!
+java.lang.NullPointerException
+	at widgets.pollsWidget.PollsWidgetVotingTest.loginPublisher(PollsWidgetVotingTest.java:35)
+

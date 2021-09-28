@@ -19,6 +19,8 @@ public enum Accounts {
 
     PUBLISHER_LOGIN("borys1620396685711@mailinator.com"),
     PUBLISHER_PASSWORD("Qwerty123!"),
+    PUBLISHER_COOKIE("RememberMe=Ym9yeXMxNjIwMzk2Njg1NzExQG1haWxpbmF0b3IuY29t#oWbTK96pAx7mm2/SI7NHdA~~"),
+    PUBLISHER_ID("0818ac2f-d972-4f28-9aa0-ef340ed6527f"),
 
     USER_EXISTED_LOGIN("borys1620398454294@mailinator.com"),
     USER_EXISTED_PASSWORD("Qwerty123!"),
@@ -26,8 +28,10 @@ public enum Accounts {
     USER_NOT_EXISTED_LOGIN(""),
     USER_NOT_EXISTED_PASSWORD(""),
 
-    RANDOM_USER_LOGIN_MAILINATOR("borys" + System.currentTimeMillis() + "@mailinator.com"),
+    RANDOM_USER_LOGIN_MAILINATOR("AQA-" + System.currentTimeMillis() + "@mailinator.com"),
     RANDOM_USER_LOGIN(System.currentTimeMillis() + "@mailinator.com"),
+    RANDOM_USER_FIRST_NAME("FirstName - " + System.currentTimeMillis()),
+    RANDOM_USER_LAST_NAME("LastName - " + System.currentTimeMillis()),
     RANDOM_USER_PASSWORD("Qwerty123!");
 
     private final String account;

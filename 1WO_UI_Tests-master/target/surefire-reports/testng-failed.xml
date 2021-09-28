@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" name="Failed suite [Surefire suite]" verbose="0">
+  <test thread-count="1" name="Surefire test(failed)" verbose="0">
+    <classes>
+      <class name="portal.SignUpTest">
+        <methods>
+          <include name="closeDriver"/>
+          <include name="signUpMember"/>
+          <include name="memberCredentials"/>
+          <include name="openFeedPage"/>
+          <include name="logOutIfNeed"/>
+        </methods>
+      </class> <!-- portal.SignUpTest -->
+      <class name="portal.admin.dashboard.SummaryTabTest">
+        <methods>
+          <include name="pages"/>
+          <include name="closeDriver"/>
+          <include name="logOutIfNeed"/>
+          <include name="openAdminDashboardSummeryTab"/>
+        </methods>
+      </class> <!-- portal.admin.dashboard.SummaryTabTest -->
+      <class name="widgets.pollsWidget.PollsWidgetVotingTest">
+        <methods>
+          <include name="logOutIfNeed"/>
+          <include name="votingPollerWidgetByAnonimToSynthetic"/>
+          <include name="closeDriver"/>
+          <include name="memberCredentials"/>
+          <include name="loginPublisher"/>
+        </methods>
+      </class> <!-- widgets.pollsWidget.PollsWidgetVotingTest -->
+      <class name="ico.SignUpMemberFromWidgetTest">
+        <methods>
+          <include name="pagesDriver"/>
+          <include name="logOutIfNeed"/>
+          <include name="closeDriver"/>
+          <include name="signUpMemberAfterVote"/>
+          <include name="memberCredentials"/>
+        </methods>
+      </class> <!-- ico.SignUpMemberFromWidgetTest -->
+      <class name="portal.partners.polls.NewPollsTest">
+        <methods>
+          <include name="openFeedPage"/>
+          <include name="logOutIfNeed"/>
+          <include name="closeDriver"/>
+          <include name="addNewPoll"/>
+          <include name="memberCredentials"/>
+        </methods>
+      </class> <!-- portal.partners.polls.NewPollsTest -->
+      <class name="portal.SignInTest">
+        <methods>
+          <include name="signInErrorTextVerification"/>
+          <include name="closeDriver"/>
+          <include name="recoveryPasswordSuccess"/>
+          <include name="signInNotRegisteredMemberWithError"/>
+          <include name="memberCredentials"/>
+          <include name="signInMemberWithError"/>
+          <include name="publisherSignInFromWelcomePage"/>
+          <include name="pagesDriver"/>
+          <include name="recoveryPasswordMailSentSuccess"/>
+          <include name="logOutIfNeed"/>
+          <include name="signInPublisher"/>
+          <include name="emptySignInErrorVerification"/>
+        </methods>
+      </class> <!-- portal.SignInTest -->
+      <class name="portal.partners.polls.pollerWidgets.NewWidgetTest">
+        <methods>
+          <include name="closeDriver"/>
+          <include name="memberCredentials"/>
+          <include name="pagesDriver"/>
+          <include name="addNewWidget"/>
+          <include name="logOutIfNeed"/>
+        </methods>
+      </class> <!-- portal.partners.polls.pollerWidgets.NewWidgetTest -->
+      <class name="portal.partners.surveys.newFullPageSurveyTest">
+        <methods>
+          <include name="checkErrorByRequiredCategory"/>
+          <include name="checkDisplayLanguageModal"/>
+          <include name="logOutIfNeed"/>
+          <include name="checkErrorByCorrectFillingNumberOfParticipants"/>
+          <include name="createEmptySurvey"/>
+          <include name="closeDriver"/>
+          <include name="memberCredentials"/>
+          <include name="createDefaultContentSurvey"/>
+          <include name="loginPublisher"/>
+        </methods>
+      </class> <!-- portal.partners.surveys.newFullPageSurveyTest -->
+    </classes>
+  </test> <!-- Surefire test(failed) -->
+</suite> <!-- Failed suite [Surefire suite] -->

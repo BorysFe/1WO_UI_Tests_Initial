@@ -2,6 +2,7 @@ package portalPages;
 
 import base.BaseComponent;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,7 @@ import portalPages.admin.AdminDashboardPage;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class MenuProfileDropDown extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(MenuProfileDropDown.class);
 
@@ -36,6 +38,7 @@ public class MenuProfileDropDown extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return adminDashboardButton;
     }
 
@@ -50,35 +53,38 @@ public class MenuProfileDropDown extends BaseComponent {
         return adminDashboardPage;
     }
 
-    public void logOut() {
-        openMenuProfile();
-        waitUtils.waitForLoading();
-        waitUtils.isElementVisibleAfterShortWait(logOutButton);
-        waitUtils.clickWhenReadyAfterShortWait(logOutButton);
-        waitUtils.waitMilliseconds(500);
+    public void tryLogOut() {
 
-        logger.info("LogOut from Account");
+        try {
+            logOut();
+        } catch (Exception e) {
+            logger.error("Member not authorised");
+        }
+    }
+
+    public void logOut() {
+        try {
+            openMenuProfile();
+            waitUtils.isElementVisibleAfterShortWait(logOutButton);
+            waitUtils.clickWhenReadyAfterShortWait(logOutButton);
+            waitUtils.waitMilliseconds(500);
+
+            logger.info("LogOut from Account");
+        } catch (Exception e) {
+            logger.error("User not authorised");
+        }
     }
 
     public void openMenuProfile() {
         waitUtils.waitForLoading();
         if (!isMenuProfileDropDownOpened()) {
             waitUtils.clickWhenReadyAfterShortWait(menuProfileButton);
-            logger.info("Menu was opened");
             waitUtils.waitForLoading();
-        } logger.info("Menu opened");
+        }
     }
 
     private boolean isMenuProfileDropDownOpened() {
-        return waitUtils.isElementVisibleNow(profileDropDownMenu);
-    }
 
-    public void tryLogOut() {
-        logger.info("Member authorization verification");
-        try {
-            logOut();
-        } catch (Exception e) {
-            logger.error("Member not authorised");
-        }
+        return waitUtils.isElementVisibleNow(profileDropDownMenu);
     }
 }

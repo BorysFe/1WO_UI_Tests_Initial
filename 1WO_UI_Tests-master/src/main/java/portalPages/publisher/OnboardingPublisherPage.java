@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.polls.polls.PollsPage;
+import portalPages.surveys.SurveysPage;
 import utils.WaitUtils;
 
 @Getter
@@ -18,6 +19,7 @@ public class OnboardingPublisherPage extends BaseComponent {
 
     WaitUtils waitUtils;
     private PollsPage pollsPage;
+    private SurveysPage surveysPage;
 
     @FindBy(xpath = ".//div[@class='user-profile-name']")
     private WebElement publisherFullName;
@@ -25,27 +27,41 @@ public class OnboardingPublisherPage extends BaseComponent {
     @FindBy(xpath = ".//li[@data-menu='polls']")
     private WebElement pollsMenuButton;
 
+    @FindBy(xpath = ".//li[@data-menu='surveys']")
+    private WebElement surveysMenuButton;
+
     public OnboardingPublisherPage(WebDriver driver) {
         super(driver);
         waitUtils = new WaitUtils(driver);
+        pollsPage = new PollsPage(driver);
+        surveysPage = new SurveysPage(driver);
     }
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return publisherFullName;
     }
 
     private boolean isPublisherAuthorised() {
         waitUtils.waitForLoading();
+
         return waitUtils.isElementVisibleNow(publisherFullName);
     }
 
     public PollsPage openPollsPage() {
-        pollsPage = new PollsPage(driver);
-
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
         waitUtils.waitForLoading();
+
         return pollsPage;
+    }
+
+    public SurveysPage openSurveysPage() {
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(surveysMenuButton);
+        waitUtils.waitForLoading();
+
+        return surveysPage;
     }
 }

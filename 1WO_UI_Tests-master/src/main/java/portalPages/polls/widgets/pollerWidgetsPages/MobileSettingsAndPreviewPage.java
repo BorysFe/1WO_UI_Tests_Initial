@@ -23,13 +23,23 @@ public class MobileSettingsAndPreviewPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
+
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
     }
 
     public PollsPage finishButtonClick() {
         pollsPage = new PollsPage(driver);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
-        logger.info("Finishing Widget creating");
-        return pollsPage;
+
+        try {
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+            logger.info("Finishing Poller Widget creating");
+
+            return pollsPage;
+
+        } catch (Exception e) {
+            logger.error("Member not authorised");
+        }
+
+        return null;
     }
 }

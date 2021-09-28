@@ -215,7 +215,7 @@ public class ActionHelperUtils {
 
         waitUtils.waitForElementToBeDisplayedAfterShortWait(reactSelectValueBy);
         List<WebElement> selectValues = driver.findElements(reactSelectValueBy);
-        for (WebElement selectValue: selectValues) {
+        for (WebElement selectValue : selectValues) {
             if (selectValue.getText().contains(value)) {
                 act.click(selectValue).build().perform();
                 isSelected = true;
@@ -264,9 +264,10 @@ public class ActionHelperUtils {
 
     /**
      * Click in different ways (simple click, JS, actions) on element
-     * @param element - element to be clicked on
+     *
+     * @param element        - element to be clicked on
      * @param waitForElement - element awaited not to be present after click
-     * @param timeout - time out (in seconds)
+     * @param timeout        - time out (in seconds)
      */
     public void clickExpectingElement(WebElement element, WebElement waitForElement, int timeout) {
         String elementLocator = WebDriverEventListener.getLocator(element);
@@ -296,6 +297,7 @@ public class ActionHelperUtils {
             actions.doubleClick(element).build().perform();
         }
     }
+
     public void mouseHoverAndClick(WebElement mouseHover, WebElement clickOn) {
         Actions action = new Actions(driver);
         action.moveToElement(waitUtils.waitForElementToBeDisplayedAfterLongWait(mouseHover))

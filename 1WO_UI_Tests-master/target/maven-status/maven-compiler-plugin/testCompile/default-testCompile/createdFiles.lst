@@ -1,0 +1,10 @@
+portal/SignInTest.class
+portal/partners/surveys/newFullPageSurveyTest.class
+apiTests/portal/PurtnerDashBoardTest.class
+portal/admin/dashboard/SummaryTabTest.class
+portal/partners/polls/NewPollsTest.class
+portal/SignUpTest.class
+ico/SignUpMemberFromWidgetTest.class
+portal/partners/polls/pollerWidgets/NewWidgetTest.class
+portal/partners/dashboard/PartnerSummaryTabTest.class
+widgets/pollsWidget/PollsWidgetVotingTest.class

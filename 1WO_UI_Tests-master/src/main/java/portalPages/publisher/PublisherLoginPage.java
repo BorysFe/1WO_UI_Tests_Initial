@@ -3,6 +3,7 @@ package portalPages.publisher;
 import base.BaseComponent;
 import base.enums.PageURLs;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,7 @@ import portalPages.polls.polls.PollsPage;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class PublisherLoginPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(PublisherLoginPage.class);
 
@@ -51,11 +53,21 @@ public class PublisherLoginPage extends BaseComponent {
 
     @BeforeMethod
     public PublisherLoginPage getPublisherLoginPage() {
-        logger.info("Opening Publisher Login page");
-        driver.get(PageURLs.PORTAL_LOGIN_PARTNER.toString());
+
         waitUtils.waitForLoading();
 
-        return this;
+        try {
+            logger.info("Opening Publisher Login page");
+            driver.get(PageURLs.PORTAL_LOGIN_PARTNER.toString());
+            waitUtils.waitForLoading();
+
+            return this;
+
+        } catch (Exception e) {
+            logger.error("Member already authorised");
+        }
+
+        return null;
     }
 
     @AfterMethod
@@ -67,20 +79,24 @@ public class PublisherLoginPage extends BaseComponent {
         onboardingPage = new OnboardingPublisherPage(driver);
         waitUtils.waitForLoading();
 
-        if (eMail != null) {
-            waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailField).clear();
-            waitUtils.waitForLoading();
-            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(eMail);
-        }
-        if (password != null) {
-            waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordField).clear();
-            waitUtils.waitForLoading();
-            waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
-        }
+        try {
+            if (eMail != null) {
+                waitUtils.getElementWhenVisibleAfterShortWait(publisherEmailField).clear();
+                waitUtils.waitForLoading();
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherEmailField).sendKeys(eMail);
+            }
+            if (password != null) {
+                waitUtils.getElementWhenVisibleAfterShortWait(publisherPasswordField).clear();
+                waitUtils.waitForLoading();
+                waitUtils.waitForElementToBeDisplayedAfterShortWait(publisherPasswordField).sendKeys(password);
+            }
 
-        System.out.println(eMail + " / " + password);
-        waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
-        waitUtils.waitForLoading();
+            System.out.println(eMail + " / " + password);
+            waitUtils.clickWhenReadyAfterMiddleWait(publisherLoginButton);
+            waitUtils.waitForLoading();
+        } catch (Exception e) {
+            logger.error("Member already authorised");
+        }
 
         return onboardingPage;
     }

@@ -1,5 +1,6 @@
 package base;
 
+import base.enums.GeneralLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ public abstract class BaseComponent implements WebElementProvider {
         PageFactory.initElements(driver, this);
         this.driver = driver;
         actions = new ActionHelperUtils(driver);
+        waitUtils = new WaitUtils(driver);
     }
 
     protected abstract WebElement getMainElementInComponent();
@@ -48,5 +50,32 @@ public abstract class BaseComponent implements WebElementProvider {
             element.click();
             WaitUtils.waitMilliseconds(500, "Small wait after click on checkbox");
         }
+    }
+
+    protected void setField(WebElement element, String text) {
+        waitUtils.getElementWhenVisibleAfterShortWait(element).clear();
+        waitUtils.getElementWhenVisibleAfterShortWait(element).sendKeys(text);
+    }
+
+    protected void setField(By element, String text) {
+        waitUtils.waitVisibilityOfElementByShort(element);
+
+        waitUtils.getElementWhenVisibleAfterShortWait(element).clear();
+        waitUtils.waitVisibilityOfElementByShort(element);
+        waitUtils.getElementWhenVisibleAfterShortWait(element).sendKeys(text);
+    }
+
+    protected void clickNextButton() {
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath
+                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+        waitUtils.waitForLoading();
+    }
+
+    protected void clickFinishButton() {
+        waitUtils.waitForLoading();
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath
+                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+        waitUtils.waitForLoading();
     }
 }
