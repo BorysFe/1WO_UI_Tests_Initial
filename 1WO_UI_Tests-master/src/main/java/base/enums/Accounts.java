@@ -28,8 +28,10 @@ public enum Accounts {
     USER_NOT_EXISTED_LOGIN(""),
     USER_NOT_EXISTED_PASSWORD(""),
 
-    RANDOM_USER_LOGIN_MAILINATOR("borys" + System.currentTimeMillis() + "@mailinator.com"),
+    RANDOM_USER_LOGIN_MAILINATOR("AQA-" + System.currentTimeMillis() + "@mailinator.com"),
     RANDOM_USER_LOGIN(System.currentTimeMillis() + "@mailinator.com"),
+    RANDOM_USER_FIRST_NAME("FirstName - " + System.currentTimeMillis()),
+    RANDOM_USER_LAST_NAME("LastName - " + System.currentTimeMillis()),
     RANDOM_USER_PASSWORD("Qwerty123!");
 
     private final String account;

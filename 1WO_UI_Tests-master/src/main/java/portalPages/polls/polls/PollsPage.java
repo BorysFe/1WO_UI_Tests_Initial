@@ -3,6 +3,7 @@ package portalPages.polls.polls;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class PollsPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(PollsPage.class);
 

@@ -26,14 +26,17 @@ import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT;
 
 public class APIPoll {
 
-    public Response getResponseNewPollRequest(String partnerId,
-                                              String partnerCookie,
-                                              String questionText,
-                                              String answerText1,
-                                              String answerText2,
-                                              String categoryId,
-                                              String pollType,
-                                              String locale) {
+    String defaultPollType = "dpoll";
+    String defaultLocale = "en";
+
+    public Response NewPollRequest(String partnerId,
+                                   String partnerCookie,
+                                   String questionText,
+                                   String answerText1,
+                                   String answerText2,
+                                   String categoryId,
+                                   String pollType,
+                                   String locale) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -70,7 +73,7 @@ public class APIPoll {
         return response;
     }
 
-    public Response getResponseNewRandomPollRequest(String additionalText) {
+    public Response NewRandomPollRequest(String additionalText) {
 
         String partnerId = Accounts.PUBLISHER_ID.toString();
         String partnerCookie = Accounts.PUBLISHER_COOKIE.toString();
@@ -79,8 +82,6 @@ public class APIPoll {
         String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");
         String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "2");
         String categoryId = String.valueOf(PollCategory.CATEGORY_VALUE_ART_CULTURE);
-        String pollType = "dpoll";
-        String locale = "en";
 
         JSONObject requestBody = new JSONObject();
 
@@ -98,12 +99,12 @@ public class APIPoll {
         poll.put("categoryId", categoryId);
         poll.put("tagLine", questionText);
         poll.put("sides", jsonObjects);
-        poll.put("type", pollType);
+        poll.put("type", defaultPollType);
         poll.put("privatePoll", false);
 
         requestBody.put("poll", poll);
         requestBody.put("partnerExternalId", partnerId);
-        requestBody.put("locale", locale);
+        requestBody.put("locale", defaultLocale);
 
         RequestSpecification request = RestAssured.given()
                 .header("cookie", partnerCookie)
@@ -117,20 +118,7 @@ public class APIPoll {
         return response;
     }
 
-    public Integer getIdForNewRandomPoll(String partnerId,
-                                         String partnerCookie,
-                                         String additionalText) {
-
-        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), additionalText);
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "2");
-        String categoryId = String.valueOf(PollCategory.CATEGORY_VALUE_ART_CULTURE);
-        String pollType = "dpoll";
-        String locale = "en";
-
-        Response response = getResponseNewPollRequest(partnerId, partnerCookie, questionText, answerText1, answerText2,
-                categoryId, pollType, locale);
-
+    public Integer getIntegerValueFromResponse(Response response, String value) {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = null;
 
@@ -141,5 +129,19 @@ public class APIPoll {
         }
 
         return Integer.valueOf(jsonObject.get("id").toString());
+    }
+
+    public String getStringValueFromResponse(Response response, String value) {
+
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = (JSONObject) jsonParser.parse(response.getBody().print());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject.get("widgetCode").toString();
     }
 }

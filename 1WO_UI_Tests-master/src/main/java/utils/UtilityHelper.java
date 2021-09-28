@@ -121,6 +121,7 @@ public class UtilityHelper {
     }
 
     public static void deleteAllCookies(WebDriver driver) {
+        logger.info("Trying to delete all Cookies");
         driver.manage().deleteAllCookies();
     }
 

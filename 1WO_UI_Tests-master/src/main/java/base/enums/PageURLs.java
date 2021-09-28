@@ -10,6 +10,7 @@ public enum PageURLs {
 
     APP("https://app-qa.1worldonline.biz/"),
     PORTAL("https://frontend-qa.1worldonline.biz/#!/"),
+    ICO("https://ico-qa.1worldonline.biz/"),
     WELCOME_PAGE("https://welcome-qa-ecs.1worldonline.biz/"),
     REST_ASSURED_BASE_URI("https://app-qa.1worldonline.biz/"),
 
@@ -23,6 +24,8 @@ public enum PageURLs {
 
     PORTAL_ADMIN_PARTNERS_LIST(PORTAL + "admin/partner-list/1/votesCount/desc"),
     PORTAL_ADMIN_DASHBOARD_SUMMARY(PORTAL + "admin/dashboard/summary"),
+
+    ICO_SIGNUP_PAGE(ICO + "sign-up"),
 
     DAN_CAMPAIGN_ANSWER_URL("https://isa.decipherinc.com/survey/selfserve/584/190602#?"),
 

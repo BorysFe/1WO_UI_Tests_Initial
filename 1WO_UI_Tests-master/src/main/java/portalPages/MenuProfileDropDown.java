@@ -2,6 +2,7 @@ package portalPages;
 
 import base.BaseComponent;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,7 @@ import portalPages.admin.AdminDashboardPage;
 import utils.WaitUtils;
 
 @Getter
+@Setter
 public class MenuProfileDropDown extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(MenuProfileDropDown.class);
 

@@ -4,7 +4,7 @@ import base.enums.Accounts;
 import base.enums.DefaultContent;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
-import portalPages.AccountsInfoPage;
+import base.AccountsInfoPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;

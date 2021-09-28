@@ -1,15 +1,17 @@
-package portalPages;
+package base;
 
-import base.BaseComponent;
 import base.enums.PageURLs;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import portalPages.FeedPage;
 import utils.WaitUtils;
 
+@Setter
 @Getter
 public class AccountsInfoPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(FeedPage.class);
@@ -34,12 +36,17 @@ public class AccountsInfoPage extends BaseComponent {
 
     public boolean isUserAnonim() {
 
-        return waitUtils.isElementVisible(By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"), 100);
+        return waitUtils.isElementVisibleAfterMiddleWait(By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"));
 //        return !waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(".//h1")).getText().equals("Whitelabelelabel Error Page");
     }
 
     public boolean isUserSynthetic() {
 
-        return waitUtils.isElementVisible(By.xpath(".//pre[contains(text(), 'synthetic')]"), 100);
+        return waitUtils.isElementVisibleAfterMiddleWait(By.xpath(".//pre[contains(text(), 'synthetic')]"));
+    }
+
+    public boolean isUserMember() {
+
+        return waitUtils.isElementVisibleAfterLongWait(By.xpath(".//pre[contains(text(), 'member')]"));
     }
 }

@@ -2,7 +2,9 @@ package portalPages.polls.widgets;
 
 import base.BaseComponent;
 import base.enums.GeneralLocators;
+import base.enums.PageURLs;
 import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
 
+@Setter
 @Getter
 public class PollerWidgetPreviewPage extends BaseComponent {
     private static final Logger logger = LoggerFactory.getLogger(PollerWidgetPreviewPage.class);
@@ -37,6 +40,16 @@ public class PollerWidgetPreviewPage extends BaseComponent {
         String frameID = "1worldOnlineWidgetFrame_" + owoToken;
 
         driver.switchTo().frame(driver.findElement(By.id(frameID)));
+
+        return this;
+    }
+
+    public PollerWidgetPreviewPage openPollerWidgetPreview(String widgetOWOCode) {
+        waitUtils.waitForLoading();
+
+        String widgetPreviewPageURL = String.format(PageURLs.WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
+
+        driver.get(widgetPreviewPageURL);
 
         return this;
     }
