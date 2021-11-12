@@ -41,7 +41,7 @@ public class LanguageAndNamePage extends BaseComponent {
             Select select = new Select(openedSelect);
             select.selectByVisibleText(selectItem);
         }
-        logger.info("In the Dropdown " + selectItem + " selected " + selectItem);
+        logger.info("In the Dropdown " + selectTitle + " selected " + selectItem);
 
         return this;
     }
@@ -67,7 +67,7 @@ public class LanguageAndNamePage extends BaseComponent {
 
     public LanguageAndNamePage newWidgetDefaultLanguage(String widgetName) {
         waitUtils.waitForLoading();
-        logger.info("Set Widget Name field with: " + widgetName);
+        logger.info("Set Widget Name: " + widgetName);
         setField(By.xpath(nameWidgetField), widgetName);
 
         return this;

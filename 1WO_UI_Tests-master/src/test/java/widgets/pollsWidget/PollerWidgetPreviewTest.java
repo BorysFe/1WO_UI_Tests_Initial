@@ -25,7 +25,6 @@ import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
 
 public class PollerWidgetPreviewTest extends DriverFactory {
 
-    MenuProfileDropDown menuProfileDropDown;
     AccountsInfoPage accountsInfoPage;
     PollerWidgetPreviewPage widgetPreview;
 
@@ -87,22 +86,7 @@ public class PollerWidgetPreviewTest extends DriverFactory {
 
     @Test
     public void percentsNotShowedWithoutVote() {
-//        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
-//        String poll1Text = "PollText1";
-//        String poll2Text = "PollText2";
-//        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-//        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
-//
-//
-//        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
-//                partnerCookie,
-//                widgetName,
-//                poll1Text,
-//                answerText1,
-//                answerText2,
-//                poll2Text,
-//                answerText1,
-//                answerText2);
+
         Assertions.assertThat(widgetPreview.isPollsPercentsDisplayed(answerText1))
                 .as("Percents for answer " + answerText1 + "is displayed")
                 .isFalse();

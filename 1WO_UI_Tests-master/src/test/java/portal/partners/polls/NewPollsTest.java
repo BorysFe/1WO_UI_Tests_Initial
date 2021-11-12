@@ -45,7 +45,7 @@ public class NewPollsTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-            menuProfileDropDown.tryLogOut();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass

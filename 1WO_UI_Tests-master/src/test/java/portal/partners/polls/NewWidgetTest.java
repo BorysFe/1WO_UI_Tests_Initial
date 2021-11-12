@@ -1,4 +1,4 @@
-package portal.partners.polls.pollerWidgets;
+package portal.partners.polls;
 
 import base.enums.Accounts;
 import org.assertj.core.api.Assertions;
