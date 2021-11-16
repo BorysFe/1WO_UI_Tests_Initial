@@ -6,27 +6,19 @@ import apiMain.portal.pollerWidget.APIPollerWidget;
 import base.AccountsInfoPage;
 import base.enums.Accounts;
 import base.enums.DefaultContent;
-import icoPages.DashboardPage;
-import icoPages.ProfilePage;
-import icoPages.SignUpPage;
 import io.restassured.response.Response;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
-import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollCategory;
-import portalPages.polls.polls.PollsPage;
-import portalPages.polls.widgets.PollerWidgetPreviewPage;
-import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
-import portalPages.publisher.PublisherLoginPage;
-import utils.DriverFactory;
+import portalPages.polls.widgets.BetaPollerWidgetPreviewPage;
 import utils.UtilityHelper;
 
 import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
 
-public class PollerWidgetPreviewTest extends DriverFactory {
+public class BetaPollerWidgetPreviewTest extends PollerWidgetPreviewTest {
 
     AccountsInfoPage accountsInfoPage;
-    PollerWidgetPreviewPage widgetPreview;
+    BetaPollerWidgetPreviewPage widgetPreview;
 
     String partnerId;
     String partnerCookie;
@@ -37,7 +29,6 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     String answerText1;
     String answerText2;
     String widgetName;
-
 
     @BeforeClass
     public void memberCredentials() {
@@ -51,7 +42,7 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     @BeforeMethod
     public void preconditions() {
         accountsInfoPage = new AccountsInfoPage(driver);
-        widgetPreview = new PollerWidgetPreviewPage(driver);
+        widgetPreview = new BetaPollerWidgetPreviewPage(driver);
 
         widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
         poll1Text = "PollText1";
@@ -60,7 +51,7 @@ public class PollerWidgetPreviewTest extends DriverFactory {
         answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
 
 
-        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
+        String newWidgetId = creatingPollsAndAddingToBetaWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -75,7 +66,6 @@ public class PollerWidgetPreviewTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-//        menuProfileDropDown.tryLogOut();
         UtilityHelper.deleteAllCookies(driver);
     }
 
@@ -128,28 +118,34 @@ public class PollerWidgetPreviewTest extends DriverFactory {
 
     }
 
-    private String creatingPollsAndAddingToWidgetViaAPI(String partnerId,
-                                                        String partnerCookie,
-                                                        String widgetTitle,
-                                                        String poll1Text,
-                                                        String poll1Answer1,
-                                                        String poll1Answer2,
-                                                        String poll2Text,
-                                                        String poll2Answer1,
-                                                        String poll2Answer2) {
+    private String creatingPollsAndAddingToBetaWidgetViaAPI(String partnerId,
+                                                            String partnerCookie,
+                                                            String widgetTitle,
+                                                            String poll1Text,
+                                                            String poll1Answer1,
+                                                            String poll1Answer2,
+                                                            String poll2Text,
+                                                            String poll2Answer1,
+                                                            String poll2Answer2) {
 
         String categoryId = PollCategory.CATEGORY_VALUE_ART_CULTURE.toString();
         String defaultPollType = "dpoll";
         String defaultLocale = "en";
 
-        Response newPoll1 = new APIPoll().NewPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
-        Integer pollId1 = new APIPoll().getIntegerValueFromResponse(newPoll1, APIValue.ID.toString());
+        Response newPoll1 = new APIPoll()
+                .NewPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
+        Integer pollId1 = new APIPoll()
+                .getIntegerValueFromResponse(newPoll1, APIValue.ID.toString());
 
-        Response newPoll2 = new APIPoll().NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
-        Integer pollId2 = new APIPoll().getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
+        Response newPoll2 = new APIPoll()
+                .NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
+        Integer pollId2 = new APIPoll()
+                .getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
-        Response responseAddEmptyWidget = new APIPollerWidget().NewPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
-        String owoCodePollerWidget = new APIPollerWidget().getStringValueFromResponse(responseAddEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
+        Response responseAddBetaEmptyWidget = new APIPollerWidget()
+                .NewBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+        String owoCodePollerWidget = new APIPollerWidget()
+                .getStringValueFromResponse(responseAddBetaEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 
         new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
 

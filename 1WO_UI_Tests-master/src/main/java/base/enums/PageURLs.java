@@ -30,6 +30,7 @@ public enum PageURLs {
     DAN_CAMPAIGN_ANSWER_URL("https://isa.decipherinc.com/survey/selfserve/584/190602#?"),
 
     WIDGET_PREVIEW_PAGE_URL(PORTAL + "widget/%s"),
+    BETA_WIDGET_PREVIEW_PAGE_URL(PORTAL + "widget-poller/%s"),
 
     MAILINATOR("https://mailinator.com");
 

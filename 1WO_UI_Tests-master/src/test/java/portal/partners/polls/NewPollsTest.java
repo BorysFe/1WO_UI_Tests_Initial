@@ -54,7 +54,7 @@ public class NewPollsTest extends DriverFactory {
     }
 
     @Test
-    public void addNewPoll() {
+    public void addNewDefaultPoll() {
         String questionText = String.format("Lorem ipsum" + System.currentTimeMillis());
         String answerText = "Answer%s";
 

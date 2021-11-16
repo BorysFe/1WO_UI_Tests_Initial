@@ -54,7 +54,7 @@ public class SignUpPage extends BaseComponent {
                 format(GeneralLocators.BUTTON_BY_CLASS.toString(), "btn-sbmt")));
     }
 
-    public ProfilePage getProfilePage() {
+    public ProfilePage openProfilePage() {
         waitUtils.clickWhenReadyAfterMiddleWait(By.xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "Profile")));
 
         return profilePage;

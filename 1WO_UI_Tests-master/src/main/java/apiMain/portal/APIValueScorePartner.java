@@ -10,6 +10,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import portalPages.polls.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,11 +21,13 @@ import java.util.List;
 public class APIValueScorePartner {
 
     private Response getResponseForValueScorePartnerRequest(String id, String cookie) {
+        final Logger logger = LoggerFactory.getLogger(DesktopSettingsAndPreviewPage.class);
+
         JSONObject requestBody = new JSONObject();
 
         RestAssured.baseURI = PageURLs.REST_ASSURED_BASE_URI.toString();
 
-        requestBody.put("partners", Collections.singleton(id));
+        requestBody.put("partners", Collections.singleton("\"" + id + "\""));
 
         RequestSpecification request = RestAssured.given()
                 .header("cookie", cookie)
@@ -33,6 +38,12 @@ public class APIValueScorePartner {
 
         Response response = request.request(Method.POST, "/partners/features-analytics");
 
+        if (response.getStatusCode() == 200) {
+            logger.info("Response status: " + response.getStatusCode());
+            return response;
+        }
+        logger.info("Request Body: " + requestBody.toString(),
+                "Response: " + response.getBody().print());
         return response;
     }
 
@@ -49,7 +60,7 @@ public class APIValueScorePartner {
 
         try {
             jsonObject = (JSONObject) jsonParser.parse(response.getBody().print());
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

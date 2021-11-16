@@ -9,7 +9,10 @@ import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.OnboardingPublisherPage;
 import portalPages.publisher.PublisherLoginPage;
+import utils.ActionHelperUtils;
+import utils.Activities;
 import utils.DriverFactory;
+import utils.UtilityHelper;
 
 public class NewWidgetTest extends DriverFactory {
 

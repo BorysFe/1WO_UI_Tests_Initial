@@ -164,7 +164,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 Accounts.RANDOM_USER_LAST_NAME.toString(),
                 Accounts.RANDOM_USER_PASSWORD.toString(),
                 Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString());
-        icoSignUpPage.getProfilePage();
+        icoSignUpPage.openProfilePage();
         icoProfilePage.openDashboardPage();
 
         Assertions.assertThat(icoDashboardPage.getTotalPointsScore())
