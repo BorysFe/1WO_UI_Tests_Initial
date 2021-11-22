@@ -2,12 +2,7 @@ package portal;
 
 import base.Mailinator;
 import base.enums.Accounts;
-import io.restassured.RestAssured;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
-import org.json.simple.JSONObject;
 import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
@@ -27,7 +22,7 @@ public class SignUpTest extends DriverFactory {
 
     @BeforeClass
     public void memberCredentials() {
-        loginNewMember = Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString();
+        loginNewMember = String.format(Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString(), System.currentTimeMillis());
         password = Accounts.RANDOM_USER_PASSWORD.toString();
     }
 
@@ -43,7 +38,7 @@ public class SignUpTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-            menuProfileDropDown.tryLogOut();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass

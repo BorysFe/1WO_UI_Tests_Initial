@@ -34,7 +34,7 @@ public class SummaryTabTest extends DriverFactory {
     }
 
     @Test
-    public void openAdminDashboardSummeryTab() {
+    public void openAdminDashboardSummaryTab() {
 
         adminDashboardPage.openAdminDashboardSummaryPage();
 

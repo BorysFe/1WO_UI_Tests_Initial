@@ -18,19 +18,18 @@ import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
 import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
+import utils.ActionHelperUtils;
 import utils.DriverFactory;
 import utils.UtilityHelper;
+
+import java.awt.event.ActionEvent;
 
 import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
 
 public class PollsWidgetVotingTest extends DriverFactory {
-    PublisherLoginPage publisherLoginPage;
-    PollsPage pollsPage;
     PollerWidgetsPage pollerWidgetsPage;
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
-    MenuProfileDropDown menuProfileDropDown;
     AccountsInfoPage accountsInfoPage;
-
     SignUpPage icoSignUpPage;
     ProfilePage icoProfilePage;
     DashboardPage icoDashboardPage;
@@ -39,6 +38,15 @@ public class PollsWidgetVotingTest extends DriverFactory {
     String passwordPublisher;
     String partnerId;
     String partnerCookie;
+    String randomUserFirstName;
+    String randomUserLastName;
+    String randomUserPassword;
+    String widgetName;
+    String poll1Text;
+    String poll2Text;
+    String answerText1;
+    String answerText2;
+    String newWidgetId;
 
     @BeforeClass
     public void memberCredentials() {
@@ -51,25 +59,25 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
     @BeforeMethod
     public void loginPublisher() {
-        publisherLoginPage = new PublisherLoginPage(driver);
-        pollsPage = new PollsPage(driver);
-        pollerWidgetsPage = new PollerWidgetsPage(driver);
-        pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
-        menuProfileDropDown = new MenuProfileDropDown(driver);
         accountsInfoPage = new AccountsInfoPage(driver);
         icoSignUpPage = new SignUpPage(driver);
         icoProfilePage = new ProfilePage(driver);
         icoDashboardPage = new DashboardPage(driver);
-//        helper = new UtilityHelper();
 
-//        publisherLoginPage.getPublisherLoginPage()
-//                .loginPublisher(loginPublisher, passwordPublisher)
-//                .openPollsPage();
+        randomUserFirstName = Accounts.RANDOM_USER_FIRST_NAME.toString();
+        randomUserLastName = Accounts.RANDOM_USER_LAST_NAME.toString();
+        randomUserPassword = Accounts.RANDOM_USER_PASSWORD.toString();
+        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
+        poll1Text = "PollText1";
+        poll2Text = "PollText2";
+        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
+        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+
+        driver.manage().deleteAllCookies();
     }
 
     @AfterMethod
     public void logOutIfNeed() {
-        menuProfileDropDown.tryLogOut();
         UtilityHelper.deleteAllCookies(driver);
     }
 
@@ -81,14 +89,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
     @Test
     public void votingPollerWidgetFromAnonymousToSynthetic() {
 
-        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
-        String poll1Text = "PollText1";
-        String poll2Text = "PollText2";
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
-
-
-        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
+        newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -122,14 +123,9 @@ public class PollsWidgetVotingTest extends DriverFactory {
     @Test
     public void votingPollerWidgetFromAnonymousToMember() {
 
-        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
-        String poll1Text = "PollText1";
-        String poll2Text = "PollText2";
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+        String randomUserLogin = String.format(Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString(), System.currentTimeMillis());
 
-
-        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
+        newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -160,16 +156,11 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .isTrue();
 
         icoSignUpPage.openSignUpPage().fillSignUpForm(
-                Accounts.RANDOM_USER_FIRST_NAME.toString(),
-                Accounts.RANDOM_USER_LAST_NAME.toString(),
-                Accounts.RANDOM_USER_PASSWORD.toString(),
-                Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString());
+                randomUserFirstName,
+                randomUserLastName,
+                randomUserPassword,
+                randomUserLogin);
         icoSignUpPage.openProfilePage();
-        icoProfilePage.openDashboardPage();
-
-        Assertions.assertThat(icoDashboardPage.getTotalPointsScore())
-                .as("Displayed Total Point Score is incorrect")
-                .isEqualTo("110");
 
         accountsInfoPage.openAccountInfoPage();
 
@@ -198,7 +189,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
         Response newPoll2 = new APIPoll().NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId2 = new APIPoll().getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
-        Response responseAddEmptyWidget = new APIPollerWidget().NewPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+        Response responseAddEmptyWidget = new APIPollerWidget().AddPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoCodePollerWidget = new APIPollerWidget().getStringValueFromResponse(responseAddEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 
         new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);

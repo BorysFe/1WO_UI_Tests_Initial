@@ -6,16 +6,25 @@ import apiMain.portal.pollerWidget.APIPollerWidget;
 import base.AccountsInfoPage;
 import base.enums.Accounts;
 import base.enums.DefaultContent;
+import base.enums.PageURLs;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
+import org.json.simple.JSONObject;
 import org.testng.annotations.*;
 import portalPages.polls.polls.PollCategory;
 import portalPages.polls.widgets.BetaPollerWidgetPreviewPage;
+import utils.DriverFactory;
 import utils.UtilityHelper;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
 
-public class BetaPollerWidgetPreviewTest extends PollerWidgetPreviewTest {
+public class BetaPollerWidgetPreviewTest extends DriverFactory {
 
     AccountsInfoPage accountsInfoPage;
     BetaPollerWidgetPreviewPage widgetPreview;
@@ -40,18 +49,17 @@ public class BetaPollerWidgetPreviewTest extends PollerWidgetPreviewTest {
     }
 
     @BeforeMethod
-    public void preconditions() {
+    public void creatingNewWidget() {
         accountsInfoPage = new AccountsInfoPage(driver);
         widgetPreview = new BetaPollerWidgetPreviewPage(driver);
 
         widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
-        poll1Text = "PollText1";
-        poll2Text = "PollText2";
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+        poll1Text = "Poll Text 1";
+        poll2Text = "Poll Text 2";
+        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 1");
+        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 2");
 
-
-        String newWidgetId = creatingPollsAndAddingToBetaWidgetViaAPI(partnerId,
+        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -89,44 +97,78 @@ public class BetaPollerWidgetPreviewTest extends PollerWidgetPreviewTest {
     @Test
     public void statisticButtonDisplayed() {
 
+        Assertions.assertThat(widgetPreview.isStatisticButtonDisplayed())
+                .as("Statistic icon isn't displayed")
+                .isTrue();
     }
 
     @Test
-    public void scorePointsDisplayed() {
+    public void statisticHoverTextDisplayed() {
 
+        Assertions.assertThat(widgetPreview.isStatisticHoverTextDisplayed())
+                .as("Statistic hover text isn't displayed")
+                .isTrue();
     }
 
-    @Test
-    public void facebookSharingButtonDisplayed() {
+//    @Test
+//    public void scorePointsDisplayed() {
+//        Assertions.assertThat(widgetPreview.isScorePointsDisplayed())
+//                .as("Score Points isn't displayed")
+//                .isTrue();
+//    }
 
-    }
-
-    @Test
-    public void twitterSharingButtonDisplayed() {
-
-    }
-
-    @Test
-    public void LinkedInSharingButtonDisplayed() {
-
-    }
-
-    @Test
-    public void scorePointsAddedAfterVote() {
+    //    @Test
+    public void scorePointsCountedAfterVote() {
 
         widgetPreview.voteAnswer(answerText1);
+        widgetPreview.getVotesValueAfterPageReload(1);
 
+        Assertions.assertThat(widgetPreview.getUsersScore())
+                .as("Score Points isn't displayed")
+                .isEqualTo("10");
     }
 
-    private String creatingPollsAndAddingToBetaWidgetViaAPI(String partnerId,
-                                                            String partnerCookie,
-                                                            String widgetTitle,
-                                                            String poll1Text,
-                                                            String poll1Answer1,
-                                                            String poll1Answer2,
-                                                            String poll2Text,
-                                                            String poll2Answer1,
-                                                            String poll2Answer2) {
+    @Test
+    public void sharingArrowDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingArrowDisplayed())
+                .as("Sharing arrow doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingFacebookDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingFacebookLinkDisplayed())
+                .as("Social network Facebook doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingTwitterDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingTwitterLinkDisplayed())
+                .as("Social network Twitter doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingLinkedInDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingLinkedInLinkDisplayed())
+                .as("Social network LinkedIn doesn't showed")
+                .isTrue();
+    }
+
+    private String creatingPollsAndAddingToWidgetViaAPI(String partnerId,
+                                                        String partnerCookie,
+                                                        String widgetTitle,
+                                                        String poll1Text,
+                                                        String poll1Answer1,
+                                                        String poll1Answer2,
+                                                        String poll2Text,
+                                                        String poll2Answer1,
+                                                        String poll2Answer2) {
 
         String categoryId = PollCategory.CATEGORY_VALUE_ART_CULTURE.toString();
         String defaultPollType = "dpoll";
@@ -143,7 +185,7 @@ public class BetaPollerWidgetPreviewTest extends PollerWidgetPreviewTest {
                 .getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
         Response responseAddBetaEmptyWidget = new APIPollerWidget()
-                .NewBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+                .AddBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoCodePollerWidget = new APIPollerWidget()
                 .getStringValueFromResponse(responseAddBetaEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 

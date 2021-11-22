@@ -4,20 +4,15 @@ import apiMain.APIValue;
 import apiMain.portal.pollerWidget.APIPoll;
 import apiMain.portal.pollerWidget.APIPollerWidget;
 import base.AccountsInfoPage;
+import base.BaseComponent;
+import base.WebElementProvider;
 import base.enums.Accounts;
 import base.enums.DefaultContent;
-import icoPages.DashboardPage;
-import icoPages.ProfilePage;
-import icoPages.SignUpPage;
 import io.restassured.response.Response;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
-import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollCategory;
-import portalPages.polls.polls.PollsPage;
 import portalPages.polls.widgets.PollerWidgetPreviewPage;
-import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
-import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
 import utils.UtilityHelper;
 
@@ -38,7 +33,6 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     String answerText2;
     String widgetName;
 
-
     @BeforeClass
     public void memberCredentials() {
         loginPublisher = Accounts.PUBLISHER_LOGIN.toString();
@@ -49,16 +43,15 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     }
 
     @BeforeMethod
-    public void preconditions() {
+    public void creatingNewWidget() {
         accountsInfoPage = new AccountsInfoPage(driver);
         widgetPreview = new PollerWidgetPreviewPage(driver);
 
         widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
         poll1Text = "PollText1";
         poll2Text = "PollText2";
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
-
+        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 1");
+        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 2");
 
         String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
@@ -76,7 +69,7 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     @AfterMethod
     public void logOutIfNeed() {
 //        menuProfileDropDown.tryLogOut();
-        UtilityHelper.deleteAllCookies(driver);
+//        UtilityHelper.deleteAllCookies(driver);
     }
 
     @AfterClass
@@ -99,33 +92,67 @@ public class PollerWidgetPreviewTest extends DriverFactory {
     @Test
     public void statisticButtonDisplayed() {
 
+        Assertions.assertThat(widgetPreview.isStatisticButtonDisplayed())
+                .as("Statistic icon isn't displayed")
+                .isTrue();
     }
 
     @Test
-    public void scorePointsDisplayed() {
+    public void statisticHoverTextDisplayed() {
 
+        Assertions.assertThat(widgetPreview.isStatisticHoverTextDisplayed())
+                .as("Statistic hover text isn't displayed")
+                .isTrue();
     }
 
-    @Test
-    public void facebookSharingButtonDisplayed() {
+//    @Test
+//    public void scorePointsDisplayed() {
+//        Assertions.assertThat(widgetPreview.isScorePointsDisplayed())
+//                .as("Score Points isn't displayed")
+//                .isTrue();
+//    }
 
-    }
-
-    @Test
-    public void twitterSharingButtonDisplayed() {
-
-    }
-
-    @Test
-    public void LinkedInSharingButtonDisplayed() {
-
-    }
-
-    @Test
-    public void scorePointsAddedAfterVote() {
+    //    @Test
+    public void scorePointsCountedAfterVote() {
 
         widgetPreview.voteAnswer(answerText1);
+        widgetPreview.getVotesValueAfterPageReload(1);
 
+        Assertions.assertThat(widgetPreview.getUsersScore())
+                .as("Score Points isn't displayed")
+                .isEqualTo("10");
+    }
+
+    @Test
+    public void sharingArrowDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingArrowDisplayed())
+                .as("Sharing arrow doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingFacebookDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingFacebookLinkDisplayed())
+                .as("Social network Facebook doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingTwitterDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingTwitterLinkDisplayed())
+                .as("Social network Twitter doesn't showed")
+                .isTrue();
+    }
+
+    @Test
+    public void sharingLinkedInDisplayed() {
+
+        Assertions.assertThat(widgetPreview.isSharingLinkedInLinkDisplayed())
+                .as("Social network LinkedIn doesn't showed")
+                .isTrue();
     }
 
     private String creatingPollsAndAddingToWidgetViaAPI(String partnerId,
@@ -148,7 +175,7 @@ public class PollerWidgetPreviewTest extends DriverFactory {
         Response newPoll2 = new APIPoll().NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId2 = new APIPoll().getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
-        Response responseAddEmptyWidget = new APIPollerWidget().NewPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+        Response responseAddEmptyWidget = new APIPollerWidget().AddPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoCodePollerWidget = new APIPollerWidget().getStringValueFromResponse(responseAddEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 
         new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);

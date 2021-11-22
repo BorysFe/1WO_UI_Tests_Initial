@@ -71,13 +71,14 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
     @AfterMethod
     public void logOutIfNeed() {
         menuProfileDropDown.tryLogOut();
+        driver.manage().deleteAllCookies();
     }
 
     @Test
     public void signUpMemberAfterVote() {
         String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
 
-        pollsPage.startNewWidgetCreating()
+        pollsPage.startOldWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
                 .nextButtonClick();
         contentBuilderPage.addPollToWidget(pollQuestionText1)
@@ -85,6 +86,8 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
                 .nextButtonClick();
         desktopSettingsAndPreviewPage.nextButtonClick();
         mobileSettingsAndPreviewPage.finishButtonClick();
+
+        driver.manage().deleteAllCookies();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
         pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1"));

@@ -9,7 +9,7 @@ import portalPages.publisher.PublisherLoginPage;
 import portalPages.surveys.*;
 import utils.DriverFactory;
 
-public class newFullPageSurveyTest extends DriverFactory {
+public class NewFullPageSurveyTest extends DriverFactory {
     PublisherLoginPage publisherLoginPage;
     MenuProfileDropDown menuProfileDropDown;
 
@@ -114,7 +114,7 @@ public class newFullPageSurveyTest extends DriverFactory {
                 .isTrue();
     }
 
-    @Test
+//    @Test
     public void createDefaultContentSurvey() {
         String surveyName = String.format("Empty Survey - " + System.currentTimeMillis());
 
