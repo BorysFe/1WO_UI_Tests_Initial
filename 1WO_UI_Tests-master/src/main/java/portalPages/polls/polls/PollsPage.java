@@ -55,7 +55,7 @@ public class PollsPage extends BaseComponent {
     public boolean isPollTitleDisplayed(String pollTitle) {
         waitUtils.waitForLoading();
 
-        return waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), pollTitle)));
+        return waitUtils.isElementVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), pollTitle)));
     }
 
     public PollsPage addNewPoll(String questionText, String answer1, String answer2) {
@@ -66,7 +66,7 @@ public class PollsPage extends BaseComponent {
                     .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_REGION.toString(), RegionsAndLanguages.REGION_ALL.toString())
                     .selectDropdownAndItem(RegionsAndLanguages.SELECT_POLL_LANGUAGE.toString(), RegionsAndLanguages.LANGUAGE_ENGLISH.toString())
                     .modalSubmit();
-
+            waitUtils.waitForLoading();
             newPollManager.selectPollCategoryOpen(PollCategory.CATEGORY_ART_CULTURE.toString())
                     .fillQuestion(questionText)
                     .fillAnswer("0", answer1)
@@ -76,21 +76,22 @@ public class PollsPage extends BaseComponent {
             try {
                 newPollManager.saveNewPollPageWithAlertAccept();
             } catch (Exception e) {
-                logger.info("Can't submit alert");
+                logger.error("Can't submit alert");
             }
 
             return this;
 
         } catch (Exception e) {
             logger.error("Some Problem with poll creating");
+
             return this;
         }
     }
 
-    public LanguageAndNamePage startNewWidgetCreating() {
+    public LanguageAndNamePage startOldWidgetCreating() {
 
         waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "New widget")));
+        waitUtils.clickWhenReadyAfterLongWait(By.xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "New widget")));
 
         return languageAndNamePage;
     }
@@ -98,7 +99,7 @@ public class PollsPage extends BaseComponent {
     public PollerWidgetsPage openPollerWidgetsPage() {
         pollerWidgetsPage = new PollerWidgetsPage(driver);
 
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Poller widgets")));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Poller widgets")));
 
         return pollerWidgetsPage;
     }

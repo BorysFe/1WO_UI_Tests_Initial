@@ -221,9 +221,6 @@ public class WaitUtils extends DriverFactory {
         }
     }
 
-    /**
-     * Refer title of the class. This method will be made private shortly
-     */
     public void clickWhenReadyAfterShortWait(By locator) {
         clickWhenReady(locator, SHORT_TIMEOUT);
     }

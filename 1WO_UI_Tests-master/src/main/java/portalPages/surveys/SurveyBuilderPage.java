@@ -15,8 +15,8 @@ public class SurveyBuilderPage extends BaseComponent {
     WaitUtils waitUtils;
     private SurveyMessagesPage messagesPage;
 
-    String elementName = String.format(GeneralLocators.SPAN_BY_CLASS.toString(), "js-element-name");
-    String pageNumberInThePage = String.format(GeneralLocators.SPAN_BY_CLASS.toString(), "element-counter") + "[text()='%s']";
+    String elementName = String.format(GeneralLocators.SPAN_BY_CONTAINS_CLASS.toString(), "js-element-name");
+    String pageNumberInThePage = String.format(GeneralLocators.SPAN_BY_CONTAINS_CLASS.toString(), "element-counter") + "[text()='%s']";
 
     public SurveyBuilderPage(WebDriver driver) {
         super(driver);
@@ -28,7 +28,7 @@ public class SurveyBuilderPage extends BaseComponent {
     protected WebElement getMainElementInComponent() {
 
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+                (String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Next")));
     }
 
     public SurveyMessagesPage clickNext() {
@@ -39,7 +39,7 @@ public class SurveyBuilderPage extends BaseComponent {
 
     public SurveyBuilderPage addNewPage() {
         waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Add New Page")));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Add New Page")));
 
         return this;
     }
@@ -53,9 +53,9 @@ public class SurveyBuilderPage extends BaseComponent {
     public SurveyBuilderPage addDescriptionTextBlockAndEnterText(String descriptionText) {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_TEXT.toString(), "Add Description Text")));
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Add Description Text")));
         setField(By.xpath(String
-                .format(GeneralLocators.DIV_BY_CLASS.toString(), "cke_contents cke_reset")), descriptionText);
+                .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "cke_contents cke_reset")), descriptionText);
 
         return this;
     }

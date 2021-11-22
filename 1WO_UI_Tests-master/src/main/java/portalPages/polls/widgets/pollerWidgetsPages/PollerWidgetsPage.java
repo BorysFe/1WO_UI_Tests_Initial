@@ -34,13 +34,13 @@ public class PollerWidgetsPage extends BaseComponent {
     protected WebElement getMainElementInComponent() {
 
         return waitUtils.getElementWhenVisibleAfterShortWait(By
-                .xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "Poller widgets")));
+                .xpath(String.format(GeneralLocators.A_BY_CONTAINS_TEXT.toString(), "Poller widgets")));
     }
 
     public PollerWidgetsPage openPollerWidgetsPage() {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By
-                .xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "Poller widgets")));
+                .xpath(String.format(GeneralLocators.A_BY_CONTAINS_TEXT.toString(), "Poller widgets")));
 
         return this;
     }
@@ -64,7 +64,7 @@ public class PollerWidgetsPage extends BaseComponent {
         logger.info("Widget title " + widgetName + " searching");
 
         return waitUtils.isElementVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.A_BY_TEXT.toString(), widgetName)));
+                .format(GeneralLocators.A_BY_CONTAINS_TEXT.toString(), widgetName)));
     }
 
     public PollerWidgetPreviewPage openPollerWidgetPreviewPage(String widgetName) {

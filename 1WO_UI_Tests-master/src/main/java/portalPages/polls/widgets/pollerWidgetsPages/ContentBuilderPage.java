@@ -31,12 +31,12 @@ public class ContentBuilderPage extends BaseComponent {
 
     @Override
     protected WebElement getMainElementInComponent() {
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CLASS.toString(), "add")));
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_CLASS.toString(), "add")));
     }
 
     public ContentBuilderPage selectDropDownItem(String selectTitle, String selectItem) {
         WebElement openedSelect = waitUtils.waitForElementToBeDisplayedAfterShortWait(
-                By.xpath(String.format(GeneralLocators.SELECT_BY_NAME.toString(), selectTitle)));
+                By.xpath(String.format(GeneralLocators.SELECT_BY_CONTAINS_NAME.toString(), selectTitle)));
 
         if (Objects.equals(getDropdownItem(selectItem).getAttribute("selected"), null)) {
             Select select = new Select(openedSelect);
@@ -52,12 +52,12 @@ public class ContentBuilderPage extends BaseComponent {
 
     private WebElement getDropdownItem(String dropdownItem) {
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(
-                By.xpath(String.format(GeneralLocators.SELECT_BY_NAME.toString(), dropdownItem)));
+                By.xpath(String.format(GeneralLocators.SELECT_BY_CONTAINS_NAME.toString(), dropdownItem)));
     }
 
     public DesktopSettingsAndPreviewPage nextButtonClick() {
         desktopSettingsAndPreviewPage = new DesktopSettingsAndPreviewPage(driver);
-        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+        waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Next")));
         waitUtils.waitForLoading();
 
         return desktopSettingsAndPreviewPage;

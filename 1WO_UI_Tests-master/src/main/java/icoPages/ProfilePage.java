@@ -29,7 +29,7 @@ public class ProfilePage extends BaseComponent {
 
     public DashboardPage openDashboardPage() {
         waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterMiddleWait(By.xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "Dashboard")));
+        waitUtils.clickWhenReadyAfterMiddleWait(By.xpath(String.format(GeneralLocators.A_BY_CONTAINS_TEXT.toString(), "Dashboard")));
 
         return dashboardPage;
     }

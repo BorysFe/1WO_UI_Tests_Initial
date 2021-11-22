@@ -101,26 +101,6 @@ public class PublisherLoginPage extends BaseComponent {
         return onboardingPage;
     }
 
-    public OnboardingPublisherPage openOnboardingPage(String login, String password) {
-        onboardingPage = new OnboardingPublisherPage(driver);
-
-        loginPublisher(login, password);
-        waitUtils.waitForLoading();
-
-        return onboardingPage;
-    }
-
-    public PollsPage openPollsPage(String login, String password) {
-        pollsPage = new PollsPage(driver);
-
-        loginPublisher(login, password);
-
-        waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
-
-        return pollsPage;
-    }
-
     public boolean isPublisherLoginErrorDisplayed() {
         waitUtils.waitForLoading();
         return waitUtils.isElementVisibleNow(publisherEmailFieldError);

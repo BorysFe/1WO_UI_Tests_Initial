@@ -30,7 +30,7 @@ public class SurveysPage extends BaseComponent {
     public SelectLanguageModalPage startNewFullPageSurveyCreating() {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath
-                (String.format(GeneralLocators.INPUT_BY_VALUE.toString(), "New Full Page survey")));
+                (String.format(GeneralLocators.INPUT_BY_CONTAINS_VALUE.toString(), "New Full Page survey")));
         waitUtils.waitForLoading();
 
         return languageModal;
@@ -40,13 +40,13 @@ public class SurveysPage extends BaseComponent {
         waitUtils.waitForLoading();
 
         return waitUtils.isElementVisibleAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), title)));
+                (String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), title)));
     }
 
     public boolean isLanguageModalDisplayed() {
         waitUtils.waitForLoading();
 
         return waitUtils.isElementVisibleAfterShortWait(By.xpath
-                (String.format(GeneralLocators.DIV_BY_CLASS.toString(), "g-modal-padding-box")));
+                (String.format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "g-modal-padding-box")));
     }
 }

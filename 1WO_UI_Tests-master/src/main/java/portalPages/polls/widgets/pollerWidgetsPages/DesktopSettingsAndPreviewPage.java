@@ -25,13 +25,13 @@ public class DesktopSettingsAndPreviewPage extends BaseComponent {
     @Override
     protected WebElement getMainElementInComponent() {
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_CLASS.toString(), "add")));
+                .format(GeneralLocators.SPAN_BY_CONTAINS_CLASS.toString(), "add")));
     }
 
     public MobileSettingsAndPreviewPage nextButtonClick() {
         mobileSettingsAndPreviewPage = new MobileSettingsAndPreviewPage(driver);
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Next")));
         logger.info("Click Next button in the page Desktop Settings And Preview Page");
         logger.info(getWidgetOWOCode());
 
@@ -49,7 +49,7 @@ public class DesktopSettingsAndPreviewPage extends BaseComponent {
     public String getWidgetOWOCode() {
 
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.DIV_BY_CLASS + "/div", "widget-element")))
+                .format(GeneralLocators.DIV_BY_CONTAINS_CLASS + "/div", "widget-element")))
                 .getAttribute("data-owo-code");
     }
 }

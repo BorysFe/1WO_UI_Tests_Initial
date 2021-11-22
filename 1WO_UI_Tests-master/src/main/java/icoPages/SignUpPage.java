@@ -8,11 +8,15 @@ import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import utils.WaitUtils;
 
 @Getter
 @Setter
 public class SignUpPage extends BaseComponent {
+    private static final Logger logger = LoggerFactory.getLogger(SignUpPage.class);
 
     WaitUtils waitUtils;
     ProfilePage profilePage;
@@ -26,7 +30,7 @@ public class SignUpPage extends BaseComponent {
     @Override
     protected WebElement getMainElementInComponent() {
         return waitUtils.waitForElementToBeDisplayedAfterLongWait(By.xpath(String.
-                format(GeneralLocators.A_BY_CLASS.toString(), "signup")));
+                format(GeneralLocators.A_BY_CONTAINS_CLASS.toString(), "signup")));
     }
 
     public SignUpPage openSignUpPage() {
@@ -37,10 +41,10 @@ public class SignUpPage extends BaseComponent {
         return this;
     }
 
-    public void fillSignUpForm(String firstName,
-                               String lastName,
-                               String password,
-                               String emailAddress) {
+    public SignUpPage fillSignUpForm(String firstName,
+                                     String lastName,
+                                     String password,
+                                     String emailAddress) {
 
         waitUtils.waitForLoading();
 
@@ -49,13 +53,19 @@ public class SignUpPage extends BaseComponent {
         setField(By.xpath(String.format(GeneralLocators.INPUT_BY_PLACEHOLDER.toString(), "Password")), password);
         setField(By.xpath(String.format(GeneralLocators.INPUT_BY_PLACEHOLDER.toString(), "Confirm password")), password);
         setField(By.xpath(String.format(GeneralLocators.INPUT_BY_PLACEHOLDER.toString(), "Email address")), emailAddress);
-
+        waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.
-                format(GeneralLocators.BUTTON_BY_CLASS.toString(), "btn-sbmt")));
+                format(GeneralLocators.BUTTON_BY_CONTAINS_CLASS.toString(), "btn-sbmt")));
+        waitUtils.waitForLoading();
+
+        logger.info("First/Last/Password/Login - " + firstName + "/" + lastName + "/" + password + "/" + emailAddress);
+        return this;
     }
 
     public ProfilePage openProfilePage() {
-        waitUtils.clickWhenReadyAfterMiddleWait(By.xpath(String.format(GeneralLocators.A_BY_TEXT.toString(), "Profile")));
+        waitUtils.waitForLoading();
+
+        waitUtils.clickWhenReadyAfterMiddleWait(By.xpath(String.format(GeneralLocators.A_BY_CONTAINS_TEXT.toString(), "Profile")));
 
         return profilePage;
     }

@@ -24,14 +24,14 @@ public class MobileSettingsAndPreviewPage extends BaseComponent {
     @Override
     protected WebElement getMainElementInComponent() {
 
-        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+        return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Finish")));
     }
 
     public PollsPage finishButtonClick() {
         pollsPage = new PollsPage(driver);
 
         try {
-            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+            waitUtils.clickWhenReadyAfterShortWait(By.xpath(String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Finish")));
             logger.info("Finishing Poller Widget creating");
 
             return pollsPage;

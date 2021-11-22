@@ -73,7 +73,7 @@ public class NewPollManagerPage extends BaseComponent {
 
     private WebElement getDropdownItem(String dropdownItem) {
         waitUtils.waitForLoading();
-        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(GeneralLocators.OPTION_BY_TEXT.toString(), dropdownItem)));
+        return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath(String.format(GeneralLocators.OPTION_BY_CONTAINS_TEXT.toString(), dropdownItem)));
     }
 
     public NewPollManagerPage fillAnswer(String answerNumber, String answerText) {

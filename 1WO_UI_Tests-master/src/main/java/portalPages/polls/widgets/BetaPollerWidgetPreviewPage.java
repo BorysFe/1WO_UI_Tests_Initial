@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
@@ -19,10 +20,38 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
 
     WaitUtils waitUtils;
 
-    private final String pollVotingButton = ".//label[contains(@title,'%s')]//span[contains(@class,'radio-button')]";
+    @FindBy(xpath = ".//div[contains(@class,'footerStatistic')]")
+    private WebElement statisticButton;
+
+    @FindBy(xpath = ".//div[contains(@class,'footerPoints')]")
+    private WebElement scoreUser;
+
+    @FindBy(xpath = ".//span[text()='Dashboard']")
+    private WebElement scorePointsHoverButtonDashboard;
+
+    @FindBy(xpath = ".//div[contains(@class, 'totalViews')]")
+    private WebElement viewsCounter;
+
+    @FindBy(xpath = ".//div[contains(@class, 'totalViews')]//span")
+    private WebElement viewsValue;
+
+    @FindBy(xpath = ".//div[contains(@class, 'totalVotes')]")
+    private WebElement votesCounter;
+
+    @FindBy(xpath = ".//div[contains(@class, 'totalVotes')]//span")
+    private WebElement votesValue;
+
+    @FindBy(xpath = ".//div[contains(@class, 'social')]")
+    private WebElement sharingArrow;
+
+    @FindBy(xpath = ".//textarea[@id='textareaEmbedCode']")
+    private WebElement embedCodeArea;
+
+    private final String pollVotingButton = ".//p[contains(text(),'%s')]/preceding-sibling::label//span/span";
     private final String pollVotingButtonCheck = ".//label[contains(@title,'%s')]//span/input[@checked= 'checked']";
     private final String pollVotingPercent = ".//span[@class='percents-holder']/preceding-sibling::p[contains(text(), '%s')]";
     private final String frameXpath = ".//div[@data-owo-code='%s']/iframe[@id='surveyWidgetOWOFrame']";
+    private final String sharingLink = ".//div[contains(@class, 'social')]/button[@aria-label='%s']";
 
     public BetaPollerWidgetPreviewPage(WebDriver driver) {
         super(driver);
@@ -73,7 +102,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         switchToWidgetFrame();
 
         boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_TEXT.toString(), pollQuestionText)));
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), pollQuestionText)));
 
         driver.switchTo().defaultContent();
 
@@ -84,6 +113,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
+        waitUtils.waitForLoading();
 
         boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
                 .format(pollVotingPercent, pollAnswerText)));
@@ -115,7 +145,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         switchToWidgetFrame();
 
         String userScoreValue = waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.DIV_BY_CLASS.toString(), "count-of-user-score"))).getText();
+                .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "count-of-user-score"))).getText();
 
         driver.switchTo().defaultContent();
 
@@ -128,7 +158,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         switchToWidgetFrame();
 
         String pollVotePercentValue = waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_TEXT.toString(), pollAnswerText))).getText();
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), pollAnswerText))).getText();
 
         driver.switchTo().defaultContent();
 
@@ -143,8 +173,194 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         switchToWidgetFrame();
 
         waitUtils.isElementVisibleAfterShortWait(By.xpath(String
-                .format(GeneralLocators.SPAN_BY_TEXT.toString(), pollQuestionText)));
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), pollQuestionText)));
 
         driver.switchTo().defaultContent();
+    }
+
+    public boolean isStatisticButtonDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
+                .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "footerStatistic")));
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isStatisticHoverTextDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        actions.mouseHover(By.xpath(String
+                .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "footerStatistic")));
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
+                .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Statistic")));
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isScorePointsDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(scoreUser);
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isScorePointsHoverDisplayed(String pollAnswerText) {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        actions.mouseHover(scoreUser);
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(scorePointsHoverButtonDashboard);
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isViewsCounterDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(viewsCounter);
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public String getViewsValue() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        String viewsValue = waitUtils.getElementWhenVisibleAfterShortWait(viewsCounter).getText();
+
+        driver.switchTo().defaultContent();
+
+        return viewsValue;
+    }
+
+    public boolean isVotesCounterDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(votesCounter);
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public String getVotesValue() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        String viewsValue = waitUtils.getElementWhenVisibleAfterShortWait(votesValue).getText();
+
+        driver.switchTo().defaultContent();
+
+        return viewsValue;
+    }
+
+    //Need refactoring
+    public String getVotesValueAfterPageReload(Integer pageReloadValue) {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        for (int y = 0; y < pageReloadValue; y++) {
+            waitUtils.waitForElementToBeDisplayedWithPageRefresh(votesCounter);
+
+            waitUtils.waitForLoading();
+
+            switchToWidgetFrame();
+        }
+
+        String viewsValue = waitUtils.getElementWhenVisibleAfterShortWait(votesValue).getText();
+
+        driver.switchTo().defaultContent();
+
+        return viewsValue;
+    }
+
+    public boolean isSharingArrowDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        waitUtils.waitForLoading();
+
+        boolean status = waitUtils.isElementVisibleAfterShortWait(sharingArrow);
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isSharingFacebookLinkDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        waitUtils.waitForLoading();
+        actions.mouseHover(sharingArrow);
+
+        boolean status = waitUtils
+                .isElementVisibleAfterShortWait(By.xpath(String.format(sharingLink, "facebook")));
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isSharingTwitterLinkDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        waitUtils.waitForLoading();
+        actions.mouseHover(sharingArrow);
+
+        boolean status = waitUtils
+                .isElementVisibleAfterShortWait(By.xpath(String.format(sharingLink, "twitter")));
+
+        driver.switchTo().defaultContent();
+
+        return status;
+    }
+
+    public boolean isSharingLinkedInLinkDisplayed() {
+        waitUtils.waitForLoading();
+
+        switchToWidgetFrame();
+
+        waitUtils.waitForLoading();
+        actions.mouseHover(sharingArrow);
+
+        boolean status = waitUtils
+                .isElementVisibleAfterShortWait(By.xpath(String.format(sharingLink, "linkedin")));
+
+        driver.switchTo().defaultContent();
+
+        return status;
     }
 }

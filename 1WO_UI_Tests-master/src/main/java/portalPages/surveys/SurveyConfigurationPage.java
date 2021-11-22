@@ -22,9 +22,9 @@ public class SurveyConfigurationPage extends BaseComponent {
     WaitUtils waitUtils;
     SurveyBrandingPage brandingPage;
 
-    String surveyTitle = String.format(GeneralLocators.INPUT_BY_NAME.toString(), "publicTitle");
-    String surveyName = String.format(GeneralLocators.INPUT_BY_NAME.toString(), "internalTitle");
-    String surveyParticipantNeeded = String.format(GeneralLocators.INPUT_BY_NAME.toString(), "survey.peopleNeeded");
+    String surveyTitle = String.format(GeneralLocators.INPUT_BY_CONTAINS_NAME.toString(), "publicTitle");
+    String surveyName = String.format(GeneralLocators.INPUT_BY_CONTAINS_NAME.toString(), "internalTitle");
+    String surveyParticipantNeeded = String.format(GeneralLocators.INPUT_BY_CONTAINS_NAME.toString(), "survey.peopleNeeded");
 
     public SurveyConfigurationPage(WebDriver driver) {
         super(driver);
@@ -36,7 +36,7 @@ public class SurveyConfigurationPage extends BaseComponent {
     protected WebElement getMainElementInComponent() {
 
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SELECT_BY_NAME.toString(), "survey.categoryId")));
+                (String.format(GeneralLocators.SELECT_BY_CONTAINS_NAME.toString(), "survey.categoryId")));
     }
 
     public SurveyConfigurationPage enterSurveyName(String name) {
@@ -67,7 +67,7 @@ public class SurveyConfigurationPage extends BaseComponent {
         waitUtils.waitForLoading();
         WebElement openedSelect =
                 waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                        (String.format(GeneralLocators.SELECT_BY_NAME.toString(), "survey.categoryId")));
+                        (String.format(GeneralLocators.SELECT_BY_CONTAINS_NAME.toString(), "survey.categoryId")));
 
         if (Objects.equals(getDropdownItem(selectItem).getAttribute("selected"), null)) {
             Select select = new Select(openedSelect);
@@ -80,7 +80,7 @@ public class SurveyConfigurationPage extends BaseComponent {
 
     private WebElement getDropdownItem(String dropdownItem) {
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                (String.format(GeneralLocators.OPTION_BY_TEXT.toString(), dropdownItem)));
+                (String.format(GeneralLocators.OPTION_BY_CONTAINS_TEXT.toString(), dropdownItem)));
     }
 
     public SurveyBrandingPage clickNext() {

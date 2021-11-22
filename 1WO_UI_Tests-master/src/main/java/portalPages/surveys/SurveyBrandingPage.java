@@ -25,7 +25,7 @@ public class SurveyBrandingPage extends BaseComponent {
     protected WebElement getMainElementInComponent() {
 
         return waitUtils.waitForElementToBeDisplayedAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+                (String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Next")));
     }
 
     public SurveyBuilderPage clickNext() {

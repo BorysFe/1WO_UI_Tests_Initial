@@ -51,7 +51,7 @@ public class OnboardingPublisherPage extends BaseComponent {
 
     public PollsPage openPollsPage() {
         waitUtils.waitForLoading();
-        waitUtils.clickWhenReadyAfterShortWait(pollsMenuButton);
+        waitUtils.clickWhenReadyAfterMiddleWait(pollsMenuButton);
         waitUtils.waitForLoading();
 
         return pollsPage;

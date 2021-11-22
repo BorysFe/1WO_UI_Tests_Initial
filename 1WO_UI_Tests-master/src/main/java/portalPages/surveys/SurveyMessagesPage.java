@@ -15,7 +15,7 @@ public class SurveyMessagesPage extends BaseComponent {
     WaitUtils waitUtils;
     SurveysPage surveysPage;
 
-    String finishButton = String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish");
+    String finishButton = String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Finish");
 
     public SurveyMessagesPage(WebDriver driver) {
         super(driver);

@@ -29,14 +29,14 @@ public class APIPollerWidget {
         pollText = "Random Poll";
     }
 
-    public int getStatusNewRandomPollerWidgetRequest() {
+//    public int getStatusNewRandomPollerWidgetRequest() {
+//
+//        int statusCode = new APIPoll().NewRandomPollRequest(pollText).getStatusCode();
+//
+//        return statusCode;
+//    }
 
-        int statusCode = new APIPoll().NewRandomPollRequest(pollText).getStatusCode();
-
-        return statusCode;
-    }
-
-    public Response NewPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
+    public Response AddPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -73,7 +73,7 @@ public class APIPollerWidget {
         return response;
     }
 
-    public Response NewBetaPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
+    public Response AddBetaPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -92,7 +92,7 @@ public class APIPollerWidget {
         widget.put("hideClosedPolls", true);
         widget.put("type", "poller");
         widget.put("partner", partner);
-        widget.put("colorTheme", "simpleDark");
+        widget.put("showUserScore", true);
 
         widget.put("colorTheme", "simpleDark");
         widget.put("headerTextAlignment", "center");

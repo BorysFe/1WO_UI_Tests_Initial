@@ -68,14 +68,14 @@ public abstract class BaseComponent implements WebElementProvider {
     protected void clickNextButton() {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Next")));
+                (String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Next")));
         waitUtils.waitForLoading();
     }
 
     protected void clickFinishButton() {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(By.xpath
-                (String.format(GeneralLocators.SPAN_BY_TEXT.toString(), "Finish")));
+                (String.format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Finish")));
         waitUtils.waitForLoading();
     }
 }
