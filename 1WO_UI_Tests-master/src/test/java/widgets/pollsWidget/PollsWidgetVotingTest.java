@@ -23,8 +23,10 @@ import utils.DriverFactory;
 import utils.UtilityHelper;
 
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
+import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT;
 
 public class PollsWidgetVotingTest extends DriverFactory {
     PollerWidgetsPage pollerWidgetsPage;
@@ -33,6 +35,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
     SignUpPage icoSignUpPage;
     ProfilePage icoProfilePage;
     DashboardPage icoDashboardPage;
+    Date date;
 
     String loginPublisher;
     String passwordPublisher;
@@ -46,7 +49,6 @@ public class PollsWidgetVotingTest extends DriverFactory {
     String poll2Text;
     String answerText1;
     String answerText2;
-    String newWidgetId;
 
     @BeforeClass
     public void memberCredentials() {
@@ -63,22 +65,19 @@ public class PollsWidgetVotingTest extends DriverFactory {
         icoSignUpPage = new SignUpPage(driver);
         icoProfilePage = new ProfilePage(driver);
         icoDashboardPage = new DashboardPage(driver);
+        pollerWidgetPreviewPage = new PollerWidgetPreviewPage(driver);
+        date = new Date();
 
         randomUserFirstName = Accounts.RANDOM_USER_FIRST_NAME.toString();
         randomUserLastName = Accounts.RANDOM_USER_LAST_NAME.toString();
         randomUserPassword = Accounts.RANDOM_USER_PASSWORD.toString();
-        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
-        poll1Text = "PollText1";
-        poll2Text = "PollText2";
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
 
         driver.manage().deleteAllCookies();
     }
 
     @AfterMethod
     public void logOutIfNeed() {
-        UtilityHelper.deleteAllCookies(driver);
+//        UtilityHelper.deleteAllCookies(driver);
     }
 
     @AfterClass
@@ -89,7 +88,13 @@ public class PollsWidgetVotingTest extends DriverFactory {
     @Test
     public void votingPollerWidgetFromAnonymousToSynthetic() {
 
-        newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
+        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString();
+        poll1Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText1", date);
+        poll2Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText2", date);
+        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
+        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+
+        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -123,9 +128,15 @@ public class PollsWidgetVotingTest extends DriverFactory {
     @Test
     public void votingPollerWidgetFromAnonymousToMember() {
 
+        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString();
+        poll1Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText1", date);
+        poll2Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText2", date);
+        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
+        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+
         String randomUserLogin = String.format(Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString(), System.currentTimeMillis());
 
-        newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
+        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
                 poll1Text,
@@ -141,7 +152,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .as("User isn't Anonim")
                 .isTrue();
 
-        pollerWidgetsPage.openPollerWidgetPreviewPageByOWOCode(newWidgetId);
+        pollerWidgetPreviewPage.openPollerWidgetPreview(newWidgetId);
         pollerWidgetPreviewPage.voteAnswer(answerText1);
 
         Assertions.assertThat(pollerWidgetPreviewPage.

@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
 
+import java.util.Date;
+
 @Setter
 @Getter
 public class PollerWidgetPreviewPage extends BaseComponent {

@@ -8,16 +8,20 @@ import org.openqa.selenium.support.PageFactory;
 import utils.ActionHelperUtils;
 import utils.WaitUtils;
 
+import java.util.Date;
+
 public abstract class BaseComponent implements WebElementProvider {
     protected WebDriver driver;
     protected ActionHelperUtils actions;
     WaitUtils waitUtils;
+    Date date;
 
     public BaseComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
         actions = new ActionHelperUtils(driver);
         waitUtils = new WaitUtils(driver);
+        date = new Date();
     }
 
     protected abstract WebElement getMainElementInComponent();
