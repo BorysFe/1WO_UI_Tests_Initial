@@ -6,6 +6,7 @@ import base.enums.PageURLs;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +16,7 @@ import utils.WaitUtils;
 
 @Setter
 @Getter
-public class BetaPollerWidgetPreviewPage extends BaseComponent {
+public class BetaPollerWidgetPreviewPage extends BaseComponent implements WidgetPreviewPage {
     private static final Logger logger = LoggerFactory.getLogger(BetaPollerWidgetPreviewPage.class);
 
     WaitUtils waitUtils;
@@ -83,7 +84,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
         return this;
     }
 
-    public BetaPollerWidgetPreviewPage voteAnswer(String pollAnswerText) {
+    public void voteAnswer(String pollAnswerText) {
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
@@ -92,8 +93,12 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent {
                 .format(pollVotingButton, pollAnswerText)));
 
         driver.switchTo().defaultContent();
+    }
 
-        return this;
+    @Override
+    public void getVotesValueAfterPageReload(int i) {
+        throw new NotFoundException("not implemented yet");
+        //todo
     }
 
     public boolean isPollDisplayed(String pollQuestionText) {

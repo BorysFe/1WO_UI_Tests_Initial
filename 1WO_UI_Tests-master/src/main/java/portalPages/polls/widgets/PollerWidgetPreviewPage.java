@@ -13,11 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.WaitUtils;
 
-import java.util.Date;
-
 @Setter
 @Getter
-public class PollerWidgetPreviewPage extends BaseComponent {
+public class PollerWidgetPreviewPage extends BaseComponent implements WidgetPreviewPage {
     private static final Logger logger = LoggerFactory.getLogger(PollerWidgetPreviewPage.class);
 
     WaitUtils waitUtils;
@@ -84,7 +82,7 @@ public class PollerWidgetPreviewPage extends BaseComponent {
         return this;
     }
 
-    public PollerWidgetPreviewPage voteAnswer(String pollAnswerText) {
+    public void voteAnswer(String pollAnswerText) {
         waitUtils.waitForLoading();
         switchToWidgetFrame();
         waitUtils.waitForLoading();
@@ -95,8 +93,11 @@ public class PollerWidgetPreviewPage extends BaseComponent {
         waitUtils.waitForLoading();
 
         driver.switchTo().defaultContent();
+    }
 
-        return this;
+    @Override
+    public void getVotesValueAfterPageReload(int i) {
+
     }
 
     public boolean isPollDisplayed(String pollQuestionText) {
