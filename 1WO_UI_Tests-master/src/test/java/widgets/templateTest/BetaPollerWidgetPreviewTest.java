@@ -174,21 +174,21 @@ public class BetaPollerWidgetPreviewTest extends TestNewBasicTest {
         String defaultLocale = "en";
 
         Response newPoll1 = new APIPoll()
-                .NewPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
+                .newPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId1 = new APIPoll()
                 .getIntegerValueFromResponse(newPoll1, APIValue.ID.toString());
 
         Response newPoll2 = new APIPoll()
-                .NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
+                .newPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId2 = new APIPoll()
                 .getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
         Response responseAddBetaEmptyWidget = new APIPollerWidget()
-                .AddBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+                .newBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoCodePollerWidget = new APIPollerWidget()
                 .getStringValueFromResponse(responseAddBetaEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 
-        new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
+        new APIPollerWidget().add2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
 
         return owoCodePollerWidget;
     }

@@ -6,21 +6,13 @@ import apiMain.portal.pollerWidget.APIPollerWidget;
 import base.AccountsInfoPage;
 import base.enums.Accounts;
 import base.enums.DefaultContent;
-import base.enums.PageURLs;
-import io.restassured.RestAssured;
-import io.restassured.http.Method;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
-import org.json.simple.JSONObject;
 import org.testng.annotations.*;
 import portalPages.polls.polls.PollCategory;
 import portalPages.polls.widgets.BetaPollerWidgetPreviewPage;
 import utils.DriverFactory;
 import utils.UtilityHelper;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
 
@@ -175,21 +167,21 @@ public class BetaPollerWidgetPreviewTest extends DriverFactory {
         String defaultLocale = "en";
 
         Response newPoll1 = new APIPoll()
-                .NewPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
+                .newPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId1 = new APIPoll()
                 .getIntegerValueFromResponse(newPoll1, APIValue.ID.toString());
 
         Response newPoll2 = new APIPoll()
-                .NewPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
+                .newPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
         Integer pollId2 = new APIPoll()
                 .getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
 
         Response responseAddBetaEmptyWidget = new APIPollerWidget()
-                .AddBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+                .newBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoCodePollerWidget = new APIPollerWidget()
                 .getStringValueFromResponse(responseAddBetaEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
 
-        new APIPollerWidget().adding2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
+        new APIPollerWidget().add2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
 
         return owoCodePollerWidget;
     }

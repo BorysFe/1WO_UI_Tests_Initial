@@ -1,5 +1,6 @@
 package apiMain.portal.pollerWidget;
 
+import apiMain.APIValue;
 import base.enums.Accounts;
 import base.enums.PageURLs;
 import io.restassured.RestAssured;
@@ -9,14 +10,18 @@ import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class APIPollerWidget {
+    private static final Logger logger = LoggerFactory.getLogger(APIPollerWidget.class);
 
     String partnerId;
     String partnerCookie;
@@ -29,14 +34,14 @@ public class APIPollerWidget {
         pollText = "Random Poll";
     }
 
-//    public int getStatusNewRandomPollerWidgetRequest() {
-//
-//        int statusCode = new APIPoll().NewRandomPollRequest(pollText).getStatusCode();
-//
-//        return statusCode;
-//    }
+    public int getStatusNewRandomPollerWidgetRequest() {
 
-    public Response AddPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
+        int statusCode = new APIPoll().newRandomPollRequest(pollText).getStatusCode();
+
+        return statusCode;
+    }
+
+    public Response newPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -73,7 +78,7 @@ public class APIPollerWidget {
         return response;
     }
 
-    public Response AddBetaPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
+    public Response newBetaPollerWidgetRequest(String partnerId, String partnerCookie, String widgetTitle) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -124,11 +129,11 @@ public class APIPollerWidget {
         return response;
     }
 
-    public Response adding2PollsInWidget(String partnerId,
-                                         String partnerCookie,
-                                         Integer pollId1,
-                                         Integer pollId2,
-                                         String widgetId) {
+    public Response add2PollsInWidget(String partnerId,
+                                      String partnerCookie,
+                                      Integer pollId1,
+                                      Integer pollId2,
+                                      String widgetId) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -195,5 +200,79 @@ public class APIPollerWidget {
         }
 
         return jsonObject.get(value).toString();
+    }
+
+    public Response addPollsInWidget(String partnerId,
+                                     String partnerCookie,
+                                     String widgetId,
+                                     int pollsCount,
+                                     String pollTitle,
+                                     String pollAnswer1,
+                                     String pollAnswer2,
+                                     String categoryId,
+                                     String pollType,
+                                     String locale) {
+
+        APIPoll apiPoll = new APIPoll();
+        JSONObject requestBody = new JSONObject();
+        List<JSONObject> entityList = new ArrayList<>();
+
+        RestAssured.baseURI = PageURLs.REST_ASSURED_BASE_URI.toString();
+
+        JSONObject partner = new JSONObject();
+        partner.put("externalId", partnerId);
+
+        JSONObject idNewMultiplePolls = apiPoll.createMultiplePolls(partnerId, partnerCookie, pollsCount, pollTitle, pollAnswer1, pollAnswer2, categoryId, pollType, locale);
+
+        for (int yy = 0; yy < pollsCount; yy++) {
+
+            String pollID = idNewMultiplePolls.get(yy).toString();
+
+            JSONObject entity = new JSONObject();
+            entity.put("entity", pollID);
+            entity.put("entityType", "poll");
+            entity.put("order", (yy + 1));
+
+            entityList.add(entity);
+        }
+
+        JSONObject widget = new JSONObject();
+        widget.put("displayLocale", "en");
+        widget.put("widgetCode", widgetId);
+        widget.put("entitiesExcluded", Collections.singleton(""));
+        widget.put("partner", partner);
+        widget.put("entities", entityList);
+
+        requestBody.put("widget", widget);
+
+        RequestSpecification request = RestAssured.given()
+                .header("cookie", partnerCookie)
+                .and()
+                .header("Content-Type", "application/json")
+                .and()
+                .body(requestBody.toString());
+
+        Response response = request.request(Method.POST, "1ws/json/WidgetEdit");
+
+        return response;
+    }
+
+    public String newWidgetWithMultiplePolls(String partnerId,
+                                             String partnerCookie,
+                                             String widgetTitle,
+                                             int pollsCount,
+                                             String pollTitle,
+                                             String pollAnswer1,
+                                             String pollAnswer2,
+                                             String categoryId,
+                                             String pollType,
+                                             String locale) {
+
+        Response newWidgetResponse = newPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+        String owoWidgetCode = getStringValueFromResponse(newWidgetResponse, APIValue.OWO_WIDGET_CODE.toString());
+
+        addPollsInWidget(partnerId, partnerCookie, owoWidgetCode, pollsCount, pollTitle, pollAnswer1, pollAnswer2, categoryId, pollType, locale);
+
+        return owoWidgetCode;
     }
 }
