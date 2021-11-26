@@ -1,33 +1,23 @@
 package apiMain.portal.pollerWidget;
 
 import base.enums.Accounts;
-import base.enums.DefaultContent;
 import base.enums.PageURLs;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import lombok.Builder;
-import org.codehaus.groovy.control.messages.ExceptionMessage;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollCategory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import static base.enums.Accounts.*;
-import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
-import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT;
+import static base.enums.DefaultContent.POLL_ANSWER_ONLY_TEXT;
+import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT_WITH_DATE;
 
 public class APIPoll {
     private static final Logger logger = LoggerFactory.getLogger(APIPoll.class);
@@ -84,9 +74,9 @@ public class APIPoll {
         String partnerId = Accounts.PUBLISHER_ID.toString();
         String partnerCookie = Accounts.PUBLISHER_COOKIE.toString();
 
-        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), additionalText);
-        String answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "1");
-        String answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), additionalText + "2");
+        String questionText = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT_WITH_DATE), additionalText);
+        String answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), additionalText + "1");
+        String answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), additionalText + "2");
         String categoryId = String.valueOf(PollCategory.CATEGORY_VALUE_ART_CULTURE);
 
         JSONObject requestBody = new JSONObject();
@@ -167,7 +157,7 @@ public class APIPoll {
 
             Response response = newPollRequest(partnerId,
                     partnerCookie,
-                    pollTitle + y,
+                    pollTitle + " - " + y,
                     pollAnswerText1 + y,
                     pollAnswerText2 + y,
                     categoryId,

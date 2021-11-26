@@ -13,7 +13,7 @@ import portalPages.polls.widgets.BetaPollerWidgetPreviewPage;
 import portalPages.polls.widgets.WidgetPreviewPage;
 import utils.UtilityHelper;
 
-import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
+import static base.enums.DefaultContent.POLL_ANSWER_ONLY_TEXT;
 
 public class BetaPollerWidgetPreviewTest extends TestNewBasicTest {
 
@@ -53,11 +53,11 @@ public class BetaPollerWidgetPreviewTest extends TestNewBasicTest {
         accountsInfoPage = new AccountsInfoPage(driver);
         widgetPreview = new BetaPollerWidgetPreviewPage(driver);
 
-        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
+        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString(), "1");
         poll1Text = "Poll Text 1";
         poll2Text = "Poll Text 2";
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "Answer Text 2");
+        answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "Answer Text 1");
+        answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "Answer Text 2");
 
         String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,

@@ -59,10 +59,10 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
                 .loginPublisher(loginPublisher, passwordPublisher)
                 .openPollsPage();
 
-        pollQuestionText1 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "1");
-        pollAnswerText1 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1");
-        pollQuestionText2 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT.toString(), "2");
-        pollAnswerText2 = String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "2");
+        pollQuestionText1 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT_WITH_DATE.toString(), "1");
+        pollAnswerText1 = String.format(DefaultContent.POLL_ANSWER_ONLY_TEXT.toString(), "1");
+        pollQuestionText2 = String.format(DefaultContent.RANDOM_POLL_QUESTION_TEXT_WITH_DATE.toString(), "2");
+        pollAnswerText2 = String.format(DefaultContent.POLL_ANSWER_ONLY_TEXT.toString(), "2");
 
         pollsPage.addNewPoll(pollQuestionText1, pollAnswerText1, pollAnswerText2);
         pollsPage.addNewPoll(pollQuestionText2, pollAnswerText1, pollAnswerText2);
@@ -76,7 +76,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
 
     @Test
     public void signUpMemberAfterVote() {
-        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString(), "1");
+        String widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString(), "1");
 
         pollsPage.startOldWidgetCreating()
                 .newWidgetDefaultLanguage(widgetName)
@@ -90,7 +90,7 @@ public class SignUpMemberFromWidgetTest extends DriverFactory {
         driver.manage().deleteAllCookies();
 
         pollerWidgetsPage.openPollerWidgetPreviewPage(widgetName);
-        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.RANDOM_POLL_ANSWER_TEXT.toString(), "1"));
+        pollerWidgetPreviewPage.voteAnswer(String.format(DefaultContent.POLL_ANSWER_ONLY_TEXT.toString(), "1"));
 
         Assertions.assertThat(pollerWidgetPreviewPage.isAnswerVoted(pollAnswerText1))
                 .as("Vote from user wasn't counted")

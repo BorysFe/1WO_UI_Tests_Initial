@@ -34,8 +34,8 @@ public class AccountsInfoPage extends BaseComponent {
         return this;
     }
 
-    public boolean isUserAnonim() {
-
+    public boolean isUserAnonymous() {
+        waitUtils.waitForLoading();
         return waitUtils.isElementVisibleAfterMiddleWait(By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"));
 //        return !waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(".//h1")).getText().equals("Whitelabelelabel Error Page");
     }

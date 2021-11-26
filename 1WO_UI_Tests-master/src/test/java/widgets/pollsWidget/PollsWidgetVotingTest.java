@@ -18,16 +18,18 @@ import utils.DriverFactory;
 
 import java.util.Date;
 
-import static base.enums.DefaultContent.RANDOM_POLL_ANSWER_TEXT;
-import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT;
+import static base.enums.DefaultContent.POLL_ANSWER_ONLY_TEXT;
+import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT_WITH_DATE;
 
 public class PollsWidgetVotingTest extends DriverFactory {
 
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
     AccountsInfoPage accountsInfoPage;
+
     SignUpPage icoSignUpPage;
     ProfilePage icoProfilePage;
     DashboardPage icoDashboardPage;
+
     Date date;
     APIPollerWidget apiPollerWidget;
 
@@ -90,11 +92,11 @@ public class PollsWidgetVotingTest extends DriverFactory {
     @Test
     public void votingPollerWidgetFromAnonymousToSynthetic() {
 
-        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString();
-        poll1Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText1", date);
-        poll2Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT), "PollText2", date);
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString();
+        poll1Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT_WITH_DATE), "PollText1", date);
+        poll2Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT_WITH_DATE), "PollText2", date);
+        answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText1");
+        answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText2");
 
         String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
@@ -108,7 +110,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
         accountsInfoPage.openAccountInfoPage();
 
-        Assertions.assertThat(accountsInfoPage.isUserAnonim())
+        Assertions.assertThat(accountsInfoPage.isUserAnonymous())
                 .as("User isn't Anonim")
                 .isTrue();
 
@@ -131,16 +133,15 @@ public class PollsWidgetVotingTest extends DriverFactory {
     public void votingPollerWidgetFromAnonymousToMember() {
 
         String randomUserLogin = String.format(Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString(), System.currentTimeMillis());
-        String pollQuestionText = DefaultContent.RANDOM_POLL_QUESTION.toString();
-        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT.toString();
-        answerText1 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText1");
-        answerText2 = String.format(String.valueOf(RANDOM_POLL_ANSWER_TEXT), "AnswerText2");
+        String pollQuestionText = DefaultContent.RANDOM_POLL_QUESTION_ONLY_DATE.toString();
+        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString(), "");
+        answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText1");
+        answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText2");
 
-
-        String newWidgetId = apiPollerWidget.newWidgetWithMultiplePolls(partnerId,
+        String newWidgetId = apiPollerWidget.owoCodeNewWidgetWithMultiplePolls(partnerId,
                 partnerCookie,
                 widgetName,
-                1,
+                3,
                 pollQuestionText,
                 answerText1,
                 answerText2,
@@ -150,7 +151,7 @@ public class PollsWidgetVotingTest extends DriverFactory {
 
         accountsInfoPage.openAccountInfoPage();
 
-        Assertions.assertThat(accountsInfoPage.isUserAnonim())
+        Assertions.assertThat(accountsInfoPage.isUserAnonymous())
                 .as("User isn't Anonim")
                 .isTrue();
 

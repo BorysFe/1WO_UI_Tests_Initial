@@ -129,11 +129,8 @@ public class APIPollerWidget {
         return response;
     }
 
-    public Response add2PollsInWidget(String partnerId,
-                                      String partnerCookie,
-                                      Integer pollId1,
-                                      Integer pollId2,
-                                      String widgetId) {
+     public Response add2PollsInWidget(String partnerId, String partnerCookie, Integer pollId1,
+                                      Integer pollId2, String widgetId) {
 
         JSONObject requestBody = new JSONObject();
 
@@ -202,16 +199,9 @@ public class APIPollerWidget {
         return jsonObject.get(value).toString();
     }
 
-    public Response addPollsInWidget(String partnerId,
-                                     String partnerCookie,
-                                     String widgetId,
-                                     int pollsCount,
-                                     String pollTitle,
-                                     String pollAnswer1,
-                                     String pollAnswer2,
-                                     String categoryId,
-                                     String pollType,
-                                     String locale) {
+    public Response addPollsInWidget(String partnerId, String partnerCookie, String widgetId,
+                                     int pollsCount, String pollTitle, String pollAnswer1, String pollAnswer2,
+                                     String categoryId, String pollType, String locale) {
 
         APIPoll apiPoll = new APIPoll();
         JSONObject requestBody = new JSONObject();
@@ -257,21 +247,27 @@ public class APIPollerWidget {
         return response;
     }
 
-    public String newWidgetWithMultiplePolls(String partnerId,
-                                             String partnerCookie,
-                                             String widgetTitle,
-                                             int pollsCount,
-                                             String pollTitle,
-                                             String pollAnswer1,
-                                             String pollAnswer2,
-                                             String categoryId,
-                                             String pollType,
-                                             String locale) {
+    public String owoCodeNewWidgetWithMultiplePolls(String partnerId, String partnerCookie, String widgetTitle,
+                                                    int pollsCount, String pollTitle, String pollAnswer1,
+                                                    String pollAnswer2, String categoryId, String pollType, String locale) {
 
         Response newWidgetResponse = newPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
         String owoWidgetCode = getStringValueFromResponse(newWidgetResponse, APIValue.OWO_WIDGET_CODE.toString());
 
         addPollsInWidget(partnerId, partnerCookie, owoWidgetCode, pollsCount, pollTitle, pollAnswer1, pollAnswer2, categoryId, pollType, locale);
+
+        return owoWidgetCode;
+    }
+
+    public String owoCodeNewBetaWidgetWithMultiplePolls(String partnerId, String partnerCookie, String widgetTitle,
+                                                        int pollsCount, String pollTitle, String pollAnswer1,
+                                                        String pollAnswer2, String categoryId, String pollType, String locale) {
+
+        Response newWidgetResponse = newBetaPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
+        String owoWidgetCode = getStringValueFromResponse(newWidgetResponse, APIValue.OWO_WIDGET_CODE.toString());
+
+        addPollsInWidget(partnerId, partnerCookie, owoWidgetCode, pollsCount,
+                pollTitle, pollAnswer1, pollAnswer2, categoryId, pollType, locale);
 
         return owoWidgetCode;
     }
