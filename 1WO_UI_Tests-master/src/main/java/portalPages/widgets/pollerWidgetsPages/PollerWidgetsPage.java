@@ -1,5 +1,6 @@
-package portalPages.polls.widgets.pollerWidgetsPages;
+package portalPages.widgets.pollerWidgetsPages;
 
+import base.AccountsInfoPage;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import base.enums.PageURLs;
@@ -10,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.MenuProfileDropDown;
-import portalPages.polls.widgets.PollerWidgetPreviewPage;
+import portalPages.widgets.PollerWidgetPreviewPage;
 import utils.WaitUtils;
 
 @Getter

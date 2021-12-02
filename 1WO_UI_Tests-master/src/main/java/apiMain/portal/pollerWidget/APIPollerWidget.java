@@ -13,7 +13,6 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,7 +128,7 @@ public class APIPollerWidget {
         return response;
     }
 
-     public Response add2PollsInWidget(String partnerId, String partnerCookie, Integer pollId1,
+    public Response add2PollsInWidget(String partnerId, String partnerCookie, Integer pollId1,
                                       Integer pollId2, String widgetId) {
 
         JSONObject requestBody = new JSONObject();

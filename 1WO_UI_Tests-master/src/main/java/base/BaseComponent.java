@@ -11,6 +11,7 @@ import utils.WaitUtils;
 import java.util.Date;
 
 public abstract class BaseComponent implements WebElementProvider {
+
     protected WebDriver driver;
     protected ActionHelperUtils actions;
     WaitUtils waitUtils;

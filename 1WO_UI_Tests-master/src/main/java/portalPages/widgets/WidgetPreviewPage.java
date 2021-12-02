@@ -1,6 +1,7 @@
-package portalPages.polls.widgets;
+package portalPages.widgets;
 
 public interface WidgetPreviewPage {
+
     boolean isPollsPercentsDisplayed(String answerText1);
 
     boolean isStatisticButtonDisplayed();
@@ -20,4 +21,8 @@ public interface WidgetPreviewPage {
     boolean isSharingTwitterLinkDisplayed();
 
     boolean isSharingLinkedInLinkDisplayed();
+
+    boolean isScorePointsDisplayed();
+
+    void openPollerWidgetPreview(String newWidgetId);
 }

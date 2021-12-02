@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.SelectLanguageModalPage;
 import portalPages.polls.RegionsAndLanguages;
-import portalPages.polls.widgets.pollerWidgetsPages.LanguageAndNamePage;
-import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
+import portalPages.widgets.pollerWidgetsPages.LanguageAndNamePage;
+import portalPages.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import utils.WaitUtils;
 
 @Getter

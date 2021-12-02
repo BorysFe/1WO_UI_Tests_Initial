@@ -1,5 +1,6 @@
-package portalPages.polls.widgets.pollerWidgetsPages;
+package portalPages.widgets.pollerBetaWidgetPages;
 
+import base.AccountsInfoPage;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import org.openqa.selenium.By;

@@ -38,12 +38,12 @@ public class IntroductionScreenTest {
     }
 
     @Test
-    public static void valueTotalScorePartner() {
+    public static void valueScorePartner() {
         int scorePartner = new APIValueScorePartner()
                 .getScoreForPartner(partnerId, partnerCookie);
 
         Assertions.assertThat(scorePartner)
                 .as("Score is - " + scorePartner)
-                .isEqualTo(50);
+                .isEqualTo(110);
     }
 }

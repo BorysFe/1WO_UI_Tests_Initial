@@ -1,5 +1,6 @@
-package portalPages.polls.widgets;
+package portalPages.widgets;
 
+import base.AccountsInfoPage;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import base.enums.PageURLs;
@@ -72,14 +73,12 @@ public class PollerWidgetPreviewPage extends BaseComponent implements WidgetPrev
         return this;
     }
 
-    public PollerWidgetPreviewPage openPollerWidgetPreview(String widgetOWOCode) {
+    public void openPollerWidgetPreview(String widgetOWOCode) {
         waitUtils.waitForLoading();
 
         String widgetPreviewPageURL = String.format(PageURLs.WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
 
         driver.get(widgetPreviewPageURL);
-
-        return this;
     }
 
     public void voteAnswer(String pollAnswerText) {

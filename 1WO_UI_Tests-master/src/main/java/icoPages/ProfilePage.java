@@ -1,5 +1,6 @@
 package icoPages;
 
+import base.AccountsInfoPage;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import lombok.Getter;

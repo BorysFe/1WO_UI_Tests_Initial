@@ -46,7 +46,7 @@ public class SignIn_SignUp_DropDown extends BaseComponent {
         }
     }
 
-    public void logInMember(String logIn, String password) {
+    public void logInUser(String logIn, String password) {
         waitUtils.waitForLoading();
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_LOGIN_FIELD)), logIn);
         setField(By.xpath(String.format(inputElement, SignLinks.SIGN_IN_PASSWORD_FIELD)), password);

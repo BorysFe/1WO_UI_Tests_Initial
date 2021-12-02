@@ -1,5 +1,6 @@
-package portalPages.polls.widgets;
+package portalPages.widgets;
 
+import base.AccountsInfoPage;
 import base.BaseComponent;
 import base.enums.GeneralLocators;
 import base.enums.PageURLs;
@@ -74,14 +75,14 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         return this;
     }
 
-    public BetaPollerWidgetPreviewPage openPollerWidgetPreview(String widgetOWOCode) {
+    public void openPollerWidgetPreview(String widgetOWOCode) {
         waitUtils.waitForLoading();
 
         String widgetPreviewPageURL = String.format(PageURLs.BETA_WIDGET_PREVIEW_PAGE_URL.toString(), widgetOWOCode);
 
         driver.get(widgetPreviewPageURL);
 
-        return this;
+        waitUtils.waitForLoading();
     }
 
     public void voteAnswer(String pollAnswerText) {
@@ -91,6 +92,8 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
 
         waitUtils.clickWhenReadyAfterShortWait(By.xpath(String
                 .format(pollVotingButton, pollAnswerText)));
+
+        waitUtils.waitForLoading();
 
         driver.switchTo().defaultContent();
     }
@@ -132,7 +135,6 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
-
         waitUtils.waitForLoading();
 
         boolean status = driver.findElement(By.xpath(String
@@ -187,6 +189,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
+        waitUtils.waitForLoading();
 
         boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
                 .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "footerStatistic")));
@@ -200,11 +203,12 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
+        waitUtils.waitForLoading();
 
         actions.mouseHover(By.xpath(String
                 .format(GeneralLocators.DIV_BY_CONTAINS_CLASS.toString(), "footerStatistic")));
 
-        boolean status = waitUtils.isElementVisibleAfterShortWait(By.xpath(String
+        boolean status = waitUtils.isElementVisibleAfterMiddleWait(By.xpath(String
                 .format(GeneralLocators.SPAN_BY_CONTAINS_TEXT.toString(), "Statistic")));
 
         driver.switchTo().defaultContent();
@@ -216,6 +220,7 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
+        waitUtils.waitForLoading();
 
         boolean status = waitUtils.isElementVisibleAfterShortWait(scoreUser);
 
@@ -311,7 +316,6 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
-
         waitUtils.waitForLoading();
 
         boolean status = waitUtils.isElementVisibleAfterShortWait(sharingArrow);
@@ -325,7 +329,6 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
-
         waitUtils.waitForLoading();
         actions.mouseHover(sharingArrow);
 
@@ -341,7 +344,6 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
-
         waitUtils.waitForLoading();
         actions.mouseHover(sharingArrow);
 
@@ -357,7 +359,6 @@ public class BetaPollerWidgetPreviewPage extends BaseComponent implements Widget
         waitUtils.waitForLoading();
 
         switchToWidgetFrame();
-
         waitUtils.waitForLoading();
         actions.mouseHover(sharingArrow);
 

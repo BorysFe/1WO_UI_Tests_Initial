@@ -7,11 +7,11 @@ import org.testng.annotations.*;
 import base.AccountsInfoPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
-import portalPages.polls.widgets.PollerWidgetPreviewPage;
-import portalPages.polls.widgets.pollerWidgetsPages.ContentBuilderPage;
-import portalPages.polls.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
-import portalPages.polls.widgets.pollerWidgetsPages.MobileSettingsAndPreviewPage;
-import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
+import portalPages.widgets.PollerWidgetPreviewPage;
+import portalPages.widgets.pollerWidgetsPages.ContentBuilderPage;
+import portalPages.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
+import portalPages.widgets.pollerWidgetsPages.MobileSettingsAndPreviewPage;
+import portalPages.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
 

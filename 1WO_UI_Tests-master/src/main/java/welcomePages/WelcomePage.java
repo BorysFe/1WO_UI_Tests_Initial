@@ -63,7 +63,6 @@ public class WelcomePage extends BaseComponent {
         waitUtils.waitForLoading();
         waitUtils.clickWhenReadyAfterShortWait(signInButton);
 
-        //From QAWelcomePage wrong redirect to PROD PublisherLoginPage.
         if (driver.getCurrentUrl() != PageURLs.PORTAL_LOGIN_PARTNER.toString()) {
             publisherLoginPage.getPublisherLoginPage();
         }

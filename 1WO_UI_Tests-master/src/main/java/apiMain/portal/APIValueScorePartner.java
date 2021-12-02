@@ -9,10 +9,9 @@ import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import portalPages.polls.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
+import portalPages.widgets.pollerWidgetsPages.DesktopSettingsAndPreviewPage;
 
 import java.util.ArrayList;
 import java.util.Collections;

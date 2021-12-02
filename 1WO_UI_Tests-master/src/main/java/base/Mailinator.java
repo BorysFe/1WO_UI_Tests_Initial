@@ -18,13 +18,19 @@ public class Mailinator extends BaseComponent {
     private final String mailSubject = ".//td[contains(text(), '%s')]";
     private final String bodyFrameId = "html_msg_body";
 
-    @FindBy(xpath = ".//input[contains(@class, 'input-text')]")
+    @FindBy(xpath = ".//input[@id= 'search']")
     private WebElement mailSearchInput;
+
+    @FindBy(xpath = ".//input[@id='search-mobile']")
+    private WebElement mailSearchInputMobile;
 
     @FindBy(xpath = ".//table[@class='mainbox']//span")
     private WebElement welcomeName;
 
-    @FindBy(xpath = ".//button[@id='go-to-public']")
+    @FindBy(xpath = ".//button[@aria-label='Search for inbox']")
+    private WebElement mailSearchButtonMobile;
+
+    @FindBy(xpath = ".//button[text()= 'GO']")
     private WebElement mailSearchButton;
 
     @FindBy(xpath = ".//h4[contains(text(), 'Public Messages')]")
@@ -55,10 +61,26 @@ public class Mailinator extends BaseComponent {
         return this;
     }
 
+    public WebElement searchMail() {
+        waitUtils.waitForLoading();
+        if (waitUtils.isElementVisibleAfterMiddleWait(mailSearchInput)) {
+            return mailSearchInput;
+        }
+        return mailSearchInputMobile;
+    }
+
+    public WebElement searchMailButton() {
+        waitUtils.waitForLoading();
+        if (waitUtils.isElementVisibleAfterMiddleWait(mailSearchButton)) {
+            return mailSearchButton;
+        }
+        return mailSearchButtonMobile;
+    }
+
     public WebElement openMailAccount(String testEMail) {
         driver.get(PageURLs.MAILINATOR.toString());
-        mailSearchInput.sendKeys(testEMail);
-        mailSearchButton.click();
+        searchMail().sendKeys(testEMail);
+        searchMailButton().click();
         waitUtils.waitVisibilityOfElementLong(publicMessagesText);
         return waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(mailSubject));
     }

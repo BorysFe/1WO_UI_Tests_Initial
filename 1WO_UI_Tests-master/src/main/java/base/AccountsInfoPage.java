@@ -3,9 +3,7 @@ package base;
 import base.enums.PageURLs;
 import lombok.Getter;
 import lombok.Setter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import portalPages.FeedPage;
@@ -37,7 +35,6 @@ public class AccountsInfoPage extends BaseComponent {
     public boolean isUserAnonymous() {
         waitUtils.waitForLoading();
         return waitUtils.isElementVisibleAfterMiddleWait(By.xpath(".//h1[text()= \"Whitelabel Error Page\"]"));
-//        return !waitUtils.getElementWhenVisibleAfterShortWait(By.xpath(".//h1")).getText().equals("Whitelabelelabel Error Page");
     }
 
     public boolean isUserSynthetic() {
