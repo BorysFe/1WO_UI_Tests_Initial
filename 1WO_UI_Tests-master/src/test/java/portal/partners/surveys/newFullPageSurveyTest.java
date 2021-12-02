@@ -73,7 +73,7 @@ public class NewFullPageSurveyTest extends DriverFactory {
     }
 
     @Test
-    public void checkErrorByCorrectFillingNumberOfParticipants() {
+    public void checkErrorNumberOfParticipants() {
         surveysPage.startNewFullPageSurveyCreating()
                 .modalSubmit();
         configurationPage.selectSurveyCategory(SurveyCategory.CATEGORY_ART_CULTURE.toString())

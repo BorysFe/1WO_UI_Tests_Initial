@@ -23,17 +23,17 @@ public class SignInTest extends DriverFactory {
     PublisherLoginPage publisherLoginPage;
 
     String loginNewMember;
-    String loginWrongMember;
+    String loginWrongUser;
     String loginPublisher;
     String password;
 
     @BeforeClass
     public void memberCredentials() {
         loginNewMember = Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString();
-        loginWrongMember = Accounts.RANDOM_USER_LOGIN.toString();
+        loginWrongUser = Accounts.RANDOM_USER_LOGIN.toString();
         loginPublisher = Accounts.PUBLISHER_LOGIN.toString();
         password = Accounts.RANDOM_USER_PASSWORD.toString();
-        System.out.println(loginNewMember + " / " + loginWrongMember + " / " + password);
+        System.out.println(loginNewMember + " / " + loginWrongUser + " / " + password);
     }
 
     @BeforeMethod
@@ -49,7 +49,7 @@ public class SignInTest extends DriverFactory {
 
     @AfterMethod
     public void logOutIfNeed() {
-            menuProfileDropDown.tryLogOut();
+        menuProfileDropDown.tryLogOut();
     }
 
     @AfterClass
@@ -58,10 +58,10 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void signInNotRegisteredMemberWithError() {
+    public void signInNotRegisteredUserWithError() {
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
-        signPopup.logInMember(loginWrongMember, password);
+        signPopup.logInUser(loginWrongUser, password);
 
         Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
                 .as("Message isn't showed")
@@ -69,21 +69,10 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void signInMemberWithError() {
+    public void signInPublisherSuccess() {
         feedPage.getFeedPage();
         feedPage.openSignDropDown();
-        signPopup.logInMember(loginWrongMember, password);
-
-        Assertions.assertThat(signPopup.isAuthenticationErrorDisplayed())
-                .as("Message isn't showed")
-                .isTrue();
-    }
-
-    @Test
-    public void signInPublisher() {
-        feedPage.getFeedPage();
-        feedPage.openSignDropDown();
-        signPopup.logInMember(loginPublisher, password);
+        signPopup.logInUser(loginPublisher, password);
 
         Assertions.assertThat(feedPage.isMemberAuthorised())
                 .as("Publisher not authorised")
@@ -91,7 +80,18 @@ public class SignInTest extends DriverFactory {
     }
 
     @Test
-    public void emptySignInErrorVerification() {
+    public void signInPublisherFromWelcomePage() {
+        welcomePage.openWelcomePage().openPublisherLoginPage();
+
+        publisherLoginPage.loginPublisher(loginPublisher, password);
+
+        Assertions.assertThat(feedPage.isMemberAuthorised())
+                .as("Publisher not authorised")
+                .isTrue();
+    }
+
+    @Test
+    public void signInEmptyErrorFieldsVerification() {
         publisherLoginPage.getPublisherLoginPage().loginPublisher(null, null);
 
         Assertions.assertThat(publisherLoginPage.isPublisherLoginErrorDisplayed())
@@ -157,18 +157,5 @@ public class SignInTest extends DriverFactory {
         Assertions.assertThat(feedPage.isMemberAuthorised())
                 .as("Member not authorised")
                 .isTrue();
-    }
-
-    @Test
-    public void publisherSignInFromWelcomePage() {
-        welcomePage.openWelcomePage().openPublisherLoginPage();
-
-        publisherLoginPage.loginPublisher(loginPublisher, password);
-
-        Assertions.assertThat(feedPage.isMemberAuthorised())
-                .as("Publisher not authorised")
-                .isTrue();
-
-        menuProfileDropDown.logOut();
     }
 }

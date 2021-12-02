@@ -13,15 +13,14 @@ import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import base.AccountsInfoPage;
 import portalPages.polls.polls.PollCategory;
-import portalPages.polls.widgets.PollerWidgetPreviewPage;
+import portalPages.widgets.PollerWidgetPreviewPage;
 import utils.DriverFactory;
 
 import java.util.Date;
 
 import static base.enums.DefaultContent.POLL_ANSWER_ONLY_TEXT;
-import static base.enums.DefaultContent.RANDOM_POLL_QUESTION_TEXT_WITH_DATE;
 
-public class PollsWidgetVotingTest extends DriverFactory {
+public class PollerWidgetVotingTest extends DriverFactory {
 
     PollerWidgetPreviewPage pollerWidgetPreviewPage;
     AccountsInfoPage accountsInfoPage;
@@ -29,7 +28,6 @@ public class PollsWidgetVotingTest extends DriverFactory {
     SignUpPage icoSignUpPage;
     ProfilePage icoProfilePage;
     DashboardPage icoDashboardPage;
-
     Date date;
     APIPollerWidget apiPollerWidget;
 
@@ -37,14 +35,16 @@ public class PollsWidgetVotingTest extends DriverFactory {
     String passwordPublisher;
     String partnerId;
     String partnerCookie;
+
     String randomUserFirstName;
     String randomUserLastName;
     String randomUserPassword;
+
     String widgetName;
-    String poll1Text;
-    String poll2Text;
+    String pollQuestionText;
     String answerText1;
     String answerText2;
+
     String categoryId;
     String defaultPollType;
     String defaultLocale;
@@ -76,15 +76,11 @@ public class PollsWidgetVotingTest extends DriverFactory {
         defaultPollType = "dpoll";
         defaultLocale = "en";
 
+        accountsInfoPage.openAccountInfoPage();
         driver.manage().deleteAllCookies();
     }
 
-    @AfterMethod
-    public void logOutIfNeed() {
-//        UtilityHelper.deleteAllCookies(driver);
-    }
-
-    @AfterClass
+   @AfterClass
     public void closeDriver() {
         driver.quit();
     }
@@ -93,20 +89,18 @@ public class PollsWidgetVotingTest extends DriverFactory {
     public void votingPollerWidgetFromAnonymousToSynthetic() {
 
         widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString();
-        poll1Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT_WITH_DATE), "PollText1", date);
-        poll2Text = String.format(String.valueOf(RANDOM_POLL_QUESTION_TEXT_WITH_DATE), "PollText2", date);
+        pollQuestionText = String.format(DefaultContent.POLL_QUESTION_ONLY_TEXT.toString(),
+                date + " - Anonymous -> Synthetic");
         answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText1");
         answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText2");
 
         String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
-                poll1Text,
+                pollQuestionText,
                 answerText1,
                 answerText2,
-                poll2Text,
-                answerText1,
-                answerText2);
+                2);
 
         accountsInfoPage.openAccountInfoPage();
 
@@ -133,21 +127,19 @@ public class PollsWidgetVotingTest extends DriverFactory {
     public void votingPollerWidgetFromAnonymousToMember() {
 
         String randomUserLogin = String.format(Accounts.RANDOM_USER_LOGIN_MAILINATOR.toString(), System.currentTimeMillis());
-        String pollQuestionText = DefaultContent.RANDOM_POLL_QUESTION_ONLY_DATE.toString();
-        widgetName = String.format(DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString(), "");
+        widgetName = DefaultContent.RANDOM_WIDGET_NAME_TEXT_WITH_DATE.toString();
+        pollQuestionText = String.format(DefaultContent.POLL_QUESTION_ONLY_TEXT.toString(),
+                date + " - Anonymous -> Member");
         answerText1 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText1");
         answerText2 = String.format(String.valueOf(POLL_ANSWER_ONLY_TEXT), "AnswerText2");
 
-        String newWidgetId = apiPollerWidget.owoCodeNewWidgetWithMultiplePolls(partnerId,
+        String newWidgetId = creatingPollsAndAddingToWidgetViaAPI(partnerId,
                 partnerCookie,
                 widgetName,
-                3,
                 pollQuestionText,
                 answerText1,
                 answerText2,
-                categoryId,
-                defaultPollType,
-                defaultLocale);
+                2);
 
         accountsInfoPage.openAccountInfoPage();
 
@@ -183,31 +175,12 @@ public class PollsWidgetVotingTest extends DriverFactory {
                 .isTrue();
     }
 
-    private String creatingPollsAndAddingToWidgetViaAPI(String partnerId,
-                                                        String partnerCookie,
-                                                        String widgetTitle,
-                                                        String poll1Text,
-                                                        String poll1Answer1,
-                                                        String poll1Answer2,
-                                                        String poll2Text,
-                                                        String poll2Answer1,
-                                                        String poll2Answer2) {
+    private String creatingPollsAndAddingToWidgetViaAPI(String partnerId, String partnerCookie, String widgetName,
+                                                        String pollQuestionText, String answerText1, String answerText2,
+                                                        int pollCount) {
 
-        String categoryId = PollCategory.CATEGORY_VALUE_ART_CULTURE.toString();
-        String defaultPollType = "dpoll";
-        String defaultLocale = "en";
-
-        Response newPoll1 = new APIPoll().newPollRequest(partnerId, partnerCookie, poll1Text, poll1Answer1, poll1Answer2, categoryId, defaultPollType, defaultLocale);
-        Integer pollId1 = new APIPoll().getIntegerValueFromResponse(newPoll1, APIValue.ID.toString());
-
-        Response newPoll2 = new APIPoll().newPollRequest(partnerId, partnerCookie, poll2Text, poll2Answer1, poll2Answer2, categoryId, defaultPollType, defaultLocale);
-        Integer pollId2 = new APIPoll().getIntegerValueFromResponse(newPoll2, APIValue.ID.toString());
-
-        Response responseAddEmptyWidget = new APIPollerWidget().newPollerWidgetRequest(partnerId, partnerCookie, widgetTitle);
-        String owoCodePollerWidget = new APIPollerWidget().getStringValueFromResponse(responseAddEmptyWidget, APIValue.OWO_WIDGET_CODE.toString());
-
-        new APIPollerWidget().add2PollsInWidget(partnerId, partnerCookie, pollId1, pollId2, owoCodePollerWidget);
-
-        return owoCodePollerWidget;
+        String owoCode = apiPollerWidget.owoCodeNewBetaWidgetWithMultiplePolls(partnerId, partnerCookie, widgetName,
+                pollCount, pollQuestionText, answerText1, answerText2, categoryId, defaultPollType, defaultLocale);
+        return owoCode;
     }
 }

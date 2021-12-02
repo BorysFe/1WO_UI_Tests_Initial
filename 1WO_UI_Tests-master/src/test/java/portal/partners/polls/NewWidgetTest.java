@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 import portalPages.FeedPage;
 import portalPages.MenuProfileDropDown;
 import portalPages.polls.polls.PollsPage;
-import portalPages.polls.widgets.pollerWidgetsPages.PollerWidgetsPage;
+import portalPages.widgets.pollerWidgetsPages.PollerWidgetsPage;
 import portalPages.publisher.OnboardingPublisherPage;
 import portalPages.publisher.PublisherLoginPage;
 import utils.DriverFactory;
@@ -53,7 +53,7 @@ public class NewWidgetTest extends DriverFactory {
     }
 
     @Test
-    public void addNewWidget() {
+    public void newWidget() {
         String pollQuestionText1 = String.format("Lorem ipsum1- " + System.currentTimeMillis());
         String pollQuestionText2 = String.format("Lorem ipsum2- " + System.currentTimeMillis());
         String pollAnswerText = "Answer%s";
